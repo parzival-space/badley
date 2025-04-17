@@ -1,6 +1,6 @@
 package space.parzival.discord.badley.configuration;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @Configuration
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class DiscordClientConfiguration {
     private List<? extends ListenerAdapter> discordEventListeners;
 
@@ -28,7 +28,7 @@ public class DiscordClientConfiguration {
                                 GatewayIntent.GUILD_MESSAGES,
                                 GatewayIntent.GUILD_MEMBERS
                         ))
-                .addEventListeners(discordEventListeners)
+                .addEventListeners(discordEventListeners != null ? discordEventListeners.toArray() : List.of().toArray())
                 .build();
     }
 }
