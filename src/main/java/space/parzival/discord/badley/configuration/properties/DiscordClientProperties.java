@@ -7,4 +7,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "discord.client")
 public class DiscordClientProperties {
     private String token;
+    private boolean autoReconnect = true;
 }

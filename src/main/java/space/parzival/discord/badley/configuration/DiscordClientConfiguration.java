@@ -29,6 +29,7 @@ public class DiscordClientConfiguration {
                                 GatewayIntent.GUILD_MEMBERS
                         ))
                 .addEventListeners(discordEventListeners != null ? discordEventListeners.toArray() : List.of().toArray())
+                .setAutoReconnect(discordClientProperties.isAutoReconnect())
                 .build();
     }
 }
