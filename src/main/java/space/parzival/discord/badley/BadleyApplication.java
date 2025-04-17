@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.badley;
+package space.parzival.discord.badley;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

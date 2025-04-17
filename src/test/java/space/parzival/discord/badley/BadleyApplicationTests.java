@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.badley;
+package space.parzival.discord.badley;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
