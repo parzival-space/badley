@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: badley
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
