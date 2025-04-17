@@ -3,8 +3,4 @@ spring:
     web-application-type: none
   application:
     name: badley
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
 
