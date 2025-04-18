@@ -15,7 +15,7 @@ public class DiscordConversationPersistenceAdapterImpl implements DiscordConvers
     private DiscordConversationRepository repository;
 
     @Override
-    public UUID getConversationByDiscordId(String discordId) {
+    public UUID getConversationIdByDiscordId(String discordId) {
         Optional<DiscordConversationEntity> entity = repository.findById(discordId);
         return entity
                 .map(DiscordConversationEntity::getConversationId)

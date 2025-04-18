@@ -27,7 +27,7 @@ public class DiscordMessageHandler extends ListenerAdapter {
         if (shouldIgnoreMessage(event.getMessage())) return;
 
         UUID conversationId = event.getMessage().getMessageReference() != null
-                ? conversationPersistenceAdapter.getConversationByDiscordId(
+                ? conversationPersistenceAdapter.getConversationIdByDiscordId(
                         event.getMessage().getMessageReference().getMessageId())
                 : UUID.randomUUID();
 
