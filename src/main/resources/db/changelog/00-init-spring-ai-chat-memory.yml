@@ -36,3 +36,21 @@ databaseChangeLog:
               - column:
                   name: timestamp
                   descending: true
+
+  - changeSet:
+      id: "00-init-discord-conversation"
+      author: "Parzival / Malte Linke (parzival-space)"
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_discord_conversation
+                  name: discord_id
+                  type: VARCHAR(255)
+              - column:
+                  name: conversation_id
+                  type: UUID
+            tableName: discord_conversation
