@@ -3,4 +3,10 @@ spring:
     web-application-type: none
   application:
     name: badley
-
+  ai:
+    chat:
+      memory:
+        jdbc:
+          initialize-schema: false # we use liquibase to manage the schema
+  liquibase:
+    change-log: classpath:db/liquibase.yml

@@ -19,7 +19,7 @@
 
 	<developers>
 		<developer>
-			<name>Parzival (parzival-space)</name>
+			<name>Parzival / Malte Linke (parzival-space)</name>
 			<email>me@parzival.space</email>
 			<url>https://parzival.space</url>
 		</developer>
@@ -50,6 +50,10 @@
 		<dependency>
 			<groupId>org.springframework.ai</groupId>
 			<artifactId>spring-ai-starter-model-openai</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.ai</groupId>
+			<artifactId>spring-ai-starter-model-chat-memory-jdbc</artifactId>
 		</dependency>
 
 		<dependency>

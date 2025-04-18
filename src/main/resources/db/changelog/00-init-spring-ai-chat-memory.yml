@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      author: "Parzival / Malte Linke (parzival-space)"
+      id: "00-init-spring-ai-chat-memory"
+      changes:
+        - createTable:
+            tableName: "ai_chat_memory"
+            columns:
+              - column:
+                  name: "conversation_id"
+                  type: varchar(36)
+                  constraints:
+                      nullable: false
+              - column:
+                  name: "content"
+                  type: text
+                  constraints:
+                      nullable: false
+              - column:
+                  name: "type"
+                  type: varchar(10)
+                  constraints:
+                    nullable:
+              - column:
+                  name: "timestamp"
+                  type: timestamp
+                  defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+        - createIndex:
+            indexName: ai_chat_memory_conversation_id_timestamp_idx
+            tableName: ai_chat_memory
+            columns:
+              - column:
+                  name: conversation_id
+              - column:
+                  name: timestamp
+                  descending: true
