@@ -96,6 +96,7 @@ class DiscordMessageHandlerTest {
         User author = mock(User.class);
         JDA jda = mock(JDA.class);
         SelfUser selfUser = mock(SelfUser.class);
+        Message.Attachment attachment = mock(Message.Attachment.class);
 
         MessageChannelUnion channel = mock(MessageChannelUnion.class);
         when(event.getChannel()).thenReturn(channel);
@@ -104,6 +105,10 @@ class DiscordMessageHandlerTest {
         when(event.getMessage()).thenReturn(message);
         when(message.getMentions()).thenReturn(mentions);
         when(message.getAuthor()).thenReturn(author);
+        when(message.getAttachments()).thenReturn(List.of(attachment));
+        when(attachment.getId()).thenReturn("attachmentId");
+        when(attachment.getUrl()).thenReturn("http://attachmentUrl");
+        when(attachment.getContentType()).thenReturn("image/png");
         when(author.isBot()).thenReturn(false);
         when(author.isSystem()).thenReturn(false);
         when(mentions.getUsers()).thenReturn(List.of(mentionedUser));
@@ -126,12 +131,20 @@ class DiscordMessageHandlerTest {
 
 
         // Simulate a valid response from the chat client
+        MessageCreateAction messageCreateAction = mock(MessageCreateAction.class);
         when(chatClient.prompt()).thenReturn(requestSpec);
-        when(message.reply(anyString())).thenReturn(mock(MessageCreateAction.class));
+        when(message.reply(anyString())).thenReturn(messageCreateAction);
 
         handler.onMessageReceived(event);
 
         // Verify that the event was processed and a response was sent
         verify(message).reply("Valid response");
+
+        // do the same but this time with invalid response
+        when(callResponseSpec.content()).thenReturn("");
+
+        handler.onMessageReceived(event);
+
+        verify(message).reply("Sorry, I couldn't process your request.");
     }
 }
