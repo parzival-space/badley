@@ -44,7 +44,7 @@ public class DiscordMessageHandler extends ListenerAdapter {
                                                 .id(attachment.getId())
                                                 .data(new URI(attachment.getUrl()).toURL())
                                                 .mimeType(MimeType.valueOf(attachment.getContentType() != null ?
-                                                        attachment.getContentType() : ""))
+                                                        attachment.getContentType() : "application/octet-stream"))
                                                 .build();
                                     } catch (Exception e) {
                                         throw new RuntimeException(e);
