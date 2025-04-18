@@ -16,9 +16,7 @@ public class SpringAIConfiguration {
     @Bean
     public ChatClient chatClient() {
         return chatClientBuilder
-                .defaultAdvisors(
-                        new MessageChatMemoryAdvisor(chatMemory))
-                .defaultSystem("Dein Name ist Badley")
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
                 .build();
     }
 }
