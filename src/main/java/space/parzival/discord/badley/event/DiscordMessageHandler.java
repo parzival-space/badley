@@ -76,6 +76,6 @@ public class DiscordMessageHandler extends ListenerAdapter {
         return message.getAuthor().isBot() ||
                 message.getAuthor().isSystem() ||
                 message.getMentions().getUsers().stream().noneMatch(u ->
-                        u.getId().matches(message.getJDA().getSelfUser().getId()));
+                        u.getId().equals(message.getJDA().getSelfUser().getId()));
     }
 }
