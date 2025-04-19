@@ -13,6 +13,7 @@ import org.springframework.util.MimeType;
 import space.parzival.discord.badley.adapter.DiscordConversationPersistenceAdapter;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -25,31 +26,50 @@ public class DiscordMessageHandler extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (shouldIgnoreMessage(event.getMessage())) return;
+        event.getChannel().sendTyping().queue();
 
         UUID conversationId = event.getMessage().getMessageReference() != null
                 ? conversationPersistenceAdapter.getConversationIdByDiscordId(
                         event.getMessage().getMessageReference().getMessageId())
                 : UUID.randomUUID();
 
-        // Handle the message received event
-        event.getChannel().sendTyping().queue();
+        // parse all attachment into a list of Media and String
+        List<?> parsedAttachments = event.getMessage().getAttachments().stream()
+                .map(attachment -> {
+                    if (!attachment.isImage())
+                        return String.format("<invalid_attachment id='%s' type='%s'>%s</invalid_attachment>",
+                                attachment.getId(), attachment.getContentType(), attachment.getFileName());
+
+                    try {
+                        return Media.builder()
+                                .id(attachment.getId())
+                                .data(new URI(attachment.getUrl()).toURL())
+                                .mimeType(MimeType.valueOf(attachment.getContentType() != null ?
+                                        attachment.getContentType() : "application/octet-stream"))
+                                .build();
+                    } catch (Exception e) {
+                        log.warn("Could not parse attachment: {}", attachment, e);
+                        return String.format("<invalid_attachment id='%s' type='%s'>%s</invalid_attachment>",
+                                attachment.getId(), attachment.getContentType(), attachment.getFileName());
+                    }
+                }).toList();
+
         String response = this.chatClient.prompt()
                 .advisors(advisor -> advisor.param("chat_memory_conversation_id", conversationId.toString()))
                 .messages(
                         new UserMessage(
-                                event.getMessage().getContentRaw(),
-                                event.getMessage().getAttachments().stream().map(attachment -> {
-                                    try {
-                                        return Media.builder()
-                                                .id(attachment.getId())
-                                                .data(new URI(attachment.getUrl()).toURL())
-                                                .mimeType(MimeType.valueOf(attachment.getContentType() != null ?
-                                                        attachment.getContentType() : "application/octet-stream"))
-                                                .build();
-                                    } catch (Exception e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }).toList()
+                                String.join(
+                                        "\n\n",
+                                        event.getMessage().getContentRaw(),
+                                        String.join("\n",
+                                                parsedAttachments.stream()
+                                                    .filter(String.class::isInstance)
+                                                    .map(String.class::cast)
+                                                    .toList())
+                                ),
+                                parsedAttachments.stream().filter(Media.class::isInstance)
+                                        .map(Media.class::cast)
+                                        .toList()
                         )
                 )
                 .call()

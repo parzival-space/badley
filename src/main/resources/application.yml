@@ -8,5 +8,10 @@ spring:
       memory:
         jdbc:
           initialize-schema: false # we use liquibase to manage the schema
+    openai:
+      project-id: ${spring.application.name}
+    model:
+      chat: openai
+
   liquibase:
     change-log: classpath:db/liquibase.yml
