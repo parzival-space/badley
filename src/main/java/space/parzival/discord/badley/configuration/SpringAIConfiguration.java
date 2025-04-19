@@ -21,7 +21,8 @@ public class SpringAIConfiguration {
     public ChatClient chatClient() {
         return chatClientBuilder
                 .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
-                .defaultTools(dateTimeTools)
+                .defaultTools(
+                        dateTimeTools)
                 .build();
     }
 }

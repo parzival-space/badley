@@ -6,11 +6,13 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.content.Media;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MimeType;
 import space.parzival.discord.badley.adapter.DiscordConversationPersistenceAdapter;
+import space.parzival.discord.badley.configuration.properties.AiProperties;
 
 import java.net.URI;
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.UUID;
 public class DiscordMessageHandler extends ListenerAdapter {
     private ChatClient chatClient;
     private DiscordConversationPersistenceAdapter conversationPersistenceAdapter;
+
+    private AiProperties aiProperties;
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -54,9 +58,11 @@ public class DiscordMessageHandler extends ListenerAdapter {
                     }
                 }).toList();
 
+        log.info("AI PERSONALITY: {}", aiProperties.getPersonality());
         String response = this.chatClient.prompt()
                 .advisors(advisor -> advisor.param("chat_memory_conversation_id", conversationId.toString()))
                 .messages(
+                        new SystemMessage( aiProperties.getPersonality()),
                         new UserMessage(
                                 String.join(
                                         "\n\n",
