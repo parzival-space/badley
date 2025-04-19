@@ -23,7 +23,6 @@ import static org.mockito.Mockito.*;
 class DiscordMessageHandlerTest {
     private final ChatClient chatClient = mock(ChatClient.class);
     private final DiscordConversationPersistenceAdapter adapter = mock(DiscordConversationPersistenceAdapter.class);
-    private final AiProperties aiProperties = new AiProperties("Badley", "A friendly AI assistant");
 
     @Test
     void onMessageReceived_shouldIgnore_ownMessages() {
@@ -35,7 +34,7 @@ class DiscordMessageHandlerTest {
         when(message.getAuthor()).thenReturn(author);
         when(author.isBot()).thenReturn(true);
 
-        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, aiProperties);
+        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter);
         handler.onMessageReceived(event);
 
         // Verify that the event was ignored
@@ -53,7 +52,7 @@ class DiscordMessageHandlerTest {
         when(message.getAuthor()).thenReturn(author);
         when(author.isSystem()).thenReturn(true);
 
-        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, aiProperties);
+        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter);
         handler.onMessageReceived(event);
 
         // Verify that the event was ignored
@@ -82,7 +81,7 @@ class DiscordMessageHandlerTest {
         when(jda.getSelfUser()).thenReturn(selfUser);
         when(selfUser.getId()).thenReturn("selfUserId");
 
-        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, aiProperties);
+        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter);
         handler.onMessageReceived(event);
 
         // Verify that the event was ignored
