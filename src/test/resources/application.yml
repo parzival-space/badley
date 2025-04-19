@@ -1,0 +1,36 @@
+spring:
+  main:
+    web-application-type: none
+  application:
+    name: badley
+  ai:
+    chat:
+      memory:
+        jdbc:
+          initialize-schema: false # we use liquibase to manage the schema
+    openai:
+      project-id: ${spring.application.name}
+      chat:
+        options:
+          #max-tokens: 500
+          temperature: 1.0
+          top-p: 1.0
+          frequency-penalty: 0.3
+          presence-penalty: 0.3
+      api-key: mock-api-key
+      base-url: https://mock-api-host.com/api
+    model:
+      chat: openai
+  liquibase:
+    change-log: classpath:db/liquibase.yml
+  datasource:
+    url: jdbc:h2:mem:badley;MODE=MySQL;
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: embedded
+
+badley:
+  ai:
+    name: mock-name
+    personality: mock-personality
