@@ -12,14 +12,11 @@ spring:
       project-id: ${spring.application.name}
       chat:
         options:
-          # discord messages are limited to 2000 characters
-          # 1 token = 4 characters
           #max-tokens: 500
           temperature: 1.0
           top-p: 1.0
           frequency-penalty: 0.3
           presence-penalty: 0.3
-          #model: google/gemini-2.0-flash-001
     model:
       chat: openai
   liquibase:
