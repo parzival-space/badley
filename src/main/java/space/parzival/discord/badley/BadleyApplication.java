@@ -10,8 +10,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @ConfigurationPropertiesScan
 public class BadleyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BadleyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BadleyApplication.class, args);
+    }
 
 }

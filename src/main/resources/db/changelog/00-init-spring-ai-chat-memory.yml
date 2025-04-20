@@ -10,12 +10,12 @@ databaseChangeLog:
                   name: "conversation_id"
                   type: varchar(36)
                   constraints:
-                      nullable: false
+                    nullable: false
               - column:
                   name: "content"
                   type: text
                   constraints:
-                      nullable: false
+                    nullable: false
               - column:
                   name: "type"
                   type: varchar(10)
