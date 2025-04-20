@@ -51,13 +51,6 @@ public class DiscordMessageHandler extends ListenerAdapter {
                                 .filter(Message.Attachment::isImage)
                                 .map(discordAttachmentMapper::mapToMedia)
                                 .filter(Objects::nonNull)
-                                .map(test -> {
-                                    log.info("Name: {}", test.getName());
-                                    log.info("MimeType: {}", test.getMimeType());
-                                    log.info("Data: {}", test.getData());
-                                    log.info("Id: {}", test.getId());
-                                    return test;
-                                })
                                 .toList()
                 ))
                 .call()
