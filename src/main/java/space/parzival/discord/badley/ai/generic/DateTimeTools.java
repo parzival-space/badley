@@ -13,7 +13,6 @@ import java.time.format.DateTimeFormatter;
 public class DateTimeTools implements AiToolsService {
     @Tool(description = "Get the current date and time in ISO datetime format.")
     public String getCurrentDateTime() {
-        log.info("Get the current date and time in ISO datetime format.");
         return LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 }
