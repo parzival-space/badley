@@ -7,90 +7,68 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
-import org.springframework.ai.content.Media;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MimeType;
 import space.parzival.discord.badley.adapter.DiscordConversationPersistenceAdapter;
+import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 
-import java.net.URI;
-import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 @AllArgsConstructor
 public class DiscordMessageHandler extends ListenerAdapter {
-    private ChatClient chatClient;
-    private DiscordConversationPersistenceAdapter conversationPersistenceAdapter;
+    private final ChatClient chatClient;
+    private final DiscordConversationPersistenceAdapter discordPersistence;
+    private final DiscordAttachmentMapper discordAttachmentMapper;
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (shouldIgnoreMessage(event.getMessage())) return;
+        if (botShouldIgnoreMessage(event.getMessage())) return;
         event.getChannel().sendTyping().queue();
 
-        UUID conversationId = event.getMessage().getMessageReference() != null
-                ? conversationPersistenceAdapter.getConversationIdByDiscordId(
-                        event.getMessage().getMessageReference().getMessageId())
-                : UUID.randomUUID();
+        UUID conversationId = Optional
+                .ofNullable(discordPersistence.getConversationIdByDiscordId(
+                        event.getMessage().getMessageReference() != null ?
+                                event.getMessage().getMessageReference().getMessageId() :
+                                event.getMessage().getId()))
+                .orElse(UUID.randomUUID());
 
-        // parse all attachment into a list of Media and String
-        List<?> parsedAttachments = event.getMessage().getAttachments().stream()
-                .map(attachment -> {
-                    if (!attachment.isImage())
-                        return String.format("<invalid_attachment id='%s' type='%s'>%s</invalid_attachment>",
-                                attachment.getId(), attachment.getContentType(), attachment.getFileName());
-
-                    try {
-                        return Media.builder()
-                                .id(attachment.getId())
-                                .data(new URI(attachment.getUrl()).toURL())
-                                .mimeType(MimeType.valueOf(attachment.getContentType() != null ?
-                                        attachment.getContentType() : "application/octet-stream"))
-                                .build();
-                    } catch (Exception e) {
-                        log.warn("Could not parse attachment: {}", attachment, e);
-                        return String.format("<invalid_attachment id='%s' type='%s'>%s</invalid_attachment>",
-                                attachment.getId(), attachment.getContentType(), attachment.getFileName());
-                    }
-                }).toList();
-
-        String response = this.chatClient.prompt()
-                .advisors(advisor -> advisor.param("chat_memory_conversation_id", conversationId.toString()))
-                .messages(
-                        new UserMessage(
-                                String.join(
-                                        "\n\n",
-                                        event.getMessage().getContentRaw(),
-                                        String.join("\n",
-                                                parsedAttachments.stream()
-                                                    .filter(String.class::isInstance)
-                                                    .map(String.class::cast)
-                                                    .toList())
-                                ),
-                                parsedAttachments.stream().filter(Media.class::isInstance)
-                                        .map(Media.class::cast)
-                                        .toList()
-                        )
-                )
+        String aiResponse = chatClient.prompt()
+                .advisors(advisorSpec -> advisorSpec.param("chat_memory_conversation_id", conversationId.toString()))
+                .messages(new UserMessage(
+                        String.join("\n\n",
+                                String.format("%s: %s",
+                                        event.getMessage().getAuthor().getEffectiveName(),
+                                        event.getMessage().getContentDisplay()),
+                                event.getMessage().getAttachments().stream()
+                                        .filter(attachment -> !attachment.isImage())
+                                        .map(discordAttachmentMapper::mapToInvalidMediaString)
+                                        .collect(Collectors.joining("\n"))),
+                        event.getMessage().getAttachments().stream()
+                                .filter(Message.Attachment::isImage)
+                                .map(discordAttachmentMapper::mapToMedia)
+                                .filter(Objects::nonNull)
+                                .toList()
+                ))
                 .call()
                 .content();
 
-        if (response == null || response.isEmpty()) {
-            log.error("Received empty response from chat client. Request: {}", event.getMessage().getContentRaw());
-            event.getMessage().reply("Sorry, I couldn't process your request.").queue();
-            return;
+        if (aiResponse != null) {
+            event.getMessage().reply(aiResponse).queue(discordResp ->
+                    discordPersistence.assignDiscordIdToConversationId(discordResp.getId(), conversationId));
+        } else {
+            log.error("AI response was null for message: {}", event.getMessage().getContentRaw());
+            event.getMessage().reply("Nope! Something hasn't worked here.").queue();
         }
-
-        event.getMessage().reply(response).queue(respMessage -> {
-            // Save the conversation ID to the database
-            conversationPersistenceAdapter.assignDiscordIdToConversationId(respMessage.getId(), conversationId);
-        });
     }
 
-    private boolean shouldIgnoreMessage(Message message) {
-        return message.getAuthor().isBot() || // self or other bots
-                message.getAuthor().isSystem() || // system messages
-                message.getMentions().getUsers().stream().noneMatch(
-                        u -> message.getJDA().getSelfUser().getId().equals(u.getId()));
+    private boolean botShouldIgnoreMessage(Message message) {
+        return message.getAuthor().isBot() ||
+                message.getAuthor().isSystem() ||
+                message.getMentions().getUsers().stream().noneMatch(u ->
+                        u.getId().equals(message.getJDA().getSelfUser().getId()));
     }
 }
