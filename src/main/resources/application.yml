@@ -17,6 +17,7 @@ spring:
           top-p: 1.0
           frequency-penalty: 0.3
           presence-penalty: 0.3
+          model: "openai/gpt-4.1"
     model:
       chat: openai
   liquibase:
