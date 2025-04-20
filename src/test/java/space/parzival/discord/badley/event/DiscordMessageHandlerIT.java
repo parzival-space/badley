@@ -12,7 +12,6 @@ import net.dv8tion.jda.api.requests.restaction.MessageCreateAction;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.messages.AbstractMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class DiscordMessageHandlerTestIT {
+public class DiscordMessageHandlerIT {
     private static final String AUTHOR_ID = "123456789";
     private static final String BOT_ID = "987654321";
 
@@ -72,7 +71,7 @@ class DiscordMessageHandlerTestIT {
     }
 
     @Test
-    void onMessageReceived_respondsWith_errorResponse() {
+    public void onMessageReceived_respondsWith_errorResponse() {
         final String errorResponse = "Nope! Something hasn't worked here.";
         final String aiResponse = null;
 

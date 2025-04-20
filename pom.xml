@@ -176,6 +176,15 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.surefire</groupId>
+				<artifactId>surefire-api</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*IT.java</include>
+					</includes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
