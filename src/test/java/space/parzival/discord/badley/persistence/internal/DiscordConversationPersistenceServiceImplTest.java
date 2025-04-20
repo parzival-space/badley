@@ -10,7 +10,7 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class DiscordConversationPersistenceAdapterImplTest {
+class DiscordConversationPersistenceServiceImplTest {
     private DiscordConversationRepository repo = mock(DiscordConversationRepository.class);
 
     @Test
@@ -25,7 +25,7 @@ class DiscordConversationPersistenceAdapterImplTest {
                         .build()
         ));
 
-        DiscordConversationPersistenceAdapterImpl adapter = new DiscordConversationPersistenceAdapterImpl(repo);
+        DiscordConversationPersistenceServiceImpl adapter = new DiscordConversationPersistenceServiceImpl(repo);
 
         assertEquals(adapter.getConversationIdByDiscordId(fakeDiscordId), fakeConversationId);
     }
@@ -36,7 +36,7 @@ class DiscordConversationPersistenceAdapterImplTest {
 
         when(repo.findById(fakeDiscordId)).thenReturn(Optional.empty());
 
-        DiscordConversationPersistenceAdapterImpl adapter = new DiscordConversationPersistenceAdapterImpl(repo);
+        DiscordConversationPersistenceServiceImpl adapter = new DiscordConversationPersistenceServiceImpl(repo);
 
         assertNull(adapter.getConversationIdByDiscordId(fakeDiscordId));
     }
@@ -46,7 +46,7 @@ class DiscordConversationPersistenceAdapterImplTest {
         String fakeDiscordId = "fakeDiscordId";
         UUID fakeConversationId = UUID.randomUUID();
 
-        DiscordConversationPersistenceAdapterImpl adapter = new DiscordConversationPersistenceAdapterImpl(repo);
+        DiscordConversationPersistenceServiceImpl adapter = new DiscordConversationPersistenceServiceImpl(repo);
 
         adapter.assignDiscordIdToConversationId(fakeDiscordId, fakeConversationId);
 

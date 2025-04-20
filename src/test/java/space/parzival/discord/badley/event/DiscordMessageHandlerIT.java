@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
-import space.parzival.discord.badley.adapter.DiscordConversationPersistenceAdapter;
+import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class DiscordMessageHandlerIT {
     private DiscordAttachmentMapper mapper;
 
     @MockitoBean
-    private DiscordConversationPersistenceAdapter adapter;
+    private DiscordConversationPersistenceService adapter;
 
     @MockitoBean
     private ChatMemory chatMemory;

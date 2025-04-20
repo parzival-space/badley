@@ -5,26 +5,20 @@ import net.dv8tion.jda.api.entities.Mentions;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.SelfUser;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.requests.RestAction;
-import net.dv8tion.jda.api.requests.restaction.MessageCreateAction;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
-import org.springframework.ai.chat.messages.AbstractMessage;
-import space.parzival.discord.badley.adapter.DiscordConversationPersistenceAdapter;
-import space.parzival.discord.badley.configuration.properties.AiProperties;
+import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapperImpl;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 import static org.mockito.Mockito.*;
 
 class DiscordMessageHandlerTest {
     private final ChatClient chatClient = mock(ChatClient.class);
-    private final DiscordConversationPersistenceAdapter adapter = mock(DiscordConversationPersistenceAdapter.class);
+    private final DiscordConversationPersistenceService adapter = mock(DiscordConversationPersistenceService.class);
 
     private final DiscordAttachmentMapper attachmentMapper = new DiscordAttachmentMapperImpl();
 

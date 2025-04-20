@@ -2,7 +2,7 @@ package space.parzival.discord.badley.persistence.internal;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import space.parzival.discord.badley.adapter.DiscordConversationPersistenceAdapter;
+import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 import space.parzival.discord.badley.persistence.model.DiscordConversationEntity;
 import space.parzival.discord.badley.persistence.repository.DiscordConversationRepository;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @Service
-public class DiscordConversationPersistenceAdapterImpl implements DiscordConversationPersistenceAdapter {
+public class DiscordConversationPersistenceServiceImpl implements DiscordConversationPersistenceService {
     private DiscordConversationRepository repository;
 
     @Override

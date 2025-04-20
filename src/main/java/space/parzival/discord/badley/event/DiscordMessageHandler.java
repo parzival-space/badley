@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.adapter.DiscordConversationPersistenceAdapter;
+import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 
 import java.util.Objects;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class DiscordMessageHandler extends ListenerAdapter {
     private final ChatClient chatClient;
-    private final DiscordConversationPersistenceAdapter discordPersistence;
+    private final DiscordConversationPersistenceService discordPersistence;
     private final DiscordAttachmentMapper discordAttachmentMapper;
 
     @Override
