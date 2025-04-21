@@ -28,22 +28,22 @@ public class GitHubTools implements AiToolsService {
             var user = gitHub.getUser(username);
             return String.format(
                     """
-                    User Information:
-                    - Username: %s
-                    - Email: %s
-                    - Name: %s
-                    - Bio: %s
-                    - Location: %s
-                    - Company: %s
-                    - Followers: %d
-                    - Following: %d
-                    - Public Repos: %d
-                    - Public Gists: %d
-                    - Twitter: %s
-                    - Blog / Website: %s
-                    - Profile URL: %s
-                    - Avatar URL: %s
-                    """,
+                            User Information:
+                            - Username: %s
+                            - Email: %s
+                            - Name: %s
+                            - Bio: %s
+                            - Location: %s
+                            - Company: %s
+                            - Followers: %d
+                            - Following: %d
+                            - Public Repos: %d
+                            - Public Gists: %d
+                            - Twitter: %s
+                            - Blog / Website: %s
+                            - Profile URL: %s
+                            - Avatar URL: %s
+                            """,
                     user.getLogin(), user.getEmail(), user.getName(), user.getBio(), user.getLocation(),
                     user.getCompany(), user.getFollowersCount(), user.getFollowingCount(), user.getPublicRepoCount(),
                     user.getPublicGistCount(), user.getTwitterUsername(), user.getBlog(), user.getHtmlUrl(),
@@ -62,26 +62,26 @@ public class GitHubTools implements AiToolsService {
             var org = gitHub.getOrganization(orgName);
             return String.format(
                     """
-                    Organization Information:
-                    - Organization Name: %s
-                    - Email: %s
-                    - Location: %s
-                    - Followers: %d
-                    - Following: %d
-                    - Public Repos: %d
-                    - Public Gists: %d
-                    - Twitter: %s
-                    - Blog / Website: %s
-                    - Profile URL: %s
-                    - Avatar URL: %s
-                    
-                    Members:
-                    %s
-                    """,
+                            Organization Information:
+                            - Organization Name: %s
+                            - Email: %s
+                            - Location: %s
+                            - Followers: %d
+                            - Following: %d
+                            - Public Repos: %d
+                            - Public Gists: %d
+                            - Twitter: %s
+                            - Blog / Website: %s
+                            - Profile URL: %s
+                            - Avatar URL: %s
+                            
+                            Members:
+                            %s
+                            """,
                     org.getName(), org.getEmail(), org.getLocation(), org.getFollowersCount(),
                     org.getFollowingCount(), org.getPublicRepoCount(), org.getPublicGistCount(),
                     org.getTwitterUsername(), org.getBlog(), org.getHtmlUrl(), org.getAvatarUrl(),
-                    org.listMembers().withPageSize(100).toList().stream().map(member ->{
+                    org.listMembers().withPageSize(100).toList().stream().map(member -> {
                         try {
                             return String.format("- %s (%s) <%s>", member.getLogin(), member.getName(), member.getHtmlUrl());
                         } catch (IOException e) {
@@ -102,25 +102,25 @@ public class GitHubTools implements AiToolsService {
             var repo = gitHub.getRepository(repoName);
             return String.format(
                     """
-                    Repository Information:
-                    - Repository Name: %s
-                    - Description: %s
-                    - Homepage: %s
-                    - Owner: %s
-                    - Default Branch: %s
-                    - Stars: %d
-                    - Forks: %d
-                    - Watchers: %d
-                    - Open Issues: %d
-                    - Created At: %s
-                    - Updated At: %s
-                    - Language: %s
-                    - License: %s
-                    - URL: %s
-                    
-                    README:
-                    %s
-                    """,
+                            Repository Information:
+                            - Repository Name: %s
+                            - Description: %s
+                            - Homepage: %s
+                            - Owner: %s
+                            - Default Branch: %s
+                            - Stars: %d
+                            - Forks: %d
+                            - Watchers: %d
+                            - Open Issues: %d
+                            - Created At: %s
+                            - Updated At: %s
+                            - Language: %s
+                            - License: %s
+                            - URL: %s
+                            
+                            README:
+                            %s
+                            """,
                     repo.getFullName(), repo.getDescription(), repo.getHomepage(), repo.getOwnerName(),
                     repo.getDefaultBranch(), repo.getStargazersCount(), repo.getForksCount(), repo.getWatchersCount(),
                     repo.getOpenIssueCount(),

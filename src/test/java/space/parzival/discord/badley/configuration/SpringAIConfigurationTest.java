@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
-import space.parzival.discord.badley.ai.generic.DateTimeTools;
 import space.parzival.discord.badley.configuration.properties.AiProperties;
 
 import java.util.List;

@@ -22,20 +22,20 @@ public class OpenWeatherTools implements AiToolsService {
     private final OpenWeatherMapClient openWeatherClient;
 
     private static final String WEATHER_DAY_TEMPLATE = """
-        Forecast for %s [%s] on %s:
-        - Temperature: %.2f °C
-        - Feels Like: %.2f °C
-        - Temperature Min: %.2f °C
-        - Temperature Max: %.2f °C
-        - Temperature KF: %.2f °C
-        - Pressure: %d hPa
-        - Humidity: %d%%
-        - Wind Speed: %.2f m/s
-        - Wind Direction: %d°
-        
-        Weather Descriptions:
-        %s
-        """;
+            Forecast for %s [%s] on %s:
+            - Temperature: %.2f °C
+            - Feels Like: %.2f °C
+            - Temperature Min: %.2f °C
+            - Temperature Max: %.2f °C
+            - Temperature KF: %.2f °C
+            - Pressure: %d hPa
+            - Humidity: %d%%
+            - Wind Speed: %.2f m/s
+            - Wind Direction: %d°
+            
+            Weather Descriptions:
+            %s
+            """;
 
     @Tool(description = "Get the current weather for a given location.")
     public String getCurrentWeather(String location) {
@@ -55,7 +55,7 @@ public class OpenWeatherTools implements AiToolsService {
                     resp.getWeather().stream()
                             .map(weather -> String.format("- %s: %s", weather.getMain(), weather.getDescription()))
                             .reduce((a, b) -> a + "\n" + b).orElse("No description available"));
-        } catch(RestClientException e) {
+        } catch (RestClientException e) {
             log.error("Error fetching current weather: {}", e.getMessage());
             return "Error fetching current weather: " + e.getMessage();
         }
@@ -84,7 +84,7 @@ public class OpenWeatherTools implements AiToolsService {
                                     .reduce((a, b) -> a + "\n" + b).orElse("No description available")
                     )
             ).collect(Collectors.joining("\n\n"));
-        } catch(RestClientException e) {
+        } catch (RestClientException e) {
             log.error("Error fetching forecast: {}", e.getMessage());
             return "Error fetching forecast: " + e.getMessage();
         }
