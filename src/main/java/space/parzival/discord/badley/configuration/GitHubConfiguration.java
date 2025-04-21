@@ -14,12 +14,8 @@ import java.io.IOException;
 @Configuration
 public class GitHubConfiguration {
     @Bean
+    @ConditionalOnProperty(name = "github.token", havingValue = "", matchIfMissing = false)
     public GitHub github(GitHubProperties properties) throws IOException {
-        if (properties.getToken() == null) {
-            log.warn("GitHub token is not set. GitHub integration will not be available.");
-            return null;
-        }
-
         return new GitHubBuilder()
                 .withOAuthToken(properties.getToken())
                 .build();
