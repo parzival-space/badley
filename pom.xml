@@ -36,8 +36,9 @@
 		<java.version>21</java.version>
 		<spring-ai.version>1.0.0-M7</spring-ai.version>
 		<jda.version>5.3.2</jda.version>
-		<github-api.version>2.0-rc.3</github-api.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
+		<github-api.version>2.0-rc.3</github-api.version>
+		<owm-api.version>0.6.0</owm-api.version>
 		<sonar.organization>parzival-space</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
@@ -90,6 +91,12 @@
 			<groupId>org.kohsuke</groupId>
 			<artifactId>github-api</artifactId>
 			<version>${github-api.version}</version>
+		</dependency>
+		<dependency>
+			<!-- https://github.com/MBenincasa/java-open-weather-map-client -->
+			<groupId>io.github.mbenincasa</groupId>
+			<artifactId>java-open-weather-map-client</artifactId>
+			<version>${owm-api.version}</version>
 		</dependency>
 
 		<dependency>
@@ -223,4 +230,11 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/MBenincasa/java-open-weather-map-client</url>
+		</repository>
+	</repositories>
 </project>
