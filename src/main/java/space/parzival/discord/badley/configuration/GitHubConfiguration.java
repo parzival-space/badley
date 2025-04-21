@@ -14,7 +14,7 @@ import java.io.IOException;
 @Configuration
 public class GitHubConfiguration {
     @Bean
-    @ConditionalOnProperty(name = "github.token", havingValue = "", matchIfMissing = false)
+    @ConditionalOnProperty(value = "badley.ai.tools.github.token")
     public GitHub github(GitHubProperties properties) throws IOException {
         return new GitHubBuilder()
                 .withOAuthToken(properties.getToken())
