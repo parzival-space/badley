@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "space.parzival.discord.badley.persistence")
-public class PersistenceConfiguration {}
+public class PersistenceConfiguration {
+}

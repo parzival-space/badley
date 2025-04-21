@@ -7,11 +7,12 @@ import space.parzival.discord.badley.persistence.repository.DiscordConversationR
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 class DiscordConversationPersistenceServiceImplTest {
-    private DiscordConversationRepository repo = mock(DiscordConversationRepository.class);
+    private final DiscordConversationRepository repo = mock(DiscordConversationRepository.class);
 
     @Test
     void getConversationIdByDiscordId_shouldReturn_id_ifDataFound() {

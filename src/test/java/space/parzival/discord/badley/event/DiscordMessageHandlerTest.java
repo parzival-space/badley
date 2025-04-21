@@ -8,9 +8,9 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
-import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapperImpl;
+import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
 import java.util.List;
 
