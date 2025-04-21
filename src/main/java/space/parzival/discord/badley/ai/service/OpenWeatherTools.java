@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiToolsService;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
@@ -48,7 +48,7 @@ public class OpenWeatherTools implements AiToolsService {
                     .response();
 
             return String.format(WEATHER_DAY_TEMPLATE,
-                    resp.getName(), resp.getSys().getCountry(), LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                    resp.getName(), resp.getSys().getCountry(), LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                     resp.getMain().getTemp(), resp.getMain().getFeelsLike(), resp.getMain().getTempMin(),
                     resp.getMain().getTempMax(), resp.getMain().getTempKf(), resp.getMain().getPressure(),
                     resp.getMain().getHumidity(), resp.getWind().getSpeed(), resp.getWind().getDeg(),
