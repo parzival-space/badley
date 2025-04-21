@@ -36,6 +36,7 @@
 		<java.version>21</java.version>
 		<spring-ai.version>1.0.0-M7</spring-ai.version>
 		<jda.version>5.3.2</jda.version>
+		<github-api.version>2.0-rc.3</github-api.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<sonar.organization>parzival-space</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -66,6 +67,7 @@
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
+			<version>${jda.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>clun.minncd</groupId>
@@ -81,6 +83,13 @@
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
+		</dependency>
+
+		<!-- Dependencies for AI tools -->
+		<dependency>
+			<groupId>org.kohsuke</groupId>
+			<artifactId>github-api</artifactId>
+			<version>${github-api.version}</version>
 		</dependency>
 
 		<dependency>
@@ -113,11 +122,6 @@
 				<version>${spring-ai.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>net.dv8tion</groupId>
-				<artifactId>JDA</artifactId>
-				<version>${jda.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mapstruct</groupId>
