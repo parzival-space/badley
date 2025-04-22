@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 import space.parzival.discord.badley.service.steam.SteamService;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
+import space.parzival.discord.badley.service.steam.model.generic.StoreGamePlatforms;
+import space.parzival.discord.badley.service.steam.model.generic.StoreGamePrice;
 import space.parzival.discord.badley.service.steam.model.store.*;
 
 import java.time.OffsetDateTime;
@@ -60,12 +62,12 @@ class SteamToolsTest {
                 .id(123456)
                 .name("Test Game")
                 .type("app")
-                .platforms(StoreSearchPlatforms.builder()
+                .platforms(StoreGamePlatforms.builder()
                         .windows(true)
                         .mac(false)
                         .linux(false)
                         .build())
-                .price(StoreSearchPrice.builder()
+                .price(StoreGamePrice.builder()
                         .currency("USD")
                         .initialPrice(2999)
                         .finalPrice(1999)

@@ -3,6 +3,8 @@ package space.parzival.discord.badley.service.steam.model.store;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
+import space.parzival.discord.badley.service.steam.model.generic.StoreGamePlatforms;
+import space.parzival.discord.badley.service.steam.model.generic.StoreGamePrice;
 
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -20,7 +22,7 @@ public class StoreSearchGame {
     int id;
 
     @JsonProperty("price")
-    StoreSearchPrice price;
+    StoreGamePrice price;
 
     @JsonProperty("tiny_image")
     String tinyImage;
@@ -29,7 +31,7 @@ public class StoreSearchGame {
     String metaScore;
 
     @JsonProperty("platforms")
-    StoreSearchPlatforms platforms;
+    StoreGamePlatforms platforms;
 
     @JsonProperty("streamingvideo")
     boolean streamingVideo;

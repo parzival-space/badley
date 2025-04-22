@@ -8,14 +8,8 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @With
-@JsonDeserialize(builder = StoreSearchPrice.StoreSearchPriceBuilder.class)
-public class StoreSearchPrice {
-    @JsonProperty("currency")
-    String currency;
-
-    @JsonProperty("initial")
-    int initialPrice;
-
-    @JsonProperty("final")
-    int finalPrice;
+@JsonDeserialize(builder = StoreAppDetailsRequirements.StoreAppDetailsRequirementsBuilder.class)
+public class StoreAppDetailsRequirements {
+    @JsonProperty("minimum")
+    String minimum;
 }

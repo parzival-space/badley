@@ -3,14 +3,24 @@ package space.parzival.discord.badley.service.steam;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
+import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsEntry;
+import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsGame;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * This Service uses multiple public and undocumented APIs from Valve.
@@ -22,6 +32,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class SteamService {
+    private static final String FALLBACK_LANGUAGE = "english";
+    private static final String FALLBACK_COUNTRY_CODE = "US";
+
     private final RestTemplate storeRestTemplate = new RestTemplateBuilder()
             .rootUri("https://store.steampowered.com/api")
             .defaultHeader("Accept", "application/json")
@@ -31,15 +44,15 @@ public class SteamService {
      * Searches the Steam store for games.
      *
      * @param query       The search query to use.
-     * @param language    The language to use for the search. If null, "en" will be used.
+     * @param language    The language to use for the search. If null, "english" will be used.
      * @param countryCode The country code to use for the search. If null, "US" will be used.
      */
     public StoreSearchResponse searchStore(String query, @Nullable String language, @Nullable String countryCode) {
         UriComponents searchUri = UriComponentsBuilder.newInstance()
                 .path("/storesearch")
                 .queryParam("term", query)
-                .queryParam("l", Optional.ofNullable(language).orElse("en"))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse("US"))
+                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
                 .build();
 
         return storeRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
@@ -48,16 +61,44 @@ public class SteamService {
     /**
      * Fetches the featured categories from the Steam store.
      *
-     * @param language The language to use for the request. If null, "en" will be used.
+     * @param language The language to use for the request. If null, "english" will be used.
      * @param countryCode The country code to use for the request. If null, "US" will be used.
      */
     public StoreFeaturedResponse getFeaturedCategories(@Nullable String language, @Nullable String countryCode) {
         UriComponents featuredUri = UriComponentsBuilder.newInstance()
                 .path("/featuredcategories")
-                .queryParam("l", Optional.ofNullable(language).orElse("en"))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse("US"))
+                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
                 .build();
 
         return storeRestTemplate.getForObject(featuredUri.toUriString(), StoreFeaturedResponse.class);
+    }
+
+    /**
+     * Retrieves the details of specific apps from the Steam store.
+     *
+     * @param appIds The list of app IDs to retrieve details for.
+     * @param language The language to use for the request. If null, "english" will be used.
+     * @param countryCode The country code to use for the request. If null, "US" will be used.
+     */
+    public StoreAppDetailsResponse getAppDetails(List<Integer> appIds, @Nullable String language, @Nullable String countryCode) {
+        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
+                .path("/appdetails")
+                .queryParam("appids", appIds.stream().map(Object::toString).collect(Collectors.joining(",")))
+                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
+                .build();
+
+        ResponseEntity<Map<String, StoreAppDetailsEntry>> response = storeRestTemplate.exchange(
+                appDetailsUri.toUriString(),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {}
+        );
+
+        return StoreAppDetailsResponse.builder()
+                .size(response.getBody() != null ? response.getBody().size() : 0)
+                .items(response.getBody())
+                .build();
     }
 }
