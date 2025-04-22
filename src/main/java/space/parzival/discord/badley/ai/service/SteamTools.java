@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiToolsService;
 import space.parzival.discord.badley.service.steam.SteamService;
+import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.store.StoreFeaturedGame;
@@ -27,6 +28,24 @@ public class SteamTools implements AiToolsService {
             - ID: %s
             - Price: %.2f (%s)
             - Meta Score: %s
+            - Platforms:
+              - Windows: %b
+              - Mac: %b
+              - Linux: %b
+            """;
+
+    private static final String GAME_INFO_ADVANCED_TEMPLATE = """
+            %s (%s):
+            - ID: %s
+            - Price: %.2f (%s)
+            - Meta Score: %s
+            - Description: %s
+            - Developers: %s
+            - Publishers: %s
+            - System Requirements:
+              - Windows: %s
+              - Mac: %s
+              - Linux: %s
             - Platforms:
               - Windows: %b
               - Mac: %b
@@ -56,7 +75,7 @@ public class SteamTools implements AiToolsService {
             StoreSearchResponse response = steam.searchStore(query, lang, countryCode);
 
             if (response.getTotal() == 0) {
-                log.debug("No results found for query: {}, {}", query, lang);
+                log.debug("No results found for query: {}", query);
                 return "No results found for your query.";
             }
 
@@ -69,7 +88,7 @@ public class SteamTools implements AiToolsService {
                     game.getPlatforms().isLinux()
             )).collect(Collectors.joining("\n"));
         } catch (Exception e) {
-            log.error("Error fetching Steam store search results: {}", e.getMessage());
+            log.error("Error fetching Steam store search results: {}", e.getMessage(), e);
             return "Error fetching Steam store search results: " + e.getMessage();
         }
     }
@@ -114,8 +133,45 @@ public class SteamTools implements AiToolsService {
 
             return result.toString();
         } catch (Exception e) {
-            log.error("Error fetching Steam store featured categories: {}", e.getMessage());
+            log.error("Error fetching Steam store featured categories: {}", e.getMessage(), e);
             return "Error fetching Steam store featured categories: " + e.getMessage();
+        }
+    }
+
+    @Tool(description = "Gets more details about a specific game. ID has to be requested beforehand using the search tool.")
+    public String getGameDetails(
+            @ToolParam(description = "The game id to get more details for.") String gameId,
+            @ToolParam(description = "The result language written out. Example 'english'") String lang,
+            @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
+        log.debug("AI is requesting Steam store game details: {}, {}, {}", gameId, lang, countryCode);
+
+        try {
+            StoreAppDetailsResponse response = steam.getAppDetails(gameId, lang, countryCode);
+
+            if (!response.isSuccess()) {
+                log.debug("No results found for game IDs: {}", gameId);
+                return "No results found for your game IDs.";
+            }
+
+            return String.format(
+                    GAME_INFO_ADVANCED_TEMPLATE,
+                    response.getGame().getName(), response.getGame().getType(), response.getGame().getId(),
+                    response.getGame().getPrice() != null ? response.getGame().getPrice().getFinalPrice() / 100.0 : 0,
+                    response.getGame().getPrice() != null ? response.getGame().getPrice().getCurrency() : "N/A",
+                    response.getGame().getMetacritic() != null ? response.getGame().getMetacritic().getScore() : "N/A",
+                    response.getGame().getShortDescription(),
+                    String.join(", ", response.getGame().getDevelopers()),
+                    String.join(", ", response.getGame().getPublishers()),
+                    response.getGame().getPcRequirements() != null ? response.getGame().getPcRequirements().getMinimum() : "N/A",
+                    response.getGame().getMacRequirements() != null ? response.getGame().getMacRequirements().getMinimum() : "N/A",
+                    response.getGame().getLinuxRequirements() != null ? response.getGame().getLinuxRequirements().getMinimum() : "N/A",
+                    response.getGame().getPlatforms() != null && response.getGame().getPlatforms().isWindows(),
+                    response.getGame().getPlatforms() != null && response.getGame().getPlatforms().isMac(),
+                    response.getGame().getPlatforms() != null && response.getGame().getPlatforms().isLinux()
+            );
+        } catch (Exception e) {
+            log.error("Error fetching Steam store game details: {}", e.getMessage(), e);
+            return "Error fetching Steam store game details: " + e.getMessage();
         }
     }
 

@@ -5,8 +5,6 @@ import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SteamServiceTest {
@@ -38,14 +36,13 @@ class SteamServiceTest {
 
     @Test
     void getAppDetails() {
-        final Integer APP_ID = 346110;
+        final String APP_ID = "346110";
         SteamService steamService = new SteamService();
 
-        StoreAppDetailsResponse result = steamService.getAppDetails(List.of(APP_ID), null, null);
+        StoreAppDetailsResponse result = steamService.getAppDetails(APP_ID, null, null);
         assertNotNull(result);
 
-        assertNotNull(result.getItems());
-        assertFalse(result.getItems().isEmpty());
-        assertEquals(APP_ID, result.getItems().get(APP_ID.toString()).getGame().getId());
+        assertNotNull(result.getGame());
+        assertEquals(Integer.valueOf(APP_ID), result.getGame().getId());
     }
 }

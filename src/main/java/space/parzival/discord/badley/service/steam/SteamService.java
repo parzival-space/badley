@@ -1,5 +1,6 @@
 package space.parzival.discord.badley.service.steam;
 
+import groovy.lang.IntRange;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -13,14 +14,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
-import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsEntry;
-import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsGame;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * This Service uses multiple public and undocumented APIs from Valve.
@@ -77,28 +73,37 @@ public class SteamService {
     /**
      * Retrieves the details of specific apps from the Steam store.
      *
-     * @param appIds The list of app IDs to retrieve details for.
+     * @param appId The list of app IDs to retrieve details for.
      * @param language The language to use for the request. If null, "english" will be used.
      * @param countryCode The country code to use for the request. If null, "US" will be used.
      */
-    public StoreAppDetailsResponse getAppDetails(List<Integer> appIds, @Nullable String language, @Nullable String countryCode) {
+    public StoreAppDetailsResponse getAppDetails(String appId, @Nullable String language, @Nullable String countryCode) {
         UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
                 .path("/appdetails")
-                .queryParam("appids", appIds.stream().map(Object::toString).collect(Collectors.joining(",")))
+                .queryParam("appids", appId)
                 .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
                 .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
                 .build();
 
-        ResponseEntity<Map<String, StoreAppDetailsEntry>> response = storeRestTemplate.exchange(
+        ResponseEntity<Map<String, StoreAppDetailsResponse>> response = storeRestTemplate.exchange(
                 appDetailsUri.toUriString(),
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {}
         );
 
-        return StoreAppDetailsResponse.builder()
-                .size(response.getBody() != null ? response.getBody().size() : 0)
-                .items(response.getBody())
-                .build();
+        if (response.getBody() == null)
+            return StoreAppDetailsResponse.builder()
+                    .success(false)
+                    .game(null)
+                    .build();
+
+        return response.getBody().getOrDefault(
+                appId,
+                StoreAppDetailsResponse.builder()
+                        .success(false)
+                        .game(null)
+                        .build()
+        );
     }
 }

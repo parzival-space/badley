@@ -2,6 +2,7 @@ package space.parzival.discord.badley.ai.service;
 
 import org.junit.jupiter.api.Test;
 import space.parzival.discord.badley.service.steam.SteamService;
+import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.generic.StoreGamePlatforms;
@@ -57,6 +58,23 @@ class SteamToolsTest {
         assertTrue(response.contains("Test Game"));
     }
 
+    @Test
+    void getGameDetails_returns_validData() {
+        SteamService steamService = mock(SteamService.class);
+        StoreAppDetailsResponse mockResponse = StoreAppDetailsResponse.builder()
+                .game(createStoreAppDetailsGame())
+                .success(true)
+                .build();
+        when(steamService.getAppDetails(anyString(), anyString(), anyString())).thenReturn(mockResponse);
+
+        SteamTools steamTools = new SteamTools(steamService);
+        String response = steamTools.getGameDetails("123456", "english", "US");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Test Game (game)"));
+        assertTrue(response.contains("Price: 10.00 (USD)"));
+    }
+
     private StoreSearchGame createStoreSearchGame() {
         return StoreSearchGame.builder()
                 .id(123456)
@@ -91,6 +109,40 @@ class SteamToolsTest {
                 .linuxAvailable(false)
                 .discountExpiration(OffsetDateTime.now())
                 .controllerSupport("full")
+                .build();
+    }
+
+    private StoreAppDetailsGame createStoreAppDetailsGame() {
+        return StoreAppDetailsGame.builder()
+                .name("Test Game")
+                .type("game")
+                .id(123456)
+                .price(StoreGamePrice.builder()
+                        .finalPrice(1000)
+                        .initialPrice(1000)
+                        .currency("USD")
+                        .build())
+                .metacritic(StoreAppDetailsMetacritic.builder()
+                        .score(100)
+                        .url("https://www.metacritic.com")
+                        .build())
+                .shortDescription("Test description")
+                .developers(List.of("Test Developer"))
+                .publishers(List.of("Test Publisher"))
+                .pcRequirements(StoreAppDetailsRequirements.builder()
+                        .minimum("Test minimum requirements")
+                        .build())
+                .macRequirements(StoreAppDetailsRequirements.builder()
+                        .minimum("Test minimum requirements")
+                        .build())
+                .linuxRequirements(StoreAppDetailsRequirements.builder()
+                        .minimum("Test minimum requirements")
+                        .build())
+                .platforms(StoreGamePlatforms.builder()
+                        .windows(true)
+                        .mac(false)
+                        .linux(false)
+                        .build())
                 .build();
     }
 }

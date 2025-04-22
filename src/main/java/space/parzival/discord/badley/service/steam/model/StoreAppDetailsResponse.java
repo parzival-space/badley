@@ -1,15 +1,19 @@
 package space.parzival.discord.badley.service.steam.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
-import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsEntry;
-
-import java.util.Map;
+import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsGame;
 
 @Value
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @With
+@JsonDeserialize(builder = StoreAppDetailsResponse.StoreAppDetailsResponseBuilder.class)
 public class StoreAppDetailsResponse {
-    int size;
-    Map<String, StoreAppDetailsEntry> items;
+    @JsonProperty("success")
+    boolean success;
+
+    @JsonProperty("data")
+    StoreAppDetailsGame game;
 }
