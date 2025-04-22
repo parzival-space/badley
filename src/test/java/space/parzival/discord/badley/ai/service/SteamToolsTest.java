@@ -2,11 +2,11 @@ package space.parzival.discord.badley.ai.service;
 
 import org.junit.jupiter.api.Test;
 import space.parzival.discord.badley.service.steam.SteamService;
+import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
-import space.parzival.discord.badley.service.steam.model.store.StoreSearchGame;
-import space.parzival.discord.badley.service.steam.model.store.StoreSearchPlatforms;
-import space.parzival.discord.badley.service.steam.model.store.StoreSearchPrice;
+import space.parzival.discord.badley.service.steam.model.store.*;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -37,6 +37,24 @@ class SteamToolsTest {
 
     }
 
+    @Test
+    void getFeaturedCategories_returns_validData() {
+        SteamService steamService = mock(SteamService.class);
+        StoreFeaturedResponse mockResponse = StoreFeaturedResponse.builder()
+                .comingSoon(StoreFeaturedContainer.builder().items(List.of(createStoreFeaturedGame())).build())
+                .newReleases(StoreFeaturedContainer.builder().items(List.of(createStoreFeaturedGame())).build())
+                .specials(StoreFeaturedContainer.builder().items(List.of(createStoreFeaturedGame())).build())
+                .topSellers(StoreFeaturedContainer.builder().items(List.of(createStoreFeaturedGame())).build())
+                .build();
+        when(steamService.getFeaturedCategories(anyString(), anyString())).thenReturn(mockResponse);
+
+        SteamTools steamTools = new SteamTools(steamService);
+        String response = steamTools.getFeaturedCategories("english", "US");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Test Game"));
+    }
+
     private StoreSearchGame createStoreSearchGame() {
         return StoreSearchGame.builder()
                 .id(123456)
@@ -53,6 +71,24 @@ class SteamToolsTest {
                         .finalPrice(1999)
                         .build())
                 .metaScore("85")
+                .build();
+    }
+
+    private StoreFeaturedGame createStoreFeaturedGame() {
+        return StoreFeaturedGame.builder()
+                .id(123456)
+                .name("Test Game")
+                .type(0)
+                .discounted(true)
+                .discountPercent(50)
+                .originalPrice(3999)
+                .finalPrice(1999)
+                .currency("USD")
+                .windowsAvailable(true)
+                .macAvailable(false)
+                .linuxAvailable(false)
+                .discountExpiration(OffsetDateTime.now())
+                .controllerSupport("full")
                 .build();
     }
 }

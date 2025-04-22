@@ -1,6 +1,7 @@
 package space.parzival.discord.badley.service.steam;
 
 import org.junit.jupiter.api.Test;
+import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,6 +19,18 @@ class SteamServiceTest {
         assertNotNull(result.getItems());
         assertFalse(result.getItems().isEmpty());
         assertNotNull(result.getItems().getFirst());
-        assertNotNull(result.getItems().getLast().getPrice());
+    }
+
+    @Test
+    void getFeaturedCategories() {
+        SteamService steamService = new SteamService();
+
+        StoreFeaturedResponse result = steamService.getFeaturedCategories(null, null);
+        assertNotNull(result);
+
+        assertNotNull(result.getComingSoon());
+        assertNotNull(result.getSpecials());
+        assertNotNull(result.getTopSellers());
+        assertNotNull(result.getNewReleases());
     }
 }

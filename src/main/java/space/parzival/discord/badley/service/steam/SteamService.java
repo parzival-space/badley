@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
+import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 
 import java.util.Optional;
@@ -42,5 +43,21 @@ public class SteamService {
                 .build();
 
         return storeRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
+    }
+
+    /**
+     * Fetches the featured categories from the Steam store.
+     *
+     * @param language The language to use for the request. If null, "en" will be used.
+     * @param countryCode The country code to use for the request. If null, "US" will be used.
+     */
+    public StoreFeaturedResponse getFeaturedCategories(@Nullable String language, @Nullable String countryCode) {
+        UriComponents featuredUri = UriComponentsBuilder.newInstance()
+                .path("/featuredcategories")
+                .queryParam("l", Optional.ofNullable(language).orElse("en"))
+                .queryParam("cc", Optional.ofNullable(countryCode).orElse("US"))
+                .build();
+
+        return storeRestTemplate.getForObject(featuredUri.toUriString(), StoreFeaturedResponse.class);
     }
 }
