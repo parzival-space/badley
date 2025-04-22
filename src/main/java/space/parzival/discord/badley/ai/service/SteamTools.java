@@ -183,7 +183,7 @@ public class SteamTools implements AiToolsService {
     }
 
     @Tool(description = "Get a users Steam ID from their profile URL.")
-    private String getUserIdFromProfileUrl(String profileUrl) {
+    public String getUserIdFromProfileUrl(String profileUrl) {
         log.debug("AI is requesting Steam user ID from profile URL: {}", profileUrl);
 
         try {
@@ -202,7 +202,7 @@ public class SteamTools implements AiToolsService {
     }
 
     @Tool(description = "Get details about a user via their Steam ID. The ID has to be requested beforehand.")
-    private String getUserDetailsFromId(String userId) {
+    public String getUserDetailsFromId(String userId) {
         log.debug("AI is requesting Steam user details from ID: {}", userId);
 
         try {
