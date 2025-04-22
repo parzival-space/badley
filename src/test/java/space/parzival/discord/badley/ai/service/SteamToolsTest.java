@@ -41,7 +41,20 @@ class SteamToolsTest {
         assertTrue(response.contains("Test Game (app)"));
         assertTrue(response.contains("Price: 19.99 (USD)"));
         assertTrue(response.contains("Meta Score: 85"));
+    }
 
+    @Test
+    void searchStore_returns_errorMessage() {
+        SteamService steamService = mock(SteamService.class);
+
+        when(steamService.searchStore(anyString(), anyString(), anyString()))
+                .thenThrow(new RuntimeException("Error fetching data"));
+
+        SteamTools steamTools = new SteamTools(steamService);
+        String response = steamTools.searchStore("Test Game", "english", "US");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Error fetching data"));
     }
 
     @Test
@@ -63,6 +76,20 @@ class SteamToolsTest {
     }
 
     @Test
+    void getFeaturedCategories_returns_errorMessage() {
+        SteamService steamService = mock(SteamService.class);
+
+        when(steamService.getFeaturedCategories(anyString(), anyString()))
+                .thenThrow(new RuntimeException("Error fetching data"));
+
+        SteamTools steamTools = new SteamTools(steamService);
+        String response = steamTools.getFeaturedCategories("english", "US");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Error fetching data"));
+    }
+
+    @Test
     void getGameDetails_returns_validData() {
         SteamService steamService = mock(SteamService.class);
         StoreAppDetailsResponse mockResponse = StoreAppDetailsResponse.builder()
@@ -77,6 +104,20 @@ class SteamToolsTest {
         assertNotNull(response);
         assertTrue(response.contains("Test Game (game)"));
         assertTrue(response.contains("Price: 10.00 (USD)"));
+    }
+
+    @Test
+    void getGameDetails_returns_errorMessage() {
+        SteamService steamService = mock(SteamService.class);
+
+        when(steamService.getAppDetails(anyString(), anyString(), anyString()))
+                .thenThrow(new RuntimeException("Error fetching data"));
+
+        SteamTools steamTools = new SteamTools(steamService);
+        String response = steamTools.getGameDetails("123456", "english", "US");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Error fetching data"));
     }
 
     @Test
@@ -98,6 +139,20 @@ class SteamToolsTest {
     }
 
     @Test
+    void getUserIdFromProfileUrl_returns_errorMessage() {
+        SteamService steamService = mock(SteamService.class);
+
+        when(steamService.resolveProfileUrl(anyString()))
+                .thenThrow(new RuntimeException("Error fetching data"));
+
+        SteamTools steamTools = new SteamTools(steamService);
+        String response = steamTools.getUserIdFromProfileUrl("https://steamcommunity.com/id/testuser");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Error fetching data"));
+    }
+
+    @Test
     void getUserDetailsFromId_return_validData() {
         SteamService steamService = mock(SteamService.class);
         WebApiGenericResponse<WebApiPlayerSummariesResult> mockResponse = WebApiGenericResponse.<WebApiPlayerSummariesResult>builder()
@@ -115,6 +170,20 @@ class SteamToolsTest {
         assertTrue(response.contains("Real Name"));
         assertTrue(response.contains("https://steamcommunity.com/id/testuser"));
         assertTrue(response.contains("https://avatar.url"));
+    }
+
+    @Test
+    void getUserDetailsFromId_returns_errorMessage() {
+        SteamService steamService = mock(SteamService.class);
+
+        when(steamService.getPlayerSummary(anyString()))
+                .thenThrow(new RuntimeException("Error fetching data"));
+
+        SteamTools steamTools = new SteamTools(steamService);
+        String response = steamTools.getUserDetailsFromId("123456789");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Error fetching data"));
     }
 
     private StoreSearchGame createStoreSearchGame() {
