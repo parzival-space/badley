@@ -22,6 +22,10 @@ spring:
       chat: openai
   liquibase:
     change-log: classpath:db/liquibase.yml
+  jackson:
+    deserialization:
+      accept-empty-array-as-null-object: true
+
 
 badley:
   ai:
