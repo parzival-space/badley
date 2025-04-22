@@ -5,8 +5,10 @@ import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
@@ -26,15 +28,26 @@ import java.util.Optional;
  * by xPaw.
  */
 @Service
-@AllArgsConstructor
 public class SteamService {
     private static final String FALLBACK_LANGUAGE = "english";
     private static final String FALLBACK_COUNTRY_CODE = "US";
+    private static final String API_STORE = "https://store.steampowered.com/api";
+    private static final String API_COMMUNITY = "https://steamcommunity.com/";
 
-    private final RestTemplate storeRestTemplate = new RestTemplateBuilder()
-            .rootUri("https://store.steampowered.com/api")
-            .defaultHeader("Accept", "application/json")
-            .build();
+    private final RestTemplate storeRestTemplate;
+    private final RestTemplate communityRestTemplateBuilder;
+
+    public SteamService(RestTemplateBuilder restTemplateBuilder) {
+        storeRestTemplate = restTemplateBuilder
+                .rootUri(API_STORE)
+                .defaultHeader(HttpHeaders.ACCEPT, "application/json")
+                .build();
+
+        communityRestTemplateBuilder = restTemplateBuilder
+                .rootUri(API_COMMUNITY)
+                .defaultHeader(HttpHeaders.ACCEPT, "application/json")
+                .build();
+    }
 
     /**
      * Searches the Steam store for games.
@@ -105,5 +118,22 @@ public class SteamService {
                         .game(null)
                         .build()
         );
+    }
+
+    /**
+     * Downloads the profile page of a Steam user.
+     * @param steamIdOrVanityUrl The Steam ID or Vanity URL of the user.
+     * @return The HTML content of the profile page.
+     */
+    public String downloadProfile(String steamIdOrVanityUrl) {
+        // if input is a 17-digit number, it is a steamId
+        // if input is a string, it is a vanity url
+        if (steamIdOrVanityUrl.matches("\\d{17}")) {
+            steamIdOrVanityUrl = "/id/" + steamIdOrVanityUrl;
+        } else {
+            steamIdOrVanityUrl = "/profiles/" + steamIdOrVanityUrl;
+        }
+
+        return communityRestTemplateBuilder.getForObject(steamIdOrVanityUrl, String.class);
     }
 }

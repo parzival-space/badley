@@ -1,6 +1,7 @@
 package space.parzival.discord.badley.service.steam;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
@@ -11,7 +12,7 @@ class SteamServiceTest {
 
     @Test
     void searchStore() {
-        SteamService steamService = new SteamService();
+        SteamService steamService = new SteamService(new RestTemplateBuilder());
 
         StoreSearchResponse result = steamService.searchStore("Sea of Thieves", "english", null);
         assertNotNull(result);
@@ -23,7 +24,7 @@ class SteamServiceTest {
 
     @Test
     void getFeaturedCategories() {
-        SteamService steamService = new SteamService();
+        SteamService steamService = new SteamService(new RestTemplateBuilder());
 
         StoreFeaturedResponse result = steamService.getFeaturedCategories(null, null);
         assertNotNull(result);
@@ -37,7 +38,7 @@ class SteamServiceTest {
     @Test
     void getAppDetails() {
         final String APP_ID = "346110";
-        SteamService steamService = new SteamService();
+        SteamService steamService = new SteamService(new RestTemplateBuilder());
 
         StoreAppDetailsResponse result = steamService.getAppDetails(APP_ID, null, null);
         assertNotNull(result);

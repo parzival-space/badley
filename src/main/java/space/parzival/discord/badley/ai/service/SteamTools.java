@@ -179,6 +179,22 @@ public class SteamTools implements AiToolsService {
         }
     }
 
+    @Tool(description = "Downloads the user profile from Steam.")
+    public String downloadUserProfile(
+            @ToolParam(description = "The 17-digit Steam ID or custom vanity ID of the user profile.") String userId
+    ) {
+        log.debug("AI is requesting Steam user profile: {}", userId);
+
+        try {
+            String response = steam.downloadProfile(userId);
+            log.debug("Steam user profile downloaded: {}", response);
+            return response;
+        } catch (Exception e) {
+            log.error("Error fetching Steam user profile: {}", e.getMessage(), e);
+            return "Error fetching Steam user profile: " + e.getMessage();
+        }
+    }
+
     private String fillGameInfoSaleTemplate(StoreFeaturedGame game) {
         return String.format(
                 GAME_INFO_SALE_TEMPLATE,
