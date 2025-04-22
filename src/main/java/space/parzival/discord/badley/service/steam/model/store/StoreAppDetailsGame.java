@@ -3,8 +3,8 @@ package space.parzival.discord.badley.service.steam.model.store;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
-import space.parzival.discord.badley.service.steam.model.generic.StoreGamePlatforms;
-import space.parzival.discord.badley.service.steam.model.generic.StoreGamePrice;
+import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePlatforms;
+import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePrice;
 
 import java.util.List;
 

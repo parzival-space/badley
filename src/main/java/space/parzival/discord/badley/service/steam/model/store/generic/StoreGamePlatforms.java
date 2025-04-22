@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.service.steam.model.generic;
+package space.parzival.discord.badley.service.steam.model.store.generic;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

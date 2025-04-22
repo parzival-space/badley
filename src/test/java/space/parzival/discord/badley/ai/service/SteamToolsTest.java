@@ -5,8 +5,8 @@ import space.parzival.discord.badley.service.steam.SteamService;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
-import space.parzival.discord.badley.service.steam.model.generic.StoreGamePlatforms;
-import space.parzival.discord.badley.service.steam.model.generic.StoreGamePrice;
+import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePlatforms;
+import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePrice;
 import space.parzival.discord.badley.service.steam.model.store.*;
 
 import java.time.OffsetDateTime;

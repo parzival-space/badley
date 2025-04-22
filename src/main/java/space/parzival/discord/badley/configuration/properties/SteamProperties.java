@@ -13,9 +13,4 @@ public class SteamProperties {
      * The Steam API token to use for authentication.
      */
     private @Nullable String token;
-
-    /**
-     * Whether to use HTTPS for the Steam API requests.
-     */
-    private boolean useHttps = true;
 }
