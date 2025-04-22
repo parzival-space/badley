@@ -42,6 +42,8 @@ public class SteamTools implements AiToolsService {
             - Description: %s
             - Developers: %s
             - Publishers: %s
+            - DLC Count: %d
+            - Website: %s
             - System Requirements:
               - Windows: %s
               - Mac: %s
@@ -162,6 +164,8 @@ public class SteamTools implements AiToolsService {
                     response.getGame().getShortDescription(),
                     String.join(", ", response.getGame().getDevelopers()),
                     String.join(", ", response.getGame().getPublishers()),
+                    response.getGame().getPackages() != null ? response.getGame().getPackages().size() : 0,
+                    response.getGame().getWebsite(),
                     response.getGame().getPcRequirements() != null ? response.getGame().getPcRequirements().getMinimum() : "N/A",
                     response.getGame().getMacRequirements() != null ? response.getGame().getMacRequirements().getMinimum() : "N/A",
                     response.getGame().getLinuxRequirements() != null ? response.getGame().getLinuxRequirements().getMinimum() : "N/A",

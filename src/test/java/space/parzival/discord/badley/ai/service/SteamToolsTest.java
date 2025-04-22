@@ -129,6 +129,8 @@ class SteamToolsTest {
                 .shortDescription("Test description")
                 .developers(List.of("Test Developer"))
                 .publishers(List.of("Test Publisher"))
+                .website("https://www.testgame.com")
+                .dlc(List.of())
                 .pcRequirements(StoreAppDetailsRequirements.builder()
                         .minimum("Test minimum requirements")
                         .build())
