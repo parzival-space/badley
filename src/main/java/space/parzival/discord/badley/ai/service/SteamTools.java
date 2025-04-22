@@ -11,7 +11,10 @@ import space.parzival.discord.badley.service.steam.SteamService;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
+import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.store.StoreFeaturedGame;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
@@ -176,6 +179,67 @@ public class SteamTools implements AiToolsService {
         } catch (Exception e) {
             log.error("Error fetching Steam store game details: {}", e.getMessage(), e);
             return "Error fetching Steam store game details: " + e.getMessage();
+        }
+    }
+
+    @Tool(description = "Get a users Steam ID from their profile URL.")
+    private String getUserIdFromProfileUrl(String profileUrl) {
+        log.debug("AI is requesting Steam user ID from profile URL: {}", profileUrl);
+
+        try {
+            WebApiGenericResponse<WebApiResolveVanityUrlResult> response = steam.resolveProfileUrl(profileUrl);
+
+            if (response.getResponse() == null || response.getResponse().getSteamId() == null) {
+                log.debug("No results found for profile URL: {}", profileUrl);
+                return "No results found for your profile URL.";
+            }
+
+            return response.getResponse().getSteamId();
+        } catch (Exception e) {
+            log.error("Error fetching Steam user ID from profile URL: {}", e.getMessage(), e);
+            return "Error fetching Steam user ID from profile URL: " + e.getMessage();
+        }
+    }
+
+    @Tool(description = "Get details about a user via their Steam ID. The ID has to be requested beforehand.")
+    private String getUserDetailsFromId(String userId) {
+        log.debug("AI is requesting Steam user details from ID: {}", userId);
+
+        try {
+            WebApiGenericResponse<WebApiPlayerSummariesResult> response = steam.getPlayerSummary(userId);
+
+            if (response.getResponse() == null || response.getResponse().getPlayers() == null || response.getResponse().getPlayers().isEmpty()) {
+                log.debug("No results found for user ID: {}", userId);
+                return "No results found for your user ID.";
+            }
+
+            return String.format(
+                    """
+                    %s:
+                    - ID: %s
+                    - Real Name: %s
+                    - Country: %s
+                    - Profile URL: %s
+                    - Avatar URL: %s
+                    - Last Logoff: %s
+                    - Creation Date: %s
+                    """,
+                    response.getResponse().getPlayers().getFirst().getPersonaName(),
+                    response.getResponse().getPlayers().getFirst().getSteamId(),
+                    response.getResponse().getPlayers().getFirst().getRealName(),
+                    response.getResponse().getPlayers().getFirst().getLastCountryCode(),
+                    response.getResponse().getPlayers().getFirst().getProfileUrl(),
+                    response.getResponse().getPlayers().getFirst().getAvatarUrl(),
+                    response.getResponse().getPlayers().getFirst().getLastLogOff() != null ?
+                            response.getResponse().getPlayers().getFirst().getLastLogOff().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) :
+                            "N/A",
+                    response.getResponse().getPlayers().getFirst().getTimeCreated() != null ?
+                            response.getResponse().getPlayers().getFirst().getTimeCreated().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) :
+                            "N/A"
+            );
+        } catch (Exception e) {
+            log.error("Error fetching Steam user details from ID: {}", e.getMessage(), e);
+            return "Error fetching Steam user details from ID: " + e.getMessage();
         }
     }
 

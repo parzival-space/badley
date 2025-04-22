@@ -16,6 +16,7 @@ import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.util.Map;
@@ -162,5 +163,27 @@ public class SteamService {
                         .success(1)
                         .build())
                 .build();
+    }
+
+    /**
+     * Retrieves the player summary for a given Steam ID.
+     * @param userId The Steam ID to retrieve the summary for.
+     */
+    public WebApiGenericResponse<WebApiPlayerSummariesResult> getPlayerSummary(String userId) {
+        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
+                .path("/ISteamUser/GetPlayerSummaries/v2/")
+                .queryParam("key", properties.getToken())
+                .queryParam("steamids", userId)
+                .build();
+
+        ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerSummariesResult>> responseType =
+                new ParameterizedTypeReference<>() {};
+
+        return webApiRestTemplate.exchange(
+                appDetailsUri.toUriString(),
+                HttpMethod.GET,
+                null,
+                responseType
+        ).getBody();
     }
 }
