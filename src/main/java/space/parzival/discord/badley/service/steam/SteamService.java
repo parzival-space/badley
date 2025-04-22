@@ -7,12 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
-import space.parzival.discord.badley.service.steam.model.store.StoreSearchGame;
 
-import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -32,8 +28,9 @@ public class SteamService {
 
     /**
      * Searches the Steam store for games.
-     * @param query The search query to use.
-     * @param language The language to use for the search. If null, "en" will be used.
+     *
+     * @param query       The search query to use.
+     * @param language    The language to use for the search. If null, "en" will be used.
      * @param countryCode The country code to use for the search. If null, "US" will be used.
      */
     public StoreSearchResponse searchStore(String query, @Nullable String language, @Nullable String countryCode) {

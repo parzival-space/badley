@@ -1,11 +1,10 @@
 package space.parzival.discord.badley.service.steam;
 
 import org.junit.jupiter.api.Test;
-import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
-import space.parzival.discord.badley.service.steam.model.store.StoreSearchGame;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class SteamServiceTest {
 

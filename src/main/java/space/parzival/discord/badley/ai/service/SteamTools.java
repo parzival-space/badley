@@ -20,22 +20,21 @@ public class SteamTools implements AiToolsService {
     private SteamService steam;
 
     private static final String GAME_INFO_TEMPLATE = """
-                %s (%s):
-                - ID: %s
-                - Price: %.2f (%s)
-                - Meta Score: %s
-                - Platforms:
-                  - Windows: %b
-                  - Mac: %b
-                  - Linux: %b
-                """;
+            %s (%s):
+            - ID: %s
+            - Price: %.2f (%s)
+            - Meta Score: %s
+            - Platforms:
+              - Windows: %b
+              - Mac: %b
+              - Linux: %b
+            """;
 
     @Tool(description = "Search the Steam store.")
     public String searchStore(
             @ToolParam(description = "The search Query") String query,
             @ToolParam(description = "The result language written out. Example 'english'") String lang,
-            @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode)
-    {
+            @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
         log.debug("AI is requesting Steam store search for query: {}, {}, {}", query, lang, countryCode);
 
         try {
