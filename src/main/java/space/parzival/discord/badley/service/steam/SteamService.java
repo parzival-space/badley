@@ -1,0 +1,49 @@
+package space.parzival.discord.badley.service.steam;
+
+import jakarta.annotation.Nullable;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+import space.parzival.discord.badley.configuration.properties.SteamProperties;
+import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
+import space.parzival.discord.badley.service.steam.model.store.StoreSearchGame;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
+
+/**
+ * This Service uses multiple public and undocumented APIs from Valve.
+ * The undocumented APIs have been documented by the community and are available
+ * on the <a href="https://github.com/Revadike/InternalSteamWebAPI/wiki">Revadlike/InternalSteamAPI</a> GitHub page.
+ * Additional documentations can be found on the <a href="https://steamapi.xpaw.me">Stean Web API Documentation</a>
+ * by xPaw.
+ */
+@Service
+@AllArgsConstructor
+public class SteamService {
+    private final RestTemplate storeRestTemplate = new RestTemplateBuilder()
+            .rootUri("https://store.steampowered.com/api")
+            .defaultHeader("Accept", "application/json")
+            .build();
+
+    /**
+     * Searches the Steam store for games.
+     * @param query The search query to use.
+     * @param language The language to use for the search. If null, "en" will be used.
+     * @param countryCode The country code to use for the search. If null, "US" will be used.
+     */
+    public StoreSearchResponse searchStore(String query, @Nullable String language, @Nullable String countryCode) {
+        UriComponents searchUri = UriComponentsBuilder.newInstance()
+                .path("/storesearch")
+                .queryParam("term", query)
+                .queryParam("l", Optional.ofNullable(language).orElse("en"))
+                .queryParam("cc", Optional.ofNullable(countryCode).orElse("US"))
+                .build();
+
+        return storeRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
+    }
+}
