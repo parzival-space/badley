@@ -15,7 +15,7 @@ import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
-import space.parzival.discord.badley.service.steam.model.WebApiResolveVanityUrlResponse;
+import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.util.Map;
@@ -133,7 +133,7 @@ public class SteamService {
      * Resolves a Steam profile URL to a Steam ID.
      * @param profileUrl The profile URL to resolve.
      */
-    public WebApiResolveVanityUrlResponse resolveProfileUrl(String profileUrl) {
+    public WebApiGenericResponse<WebApiResolveVanityUrlResult> resolveProfileUrl(String profileUrl) {
         Matcher matcher = PROFILE_ID_PATTERN.matcher(profileUrl);
         if (!matcher.find())
             throw new IllegalArgumentException("Invalid profile URL: " + profileUrl);
@@ -145,10 +145,18 @@ public class SteamService {
                     .queryParam("vanityurl", matcher.group(1))
                     .build();
 
-            return webApiRestTemplate.getForObject(appDetailsUri.toUriString(), WebApiResolveVanityUrlResponse.class);
+            ParameterizedTypeReference<WebApiGenericResponse<WebApiResolveVanityUrlResult>> responseType =
+                    new ParameterizedTypeReference<>() {};
+
+            return webApiRestTemplate.exchange(
+                    appDetailsUri.toUriString(),
+                    HttpMethod.GET,
+                    null,
+                    responseType
+            ).getBody();
         }
 
-        return WebApiResolveVanityUrlResponse.builder()
+        return WebApiGenericResponse.<WebApiResolveVanityUrlResult>builder()
                 .response(WebApiResolveVanityUrlResult.builder()
                         .steamId(matcher.group(2))
                         .success(1)
