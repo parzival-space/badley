@@ -40,7 +40,7 @@ public class GoogleService {
                 .queryParam("cx", properties.getEngineId())
                 .queryParam("q", query)
                 .queryParamIfPresent("gl", Optional.ofNullable(country != null ? country.toLowerCase() : null))
-                .queryParam("lr", Optional.ofNullable(language != null ? "lang_" + language.toLowerCase() : null))
+                .queryParamIfPresent("lr", Optional.ofNullable(language != null ? "lang_" + language.toLowerCase() : null))
                 .queryParam("num", count)
                 .queryParam("start", offset)
                 .queryParam("safesearch", "off")
