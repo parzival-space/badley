@@ -69,6 +69,17 @@ public class SteamTools implements AiToolsService {
               - Linux: %b
             """;
 
+    private static final String PLAYER_INFO_TEMPLATE = """
+            %s:
+            - ID: %s
+            - Real Name: %s
+            - Country: %s
+            - Profile URL: %s
+            - Avatar URL: %s
+            - Last Logoff: %s
+            - Creation Date: %s
+            """;
+
     @Tool(description = "Search the Steam store.")
     public String searchStore(
             @ToolParam(description = "The search Query") String query,
@@ -214,16 +225,7 @@ public class SteamTools implements AiToolsService {
             }
 
             return String.format(
-                    """
-                    %s:
-                    - ID: %s
-                    - Real Name: %s
-                    - Country: %s
-                    - Profile URL: %s
-                    - Avatar URL: %s
-                    - Last Logoff: %s
-                    - Creation Date: %s
-                    """,
+                    PLAYER_INFO_TEMPLATE,
                     response.getResponse().getPlayers().getFirst().getPersonaName(),
                     response.getResponse().getPlayers().getFirst().getSteamId(),
                     response.getResponse().getPlayers().getFirst().getRealName(),
