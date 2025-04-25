@@ -1,1 +1,2 @@
-CREATE DATABASE "badley";
+CREATE
+DATABASE "badley";

@@ -8,7 +8,8 @@ import space.parzival.discord.badley.service.google.model.query.GoogleQueryResul
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -47,21 +48,21 @@ class GoogleToolsTest {
 
     private GoogleQueryResponse createGoogleQueryResponse() {
         return GoogleQueryResponse.builder()
-                .items(List.of(createGoogleQueryResult()))
-                .build();
+            .items(List.of(createGoogleQueryResult()))
+            .build();
     }
 
     private GoogleQueryResult createGoogleQueryResult() {
         return GoogleQueryResult.builder()
-                .kind("customsearch#result")
-                .title("Example Title")
-                .htmlTitle("Example Title")
-                .link("https://example.com")
-                .displayLink("example.com")
-                .snippet("Example Description")
-                .htmlSnippet("Example Description")
-                .formattedUrl("https://example.com")
-                .htmlFormattedUrl("https://example.com")
-                .build();
+            .kind("customsearch#result")
+            .title("Example Title")
+            .htmlTitle("Example Title")
+            .link("https://example.com")
+            .displayLink("example.com")
+            .snippet("Example Description")
+            .htmlSnippet("Example Description")
+            .formattedUrl("https://example.com")
+            .htmlFormattedUrl("https://example.com")
+            .build();
     }
 }

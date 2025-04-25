@@ -18,15 +18,15 @@ public class DiscordConversationPersistenceServiceImpl implements DiscordConvers
     public UUID getConversationIdByDiscordId(String discordId) {
         Optional<DiscordConversationEntity> entity = repository.findById(discordId);
         return entity
-                .map(DiscordConversationEntity::getConversationId)
-                .orElse(null);
+            .map(DiscordConversationEntity::getConversationId)
+            .orElse(null);
     }
 
     @Override
     public void assignDiscordIdToConversationId(String discordId, UUID conversationId) {
         repository.save(DiscordConversationEntity.builder()
-                .discordId(discordId)
-                .conversationId(conversationId)
-                .build());
+            .discordId(discordId)
+            .conversationId(conversationId)
+            .build());
     }
 }

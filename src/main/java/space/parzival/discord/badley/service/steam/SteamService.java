@@ -20,7 +20,6 @@ import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSumm
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,7 +38,7 @@ public class SteamService {
     private static final String FALLBACK_COUNTRY_CODE = "US";
 
     private static final Pattern PROFILE_ID_PATTERN =
-            Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");
+        Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");
 
     private final RestTemplate storeRestTemplate;
     private final RestTemplate webApiRestTemplate;
@@ -47,14 +46,14 @@ public class SteamService {
 
     public SteamService(RestTemplateBuilder restTemplateBuilder, SteamProperties properties) {
         storeRestTemplate = restTemplateBuilder
-                .rootUri("https://store.steampowered.com/api")
-                .defaultHeader(HttpHeaders.ACCEPT, "application/json")
-                .build();
+            .rootUri("https://store.steampowered.com/api")
+            .defaultHeader(HttpHeaders.ACCEPT, "application/json")
+            .build();
 
         webApiRestTemplate = restTemplateBuilder
-                .rootUri("https://api.steampowered.com")
-                .defaultHeader(HttpHeaders.ACCEPT, "application/json")
-                .build();
+            .rootUri("https://api.steampowered.com")
+            .defaultHeader(HttpHeaders.ACCEPT, "application/json")
+            .build();
 
         this.properties = properties;
     }
@@ -68,11 +67,11 @@ public class SteamService {
      */
     public StoreSearchResponse searchStore(String query, @Nullable String language, @Nullable String countryCode) {
         UriComponents searchUri = UriComponentsBuilder.newInstance()
-                .path("/storesearch")
-                .queryParam("term", query)
-                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-                .build();
+            .path("/storesearch")
+            .queryParam("term", query)
+            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
+            .build();
 
         return storeRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
     }
@@ -80,15 +79,15 @@ public class SteamService {
     /**
      * Fetches the featured categories from the Steam store.
      *
-     * @param language The language to use for the request. If null, "english" will be used.
+     * @param language    The language to use for the request. If null, "english" will be used.
      * @param countryCode The country code to use for the request. If null, "US" will be used.
      */
     public StoreFeaturedResponse getFeaturedCategories(@Nullable String language, @Nullable String countryCode) {
         UriComponents featuredUri = UriComponentsBuilder.newInstance()
-                .path("/featuredcategories")
-                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-                .build();
+            .path("/featuredcategories")
+            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
+            .build();
 
         return storeRestTemplate.getForObject(featuredUri.toUriString(), StoreFeaturedResponse.class);
     }
@@ -96,42 +95,44 @@ public class SteamService {
     /**
      * Retrieves the details of specific apps from the Steam store.
      *
-     * @param appId The list of app IDs to retrieve details for.
-     * @param language The language to use for the request. If null, "english" will be used.
+     * @param appId       The list of app IDs to retrieve details for.
+     * @param language    The language to use for the request. If null, "english" will be used.
      * @param countryCode The country code to use for the request. If null, "US" will be used.
      */
     public StoreAppDetailsResponse getAppDetails(String appId, @Nullable String language, @Nullable String countryCode) {
         UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-                .path("/appdetails")
-                .queryParam("appids", appId)
-                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-                .build();
+            .path("/appdetails")
+            .queryParam("appids", appId)
+            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
+            .build();
 
         ResponseEntity<Map<String, StoreAppDetailsResponse>> response = storeRestTemplate.exchange(
-                appDetailsUri.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {}
+            appDetailsUri.toUriString(),
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<>() {
+            }
         );
 
         if (response.getBody() == null)
             return StoreAppDetailsResponse.builder()
-                    .success(false)
-                    .game(null)
-                    .build();
+                .success(false)
+                .game(null)
+                .build();
 
-        return response.getBody().getOrDefault(
-                appId,
-                StoreAppDetailsResponse.builder()
-                        .success(false)
-                        .game(null)
-                        .build()
+        return response.getBody().getOrDefault( // NOSONAR - checked above
+            appId,
+            StoreAppDetailsResponse.builder()
+                .success(false)
+                .game(null)
+                .build()
         );
     }
 
     /**
      * Resolves a Steam profile URL to a Steam ID.
+     *
      * @param profileUrl The profile URL to resolve.
      */
     public WebApiGenericResponse<WebApiResolveVanityUrlResult> resolveProfileUrl(String profileUrl) {
@@ -141,49 +142,52 @@ public class SteamService {
 
         if (matcher.group(1) != null) {
             UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-                    .path("/ISteamUser/ResolveVanityURL/v1/")
-                    .queryParam("key", properties.getToken())
-                    .queryParam("vanityurl", matcher.group(1))
-                    .build();
+                .path("/ISteamUser/ResolveVanityURL/v1/")
+                .queryParam("key", properties.getToken())
+                .queryParam("vanityurl", matcher.group(1))
+                .build();
 
             ParameterizedTypeReference<WebApiGenericResponse<WebApiResolveVanityUrlResult>> responseType =
-                    new ParameterizedTypeReference<>() {};
+                new ParameterizedTypeReference<>() {
+                };
 
             return webApiRestTemplate.exchange(
-                    appDetailsUri.toUriString(),
-                    HttpMethod.GET,
-                    null,
-                    responseType
-            ).getBody();
-        }
-
-        return WebApiGenericResponse.<WebApiResolveVanityUrlResult>builder()
-                .response(WebApiResolveVanityUrlResult.builder()
-                        .steamId(matcher.group(2))
-                        .success(1)
-                        .build())
-                .build();
-    }
-
-    /**
-     * Retrieves the player summary for a given Steam ID.
-     * @param userId The Steam ID to retrieve the summary for.
-     */
-    public WebApiGenericResponse<WebApiPlayerSummariesResult> getPlayerSummary(String userId) {
-        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-                .path("/ISteamUser/GetPlayerSummaries/v2/")
-                .queryParam("key", properties.getToken())
-                .queryParam("steamids", userId)
-                .build();
-
-        ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerSummariesResult>> responseType =
-                new ParameterizedTypeReference<>() {};
-
-        return webApiRestTemplate.exchange(
                 appDetailsUri.toUriString(),
                 HttpMethod.GET,
                 null,
                 responseType
+            ).getBody();
+        }
+
+        return WebApiGenericResponse.<WebApiResolveVanityUrlResult>builder()
+            .response(WebApiResolveVanityUrlResult.builder()
+                .steamId(matcher.group(2))
+                .success(1)
+                .build())
+            .build();
+    }
+
+    /**
+     * Retrieves the player summary for a given Steam ID.
+     *
+     * @param userId The Steam ID to retrieve the summary for.
+     */
+    public WebApiGenericResponse<WebApiPlayerSummariesResult> getPlayerSummary(String userId) {
+        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
+            .path("/ISteamUser/GetPlayerSummaries/v2/")
+            .queryParam("key", properties.getToken())
+            .queryParam("steamids", userId)
+            .build();
+
+        ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerSummariesResult>> responseType =
+            new ParameterizedTypeReference<>() {
+            };
+
+        return webApiRestTemplate.exchange(
+            appDetailsUri.toUriString(),
+            HttpMethod.GET,
+            null,
+            responseType
         ).getBody();
     }
 }

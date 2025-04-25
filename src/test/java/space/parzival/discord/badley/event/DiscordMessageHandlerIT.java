@@ -24,7 +24,11 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class DiscordMessageHandlerIT {
@@ -50,7 +54,7 @@ class DiscordMessageHandlerIT {
     private DiscordMessageHandler handler;
 
     @Test
-    public void onMessageReceived_respondsWith_validResponse() {
+    void onMessageReceived_respondsWith_validResponse() {
         final String message = "Hello, world!";
 
         MessageReceivedEvent mockEvent = mock(MessageReceivedEvent.class);
@@ -71,7 +75,7 @@ class DiscordMessageHandlerIT {
     }
 
     @Test
-    public void onMessageReceived_respondsWith_errorResponse() {
+    void onMessageReceived_respondsWith_errorResponse() {
         final String errorResponse = "Nope! Something hasn't worked here.";
         final String aiResponse = null;
 

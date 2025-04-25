@@ -20,7 +20,7 @@ databaseChangeLog:
                   name: "type"
                   type: varchar(10)
                   constraints:
-                    nullable:
+                    nullable: false
               - column:
                   name: "timestamp"
                   type: timestamp

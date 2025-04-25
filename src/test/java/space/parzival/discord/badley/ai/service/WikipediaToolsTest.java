@@ -21,7 +21,7 @@ class WikipediaToolsTest {
     void queryWikipedia_return_validData() {
         WikipediaService wikipediaService = mock(WikipediaService.class);
         when(wikipediaService.queryForPages("test"))
-                .thenReturn(createWikiQueryPagesResponse(1234, "Test extract"));
+            .thenReturn(createWikiQueryPagesResponse(1234, "Test extract"));
 
         WikipediaTools wikipediaTools = new WikipediaTools(wikipediaService);
         String result = wikipediaTools.queryWikipedia("test");
@@ -36,7 +36,7 @@ class WikipediaToolsTest {
     void queryWikipedia_return_notFound() {
         WikipediaService wikipediaService = mock(WikipediaService.class);
         when(wikipediaService.queryForPages("test"))
-                .thenReturn(createWikiQueryPagesResponse(-1, "Test extract"));
+            .thenReturn(createWikiQueryPagesResponse(-1, "Test extract"));
 
         WikipediaTools wikipediaTools = new WikipediaTools(wikipediaService);
         String result = wikipediaTools.queryWikipedia("test");
@@ -49,9 +49,9 @@ class WikipediaToolsTest {
     void queryWikipedia_return_parsedPageInformation() {
         WikipediaService wikipediaService = mock(WikipediaService.class);
         when(wikipediaService.queryForPages("test"))
-                .thenReturn(createWikiQueryPagesResponse(1234, ""));
+            .thenReturn(createWikiQueryPagesResponse(1234, ""));
         when(wikipediaService.parsePage("Test Title"))
-                .thenReturn(createWikiParsePageResponse());
+            .thenReturn(createWikiParsePageResponse());
 
         WikipediaTools wikipediaTools = new WikipediaTools(wikipediaService);
         String result = wikipediaTools.queryWikipedia("test");
@@ -66,7 +66,7 @@ class WikipediaToolsTest {
     void queryWikipedia_return_emptyParsedPageInformation() {
         WikipediaService wikipediaService = mock(WikipediaService.class);
         when(wikipediaService.queryForPages("test"))
-                .thenReturn(createWikiQueryPagesResponse(1234, ""));
+            .thenReturn(createWikiQueryPagesResponse(1234, ""));
 
         WikipediaTools wikipediaTools = new WikipediaTools(wikipediaService);
         String result = wikipediaTools.queryWikipedia("test");
@@ -79,7 +79,7 @@ class WikipediaToolsTest {
     void queryWikipedia_return_error() {
         WikipediaService wikipediaService = mock(WikipediaService.class);
         when(wikipediaService.queryForPages("test"))
-                .thenThrow(new RuntimeException());
+            .thenThrow(new RuntimeException());
 
         WikipediaTools wikipediaTools = new WikipediaTools(wikipediaService);
         String result = wikipediaTools.queryWikipedia("test");
@@ -92,7 +92,7 @@ class WikipediaToolsTest {
     void randomWikipedia_return_validData() {
         WikipediaService wikipediaService = mock(WikipediaService.class);
         when(wikipediaService.getRandomPage())
-                .thenReturn(createWikiQueryPagesResponse(1234, "Test extract"));
+            .thenReturn(createWikiQueryPagesResponse(1234, "Test extract"));
 
         WikipediaTools wikipediaTools = new WikipediaTools(wikipediaService);
         String result = wikipediaTools.randomWikipedia();
@@ -117,37 +117,37 @@ class WikipediaToolsTest {
 
     private WikiQueryPagesResponse createWikiQueryPagesResponse(int pageId, String extract) {
         return WikiQueryPagesResponse.builder()
-                .pages(Map.of(String.valueOf(pageId), createWikiQueryPage(pageId, extract)))
-                .build();
+            .pages(Map.of(String.valueOf(pageId), createWikiQueryPage(pageId, extract)))
+            .build();
     }
 
     private WikiQueryPage createWikiQueryPage(int pageId, String extract) {
         return WikiQueryPage.builder()
-                .pageId(pageId)
-                .namespace(1)
-                .title("Test Title")
-                .extract(extract)
-                .contentModel("Test content model")
-                .pageLanguage("en")
-                .pageLanguageHtmlCode("en")
-                .pageLanguageDirection("ltr")
-                .lastUpdated(OffsetDateTime.now())
-                .lastRevisionId(123456)
-                .length(100)
-                .build();
+            .pageId(pageId)
+            .namespace(1)
+            .title("Test Title")
+            .extract(extract)
+            .contentModel("Test content model")
+            .pageLanguage("en")
+            .pageLanguageHtmlCode("en")
+            .pageLanguageDirection("ltr")
+            .lastUpdated(OffsetDateTime.now())
+            .lastRevisionId(123456)
+            .length(100)
+            .build();
     }
 
     private WikiParsePageResponse createWikiParsePageResponse() {
         return WikiParsePageResponse.builder()
-                .parseResult(createWikiParsePage())
-                .build();
+            .parseResult(createWikiParsePage())
+            .build();
     }
 
     private WikiParsePage createWikiParsePage() {
         return WikiParsePage.builder()
-                .title("Test Title")
-                .pageId(1234)
-                .parsedText("Parsed text")
-                .build();
+            .title("Test Title")
+            .pageId(1234)
+            .parsedText("Parsed text")
+            .build();
     }
 }
