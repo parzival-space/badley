@@ -23,7 +23,7 @@ class BraveToolsTest {
     }
 
     @Test
-    void search_Brave_returns_validData() {
+    void searchBrave_returns_validData() {
         when(searchService.query(anyString())).thenReturn(createBraveQueryResponse());
 
         BraveTools braveTools = new BraveTools(searchService);
@@ -38,7 +38,7 @@ class BraveToolsTest {
     }
 
     @Test
-    void search_Brave_returns_errorMessage() {
+    void searchBrave_returns_errorMessage() {
         when(searchService.query(anyString())).thenThrow(new RuntimeException("Test exception"));
 
         BraveTools braveTools = new BraveTools(searchService);
