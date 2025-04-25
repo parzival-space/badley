@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @With
-@JsonDeserialize(builder = BraveQueryWebResult.BraveQueryWebResultBuilder.class)
+@JsonDeserialize(builder = BraveQueryWebResultProfile.BraveQueryWebResultProfileBuilder.class)
 public class BraveQueryWebResultProfile {
     @JsonProperty("name")
     String name;

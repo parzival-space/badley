@@ -1,6 +1,11 @@
 package space.parzival.discord.badley.service.brave;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
@@ -8,15 +13,17 @@ import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.configuration.properties.BraveProperties;
 import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 
+import java.util.List;
+
 @Service
+@ConditionalOnProperty(value = "badley.ai.tools.brave.token")
 public class BraveService {
     private final RestTemplate apiRestTemplate;
 
     public BraveService(RestTemplateBuilder restTemplateBuilder, BraveProperties braveProperties) {
         this.apiRestTemplate = restTemplateBuilder
                 .rootUri("https://api.search.brave.com")
-                .defaultHeader("X-Subscription-Token", braveProperties.getToken())
-                .defaultHeader("Accept", "application/json")
+                .defaultHeader("x-subscription-token", braveProperties.getToken())
                 .build();
     }
 
@@ -40,11 +47,19 @@ public class BraveService {
                 .queryParam("offset", offset)
                 //.queryParam("freshness", "pw") // pd, pw, pm
                 .queryParam("summary", false)
-                .queryParam("safesearch", false)
+                .queryParam("safesearch", "off")
                 .queryParam("result_filter", "web")
                 .build();
 
-        return apiRestTemplate.getForObject(apiUri.toUriString(), BraveQueryResponse.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        return apiRestTemplate.exchange(
+                apiUri.toUriString(),
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                BraveQueryResponse.class
+        ).getBody();
     }
 
     /**
