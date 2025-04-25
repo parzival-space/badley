@@ -1,0 +1,579 @@
+{
+  "kind": "customsearch#search",
+  "url": {
+    "type": "application/json",
+    "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+  },
+  "queries": {
+    "request": [
+      {
+        "title": "Google Custom Search - parzival-space",
+        "totalResults": "123000",
+        "searchTerms": "parzival-space",
+        "count": 10,
+        "startIndex": 1,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "a65b34333192b44b4"
+      }
+    ],
+    "nextPage": [
+      {
+        "title": "Google Custom Search - parzival-space",
+        "totalResults": "123000",
+        "searchTerms": "parzival-space",
+        "count": 10,
+        "startIndex": 11,
+        "inputEncoding": "utf8",
+        "outputEncoding": "utf8",
+        "safe": "off",
+        "cx": "a65b34333192b44b4"
+      }
+    ]
+  },
+  "context": {
+    "title": "test"
+  },
+  "searchInformation": {
+    "searchTime": 0.279004,
+    "formattedSearchTime": "0.28",
+    "totalResults": "123000",
+    "formattedTotalResults": "123,000"
+  },
+  "items": [
+    {
+      "kind": "customsearch#result",
+      "title": "parzival-space (Parzival) · GitHub",
+      "htmlTitle": "<b>parzival</b>-<b>space</b> (Parzival) · GitHub",
+      "link": "https://github.com/parzival-space",
+      "displayLink": "github.com",
+      "snippet": "A tool to automate the assignment of Audio devices to applications in Windows based on user defined rules. C#. GoXLR-on-Linux/goxlr-ui GoXLR ...",
+      "htmlSnippet": "A tool to automate the assignment of Audio devices to applications in Windows based on user defined rules. C#. GoXLR-on-Linux/goxlr-ui GoXLR&nbsp;...",
+      "formattedUrl": "https://github.com/parzival-space",
+      "htmlFormattedUrl": "https://github.com/<b>parzival-space</b>",
+      "pagemap": {
+        "hcard": [
+          {
+            "fn": "Parzival",
+            "nickname": "Parzival",
+            "photo": "https://avatars.githubusercontent.com/u/38286424?v=4",
+            "url": "https://parzival.space/"
+          }
+        ],
+        "cse_thumbnail": [
+          {
+            "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnJXc4zkZhps1UYygedRrZfoqgwTaK4h14RiaBirel-DYdLvAKERaQtWWM&s",
+            "width": "225",
+            "height": "225"
+          }
+        ],
+        "xfn": [
+          {}
+        ],
+        "person": [
+          {
+            "org": "@HDIAG"
+          },
+          {
+            "localtime": "05:04 - 9h ahead",
+            "image": "https://avatars.githubusercontent.com/u/38286424?v=4",
+            "worksfor": "@HDIAG",
+            "name": "Parzival",
+            "follows": "https://github.com/MeldLaboratories",
+            "additionalname": "parzival-space",
+            "homelocation": "Germany",
+            "url": "https://parzival.space/"
+          }
+        ],
+        "metatags": [
+          {
+            "octolytics-url": "https://collector.github.com/github/collect",
+            "apple-itunes-app": "app-id=1477376905, app-argument=https://github.com/parzival-space",
+            "og:image": "https://avatars.githubusercontent.com/u/38286424?v=4?s=400",
+            "twitter:card": "summary",
+            "theme-color": "#1e2327",
+            "og:site_name": "GitHub",
+            "turbo-body-classes": "logged-out env-production page-responsive page-profile",
+            "release": "a8eba2e3466e1874857425d1e44c88227991c0d1",
+            "html-safe-nonce": "bc9ace57b136307b25544ba1640f4eafcd06ebb0ed11e82c04d7c0c60548da12",
+            "expected-hostname": "github.com",
+            "og:description": "Software developer from Germany. parzival-space has 72 repositories available. Follow their code on GitHub.",
+            "twitter:image": "https://avatars.githubusercontent.com/u/38286424?v=4?s=400",
+            "browser-errors-url": "https://api.github.com/_private/browser/errors",
+            "octolytics-dimension-user_login": "parzival-space",
+            "hostname": "github.com",
+            "twitter:site": "@github",
+            "browser-stats-url": "https://api.github.com/_private/browser/stats",
+            "route-pattern": "/:user_id(.:format)",
+            "visitor-payload": "eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiI4QjA5OjNBMUI2QjozNzEzNUM6NDlCMUIxOjY4MDVCNUI4IiwidmlzaXRvcl9pZCI6IjYyODM4ODg1OTE0OTIxOTk4NjUiLCJyZWdpb25fZWRnZSI6ImlhZCIsInJlZ2lvbl9yZW5kZXIiOiJpYWQifQ==",
+            "github-keyboard-shortcuts": "copilot",
+            "twitter:title": "parzival-space - Overview",
+            "og:image:alt": "Software developer from Germany. parzival-space has 72 repositories available. Follow their code on GitHub.",
+            "og:type": "profile",
+            "profile:username": "parzival-space",
+            "og:title": "parzival-space - Overview",
+            "visitor-hmac": "2339be063f7b9abc89bee75dbedb27b673ebf66803435c88d4935f6f9ef3de44",
+            "turbo-cache-control": "no-preview",
+            "route-action": "show",
+            "request-id": "8B09:3A1B6B:37135C:49B1B1:6805B5B8",
+            "analytics-location": "/<user-name>",
+            "color-scheme": "light dark",
+            "octolytics-dimension-user_id": "38286424",
+            "fb:app_id": "1401488693436528",
+            "viewport": "width=device-width",
+            "twitter:description": "Software developer from Germany. parzival-space has 72 repositories available. Follow their code on GitHub.",
+            "route-controller": "profiles",
+            "current-catalog-service-hash": "4a1c50a83cf6cc4b55b6b9c53e553e3f847c876b87fb333f71f5d05db8f1a7db",
+            "og:url": "https://github.com/parzival-space"
+          }
+        ],
+        "cse_image": [
+          {
+            "src": "https://avatars.githubusercontent.com/u/38286424?v=4?s=400"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Parzival (u/parzival-space) - Reddit",
+      "htmlTitle": "Parzival (u/<b>parzival</b>-<b>space</b>) - Reddit",
+      "link": "https://www.reddit.com/user/parzival-space/",
+      "displayLink": "www.reddit.com",
+      "snippet": "u/parzival-space: Holy shit, what am I doing here?",
+      "htmlSnippet": "u/<b>parzival</b>-<b>space</b>: Holy shit, what am I doing here?",
+      "formattedUrl": "https://www.reddit.com/user/parzival-space/",
+      "htmlFormattedUrl": "https://www.reddit.com/user/<b>parzival-space</b>/",
+      "pagemap": {
+        "metatags": [
+          {
+            "og:image": "https://preview.redd.it/snoovatar/avatars/5ed0fec7-1564-438a-8361-5dc39d731b69-headshot.png?width=256&height=256&auto=webp&s=9c2921681921ba3057861bb404d5f391af1f3142",
+            "theme-color": "#000000",
+            "og:image:width": "256",
+            "og:type": "profile",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "Parzival (u/parzival-space) - Reddit",
+            "og:site_name": "Reddit",
+            "og:title": "Parzival (u/parzival-space) - Reddit",
+            "og:image:height": "256",
+            "bingbot": "noarchive",
+            "msapplication-navbutton-color": "#000000",
+            "twitter:image": "https://preview.redd.it/snoovatar/avatars/5ed0fec7-1564-438a-8361-5dc39d731b69-headshot.png?width=256&height=256&auto=webp&s=9c2921681921ba3057861bb404d5f391af1f3142",
+            "apple-mobile-web-app-status-bar-style": "black",
+            "twitter:site": "@reddit",
+            "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+            "apple-mobile-web-app-capable": "yes",
+            "og:ttl": "600",
+            "og:url": "https://www.reddit.com/user/parzival-space/"
+          }
+        ],
+        "cse_image": [
+          {
+            "src": "https://preview.redd.it/snoovatar/avatars/5ed0fec7-1564-438a-8361-5dc39d731b69-headshot.png?width=256&height=256&auto=webp&s=9c2921681921ba3057861bb404d5f391af1f3142"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "parzival-space/obs-goxlr-fader-sync-plugin: OBS plugin for ... - GitHub",
+      "htmlTitle": "parzival-space/obs-goxlr-fader-sync-plugin: OBS plugin for ... - GitHub",
+      "link": "https://github.com/parzival-space/obs-goxlr-fader-sync-plugin",
+      "displayLink": "github.com",
+      "snippet": "GoXLR Fader Sync Plugin. An OBS Studio Plugin that enables synchronizing the volume slider of an audio source with an audio channel from your GoXLR. This allows ...",
+      "htmlSnippet": "GoXLR Fader Sync Plugin. An OBS Studio Plugin that enables synchronizing the volume slider of an audio source with an audio channel from your GoXLR. This allows&nbsp;...",
+      "formattedUrl": "https://github.com/parzival-space/obs-goxlr-fader-sync-plugin",
+      "htmlFormattedUrl": "https://github.com/<b>parzival-space</b>/obs-goxlr-fader-sync-plugin",
+      "pagemap": {
+        "cse_thumbnail": [
+          {
+            "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7y_Ri5EyJ11Yhu3hsumSvrPez4thehkMT6qMADAe5lHDLTlW1Zr1MFyI&s",
+            "width": "318",
+            "height": "159"
+          }
+        ],
+        "softwaresourcecode": [
+          {
+            "author": "parzival-space",
+            "name": "obs-goxlr-fader-sync-plugin",
+            "text": "GoXLR Fader Sync Plugin An OBS Studio Plugin that enables synchronizing the volume slider of an audio source with an audio channel from your GoXLR. This allows you to manage the volume of audio..."
+          }
+        ],
+        "metatags": [
+          {
+            "octolytics-url": "https://collector.github.com/github/collect",
+            "apple-itunes-app": "app-id=1477376905, app-argument=https://github.com/parzival-space/obs-goxlr-fader-sync-plugin",
+            "og:image": "https://opengraph.githubassets.com/11fad90af6a25d9ba1ef36d9b0297f88de5d62507a3405bc86d196f8d0f3ada7/parzival-space/obs-goxlr-fader-sync-plugin",
+            "twitter:card": "summary_large_image",
+            "og:image:width": "1200",
+            "theme-color": "#1e2327",
+            "og:site_name": "GitHub",
+            "hovercard-subject-tag": "repository:786521375",
+            "turbo-body-classes": "logged-out env-production page-responsive",
+            "release": "d1a412ad8a0560d6c32d57305f829cd117a47eee",
+            "html-safe-nonce": "b59388ace5425f7dd3e926c27f5272b3bc1e01425411f5beae8da83d231f9ebd",
+            "expected-hostname": "github.com",
+            "og:description": "OBS plugin for synchronizing the volume of audio sources with GoXLR faders. - parzival-space/obs-goxlr-fader-sync-plugin",
+            "twitter:image": "https://opengraph.githubassets.com/11fad90af6a25d9ba1ef36d9b0297f88de5d62507a3405bc86d196f8d0f3ada7/parzival-space/obs-goxlr-fader-sync-plugin",
+            "browser-errors-url": "https://api.github.com/_private/browser/errors",
+            "octolytics-dimension-user_login": "parzival-space",
+            "hostname": "github.com",
+            "twitter:site": "@github",
+            "browser-stats-url": "https://api.github.com/_private/browser/stats",
+            "route-pattern": "/:user_id/:repository",
+            "visitor-payload": "eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJFNUY3OjFEN0E1RDpBNDQyMzQ6RjM2MDg3OjY4MEEyNTZEIiwidmlzaXRvcl9pZCI6IjM4NDM2NTA4NzE1NjE0MzAzODkiLCJyZWdpb25fZWRnZSI6ImlhZCIsInJlZ2lvbl9yZW5kZXIiOiJpYWQifQ==",
+            "github-keyboard-shortcuts": "repository,copilot",
+            "octolytics-dimension-repository_id": "786521375",
+            "octolytics-dimension-repository_network_root_nwo": "parzival-space/obs-goxlr-fader-sync-plugin",
+            "twitter:title": "GitHub - parzival-space/obs-goxlr-fader-sync-plugin: OBS plugin for synchronizing the volume of audio sources with GoXLR faders.",
+            "og:image:alt": "OBS plugin for synchronizing the volume of audio sources with GoXLR faders. - parzival-space/obs-goxlr-fader-sync-plugin",
+            "og:type": "object",
+            "og:title": "GitHub - parzival-space/obs-goxlr-fader-sync-plugin: OBS plugin for synchronizing the volume of audio sources with GoXLR faders.",
+            "visitor-hmac": "812221fbf6db5691a107d86c6a344ea45d2b8ebf314dd786a5bee23821c75141",
+            "og:image:height": "600",
+            "turbo-cache-control": "no-preview",
+            "route-action": "disambiguate",
+            "request-id": "E5F7:1D7A5D:A44234:F36087:680A256D",
+            "analytics-location": "/<user-name>/<repo-name>",
+            "color-scheme": "light dark",
+            "octolytics-dimension-repository_is_fork": "false",
+            "go-import": "github.com/parzival-space/obs-goxlr-fader-sync-plugin git https://github.com/parzival-space/obs-goxlr-fader-sync-plugin.git",
+            "octolytics-dimension-user_id": "38286424",
+            "octolytics-dimension-repository_public": "true",
+            "fb:app_id": "1401488693436528",
+            "octolytics-dimension-repository_network_root_id": "786521375",
+            "octolytics-dimension-repository_nwo": "parzival-space/obs-goxlr-fader-sync-plugin",
+            "viewport": "width=device-width",
+            "twitter:description": "OBS plugin for synchronizing the volume of audio sources with GoXLR faders. - parzival-space/obs-goxlr-fader-sync-plugin",
+            "route-controller": "files",
+            "current-catalog-service-hash": "f3abb0cc802f3d7b95fc8762b94bdcb13bf39634c40c357301c4aa1d67a256fb",
+            "og:url": "https://github.com/parzival-space/obs-goxlr-fader-sync-plugin"
+          }
+        ],
+        "cse_image": [
+          {
+            "src": "https://opengraph.githubassets.com/11fad90af6a25d9ba1ef36d9b0297f88de5d62507a3405bc86d196f8d0f3ada7/parzival-space/obs-goxlr-fader-sync-plugin"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "What can't I do win WSL2? : r/wsl2",
+      "htmlTitle": "What can&#39;t I do win WSL2? : r/wsl2",
+      "link": "https://www.reddit.com/r/wsl2/comments/1g7mvim/what_cant_i_do_win_wsl2/",
+      "displayLink": "www.reddit.com",
+      "snippet": "Oct 20, 2024 ... parzival-space. • 6mo ago. In my experience (as a Developer) everything works just as fine as you would expect on a plain Ubuntu machine ...",
+      "htmlSnippet": "Oct 20, 2024 <b>...</b> <b>parzival</b>-<b>space</b>. • 6mo ago. In my experience (as a Developer) everything works just as fine as you would expect on a plain Ubuntu machine&nbsp;...",
+      "formattedUrl": "https://www.reddit.com/r/wsl2/comments/.../what_cant_i_do_win_wsl2/",
+      "htmlFormattedUrl": "https://www.reddit.com/r/wsl2/comments/.../what_cant_i_do_win_wsl2/",
+      "pagemap": {
+        "metatags": [
+          {
+            "og:image": "https://share.redd.it/preview/post/1g7mvim",
+            "theme-color": "#000000",
+            "og:image:width": "1200",
+            "og:type": "website",
+            "og:image:alt": "An image containing a preview of the post",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "r/wsl2 on Reddit: What can't I do win WSL2?",
+            "og:site_name": "Reddit",
+            "og:title": "r/wsl2 on Reddit: What can't I do win WSL2?",
+            "og:image:height": "630",
+            "msapplication-navbutton-color": "#000000",
+            "og:description": "Posted by u/monty_t_hall - 8 votes and 15 comments",
+            "twitter:image": "https://share.redd.it/preview/post/1g7mvim",
+            "apple-mobile-web-app-status-bar-style": "black",
+            "twitter:site": "@reddit",
+            "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+            "apple-mobile-web-app-capable": "yes",
+            "og:ttl": "600",
+            "og:url": "https://www.reddit.com/r/wsl2/comments/1g7mvim/what_cant_i_do_win_wsl2/"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "parzival-space/discord-rpc-proxy: This is a proof-of-concept ... - GitHub",
+      "htmlTitle": "parzival-space/discord-rpc-proxy: This is a proof-of-concept ... - GitHub",
+      "link": "https://github.com/parzival-space/discord-rpc-proxy",
+      "displayLink": "github.com",
+      "snippet": "About. This is a proof-of-concept Discord RPC proxy that enables streaming the RPC data of games, tricking Discord into thinking that a game is locally running.",
+      "htmlSnippet": "About. This is a proof-of-concept Discord RPC proxy that enables streaming the RPC data of games, tricking Discord into thinking that a game is locally running.",
+      "formattedUrl": "https://github.com/parzival-space/discord-rpc-proxy",
+      "htmlFormattedUrl": "https://github.com/<b>parzival-space</b>/discord-rpc-proxy",
+      "pagemap": {
+        "softwaresourcecode": [
+          {
+            "author": "parzival-space",
+            "name": "discord-rpc-proxy"
+          }
+        ],
+        "metatags": [
+          {
+            "octolytics-url": "https://collector.github.com/github/collect",
+            "apple-itunes-app": "app-id=1477376905, app-argument=https://github.com/parzival-space/discord-rpc-proxy",
+            "og:image": "https://opengraph.githubassets.com/ffb1150ab78f43831307f0b3c42b2e8557cd579f2593ebd7bc01dbb134958227/parzival-space/discord-rpc-proxy",
+            "twitter:card": "summary_large_image",
+            "og:image:width": "1200",
+            "theme-color": "#1e2327",
+            "og:site_name": "GitHub",
+            "hovercard-subject-tag": "repository:605583377",
+            "turbo-body-classes": "logged-out env-production page-responsive",
+            "release": "2b77a672a487cb341ac4ede9b1923f0e35a44005",
+            "html-safe-nonce": "8edd686b653a59e3dd698960afe3dd360b1328fdf8531555b0bd12fd0d19cf52",
+            "expected-hostname": "github.com",
+            "og:description": "This is a proof-of-concept Discord RPC proxy that enables streaming the RPC data of games, tricking Discord into thinking that a game is locally running. - parzival-space/discord-rpc-proxy",
+            "twitter:image": "https://opengraph.githubassets.com/ffb1150ab78f43831307f0b3c42b2e8557cd579f2593ebd7bc01dbb134958227/parzival-space/discord-rpc-proxy",
+            "browser-errors-url": "https://api.github.com/_private/browser/errors",
+            "octolytics-dimension-user_login": "parzival-space",
+            "hostname": "github.com",
+            "twitter:site": "@github",
+            "browser-stats-url": "https://api.github.com/_private/browser/stats",
+            "route-pattern": "/:user_id/:repository",
+            "visitor-payload": "eyJyZWZlcnJlciI6IiIsInJlcXVlc3RfaWQiOiJDQzU3OjI3MjJCODozMkQ5Q0RDOjQ3RkVBNDU6NjdFRDZDMjEiLCJ2aXNpdG9yX2lkIjoiNzMwMTM2ODg0Nzg3ODk0MTczMiIsInJlZ2lvbl9lZGdlIjoiaWFkIiwicmVnaW9uX3JlbmRlciI6ImlhZCJ9",
+            "github-keyboard-shortcuts": "repository,copilot",
+            "octolytics-dimension-repository_id": "605583377",
+            "octolytics-dimension-repository_network_root_nwo": "parzival-space/discord-rpc-proxy",
+            "twitter:title": "GitHub - parzival-space/discord-rpc-proxy: This is a proof-of-concept Discord RPC proxy that enables streaming the RPC data of games, tricking Discord into thinking that a game is locally running.",
+            "og:image:alt": "This is a proof-of-concept Discord RPC proxy that enables streaming the RPC data of games, tricking Discord into thinking that a game is locally running. - parzival-space/discord-rpc-proxy",
+            "og:type": "object",
+            "og:title": "GitHub - parzival-space/discord-rpc-proxy: This is a proof-of-concept Discord RPC proxy that enables streaming the RPC data of games, tricking Discord into thinking that a game is locally running.",
+            "visitor-hmac": "e938d123570d91fa2cbd7eaf0d1c1910b83501bc67e5d889eac90da36f2af4ee",
+            "og:image:height": "600",
+            "turbo-cache-control": "no-preview",
+            "route-action": "disambiguate",
+            "request-id": "CC57:2722B8:32D9CDC:47FEA45:67ED6C21",
+            "analytics-location": "/<user-name>/<repo-name>",
+            "color-scheme": "light dark",
+            "octolytics-dimension-repository_is_fork": "false",
+            "go-import": "github.com/parzival-space/discord-rpc-proxy git https://github.com/parzival-space/discord-rpc-proxy.git",
+            "octolytics-dimension-user_id": "38286424",
+            "octolytics-dimension-repository_public": "true",
+            "fb:app_id": "1401488693436528",
+            "octolytics-dimension-repository_network_root_id": "605583377",
+            "octolytics-dimension-repository_nwo": "parzival-space/discord-rpc-proxy",
+            "viewport": "width=device-width",
+            "twitter:description": "This is a proof-of-concept Discord RPC proxy that enables streaming the RPC data of games, tricking Discord into thinking that a game is locally running. - parzival-space/discord-rpc-proxy",
+            "route-controller": "files",
+            "current-catalog-service-hash": "f3abb0cc802f3d7b95fc8762b94bdcb13bf39634c40c357301c4aa1d67a256fb",
+            "og:url": "https://github.com/parzival-space/discord-rpc-proxy"
+          }
+        ],
+        "cse_image": [
+          {
+            "src": "https://opengraph.githubassets.com/ffb1150ab78f43831307f0b3c42b2e8557cd579f2593ebd7bc01dbb134958227/parzival-space/discord-rpc-proxy"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Trying to build a WiFi 7 softAP : r/homelab",
+      "htmlTitle": "Trying to build a WiFi 7 softAP : r/homelab",
+      "link": "https://www.reddit.com/r/homelab/comments/1hi2ztg/trying_to_build_a_wifi_7_softap/",
+      "displayLink": "www.reddit.com",
+      "snippet": "Dec 19, 2024 ... Reply reply. Award Share. parzival-space. OP. • 4mo ago. I have a be200 card here and it only allows one 2.4ghz AP as a valid configuration :/.",
+      "htmlSnippet": "Dec 19, 2024 <b>...</b> Reply reply. Award Share. <b>parzival</b>-<b>space</b>. OP. • 4mo ago. I have a be200 card here and it only allows one 2.4ghz AP as a valid configuration :/.",
+      "formattedUrl": "https://www.reddit.com/r/homelab/.../trying_to_build_a_wifi_7_softap/",
+      "htmlFormattedUrl": "https://www.reddit.com/r/homelab/.../trying_to_build_a_wifi_7_softap/",
+      "pagemap": {
+        "metatags": [
+          {
+            "og:image": "https://share.redd.it/preview/post/1hi2ztg",
+            "theme-color": "#000000",
+            "og:image:width": "1200",
+            "og:type": "website",
+            "og:image:alt": "An image containing a preview of the post",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "r/homelab on Reddit: Trying to build a WiFi 7 softAP",
+            "og:site_name": "Reddit",
+            "og:title": "r/homelab on Reddit: Trying to build a WiFi 7 softAP",
+            "og:image:height": "630",
+            "msapplication-navbutton-color": "#000000",
+            "og:description": "Posted by u/parzival-space - 2 votes and 11 comments",
+            "twitter:image": "https://share.redd.it/preview/post/1hi2ztg",
+            "apple-mobile-web-app-status-bar-style": "black",
+            "twitter:site": "@reddit",
+            "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+            "apple-mobile-web-app-capable": "yes",
+            "og:ttl": "600",
+            "og:url": "https://www.reddit.com/r/homelab/comments/1hi2ztg/trying_to_build_a_wifi_7_softap/"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Parzival | Looney Tunes Fanon Wiki | Fandom",
+      "htmlTitle": "<b>Parzival</b> | Looney Tunes Fanon Wiki | Fandom",
+      "link": "https://looneytunesfanon.fandom.com/wiki/Parzival",
+      "displayLink": "looneytunesfanon.fandom.com",
+      "snippet": "... He is portrayed by Tye Sheridan. Ready Player One Space Jam: A New Legacy Batman Bugs Bunny Lola Bunny Michael Jordan LeBron James Alfred Pennyworth.",
+      "htmlSnippet": "... He is portrayed by Tye Sheridan. Ready Player One <b>Space</b> Jam: A New Legacy Batman Bugs Bunny Lola Bunny Michael Jordan LeBron James Alfred Pennyworth.",
+      "formattedUrl": "https://looneytunesfanon.fandom.com/wiki/Parzival",
+      "htmlFormattedUrl": "https://looneytunesfanon.fandom.com/wiki/Parzival",
+      "pagemap": {
+        "metatags": [
+          {
+            "og:image": "https://static.wikia.nocookie.net/looneytunesfanon/images/1/16/Parzival.png/revision/latest?cb=20211115144759",
+            "twitter:card": "summary",
+            "twitter:title": "Parzival | Looney Tunes Fanon Wiki | Fandom",
+            "theme-color": "#eaecf0",
+            "og:type": "article",
+            "og:site_name": "Looney Tunes Fanon Wiki",
+            "twitter:url": "https://looneytunesfanon.fandom.com/wiki/Parzival",
+            "og:title": "Parzival",
+            "og:description": "Wade Owen Watts, under the virtual name Parzival, is the main protagonist of Erenest Cline's novel and Steven Spielberg's movie Ready Player One. He is portrayed by Tye Sheridan. Ready Player One Space Jam: A New Legacy Batman Bugs Bunny Lola Bunny Michael Jordan LeBron James Alfred Pennyworth",
+            "fb:app_id": "112328095453510",
+            "twitter:site": "@getfandom",
+            "viewport": "width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0",
+            "twitter:description": "Wade Owen Watts, under the virtual name Parzival, is the main protagonist of Erenest Cline's novel and Steven Spielberg's movie Ready Player One. He is portrayed by Tye Sheridan. Ready Player One...",
+            "og:url": "https://looneytunesfanon.fandom.com/wiki/Parzival",
+            "format-detection": "telephone=no"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Can you use Java SDK from wsl2 on windows? : r/wsl2",
+      "htmlTitle": "Can you use Java SDK from wsl2 on windows? : r/wsl2",
+      "link": "https://www.reddit.com/r/wsl2/comments/1ifulq1/can_you_use_java_sdk_from_wsl2_on_windows/",
+      "displayLink": "www.reddit.com",
+      "snippet": "Feb 2, 2025 ... parzival-space. • 2mo ago. Theoretically it's possible if you run the Java command prefixed with 'wsl -- '. so for javac it should be 'wsl ...",
+      "htmlSnippet": "Feb 2, 2025 <b>...</b> <b>parzival</b>-<b>space</b>. • 2mo ago. Theoretically it&#39;s possible if you run the Java command prefixed with &#39;wsl -- &#39;. so for javac it should be &#39;wsl&nbsp;...",
+      "formattedUrl": "https://www.reddit.com/.../can_you_use_java_sdk_from_wsl2_on_window...",
+      "htmlFormattedUrl": "https://www.reddit.com/.../can_you_use_java_sdk_from_wsl2_on_window...",
+      "pagemap": {
+        "metatags": [
+          {
+            "og:image": "https://share.redd.it/preview/post/1ifulq1",
+            "theme-color": "#000000",
+            "og:image:width": "1200",
+            "og:type": "website",
+            "og:image:alt": "An image containing a preview of the post",
+            "twitter:card": "summary_large_image",
+            "twitter:title": "r/wsl2 on Reddit: Can you use Java SDK from wsl2 on windows?",
+            "og:site_name": "Reddit",
+            "og:title": "r/wsl2 on Reddit: Can you use Java SDK from wsl2 on windows?",
+            "og:image:height": "630",
+            "msapplication-navbutton-color": "#000000",
+            "og:description": "Posted by u/turboturtle771 - 1 vote and 3 comments",
+            "twitter:image": "https://share.redd.it/preview/post/1ifulq1",
+            "apple-mobile-web-app-status-bar-style": "black",
+            "twitter:site": "@reddit",
+            "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+            "apple-mobile-web-app-capable": "yes",
+            "og:ttl": "600",
+            "og:url": "https://www.reddit.com/r/wsl2/comments/1ifulq1/can_you_use_java_sdk_from_wsl2_on_windows/"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "Ready Player One (2018) - Tye Sheridan as Parzival, Wade - IMDb",
+      "htmlTitle": "Ready Player One (2018) - Tye Sheridan as <b>Parzival</b>, Wade - IMDb",
+      "link": "https://m.imdb.com/title/tt1677720/characters/nm4446467/?ref_=tt_cl_c_1",
+      "displayLink": "m.imdb.com",
+      "snippet": "Parzival: Okay, so we got the key from room 237, the keys to the Snowcat, or the keys they give Jack at the beginning of the movie. Art3mis: [when Aech was ...",
+      "htmlSnippet": "<b>Parzival</b>: Okay, so we got the key from <b>room</b> 237, the keys to the Snowcat, or the keys they give Jack at the beginning of the movie. Art3mis: [when Aech was&nbsp;...",
+      "formattedUrl": "https://m.imdb.com/title/tt1677720/characters/nm4446467/?ref_=tt...",
+      "htmlFormattedUrl": "https://m.imdb.com/title/tt1677720/characters/nm4446467/?ref_=tt...",
+      "pagemap": {
+        "cse_thumbnail": [
+          {
+            "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLS5GG_kXC6gCQtR2Z1UpqPmD5I98R9h6S_rFXwCMFYBaEu-zIOntyNNHz&s",
+            "width": "184",
+            "height": "273"
+          }
+        ],
+        "metatags": [
+          {
+            "og:image": "https://m.media-amazon.com/images/M/MV5BNzVkMTgzODQtMWIwZC00NzE4LTgzZjYtMzAwM2I5OGZhNjE4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+            "og:type": "video.movie",
+            "og:image:width": "1000",
+            "twitter:title": "Ready Player One (2018) - Tye Sheridan as Parzival, Wade - IMDb",
+            "twitter:card": "summary_large_image",
+            "imdb:subpagetype": "characters",
+            "og:site_name": "IMDb",
+            "og:title": "Ready Player One (2018) - Tye Sheridan as Parzival, Wade - IMDb",
+            "imdb:pageconst": "tt1677720",
+            "og:image:height": "1481.9102749638205",
+            "og:description": "Ready Player One (2018) - Tye Sheridan as Parzival, Wade",
+            "twitter:image": "https://m.media-amazon.com/images/M/MV5BNzVkMTgzODQtMWIwZC00NzE4LTgzZjYtMzAwM2I5OGZhNjE4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+            "next-head-count": "49",
+            "twitter:image:alt": "Ready Player One (2018) - Tye Sheridan as Parzival, Wade",
+            "twitter:site": "@IMDb",
+            "og:locale:alternate": "es_ES",
+            "viewport": "width=device-width",
+            "twitter:description": "Ready Player One (2018) - Tye Sheridan as Parzival, Wade",
+            "og:locale": "en_US",
+            "og:url": "https://www.imdb.com/title/tt1677720/characters//",
+            "imdb:pagetype": "title"
+          }
+        ],
+        "cse_image": [
+          {
+            "src": "https://m.media-amazon.com/images/M/MV5BNzVkMTgzODQtMWIwZC00NzE4LTgzZjYtMzAwM2I5OGZhNjE4XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+          }
+        ]
+      }
+    },
+    {
+      "kind": "customsearch#result",
+      "title": "\"Time turns into space…\" What is different about ... - The Wagnerian",
+      "htmlTitle": "\"Time turns into space…\" What is different about ... - The Wagnerian",
+      "link": "http://www.the-wagnerian.com/2011/06/time-turns-into-space-what-is-different.html",
+      "displayLink": "www.the-wagnerian.com",
+      "snippet": "Jun 2, 2011 ... Thursday, 2 June 2011. \"Time turns into space…\" What is different about Estonia National Opera's new production of Parsifal? Nicola Raab speaks.",
+      "htmlSnippet": "Jun 2, 2011 <b>...</b> Thursday, 2 June 2011. &quot;Time turns into <b>space</b>…&quot; What is different about Estonia National Opera&#39;s new production of <b>Parsifal</b>? Nicola Raab speaks.",
+      "formattedUrl": "http://www.the-wagnerian.com/.../time-turns-into-space-what-is-different.ht...",
+      "htmlFormattedUrl": "http://www.the-wagnerian.com/.../time-turns-into-space-what-is-different.ht...",
+      "pagemap": {
+        "cse_thumbnail": [
+          {
+            "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQByJQDZzP0wgWruUrlhSWFRGjl-ebjALvZ4VgYSjwR_5kTH5PQRyiV0YI&s",
+            "width": "183",
+            "height": "275"
+          }
+        ],
+        "person": [
+          {
+            "name": "The Wagnerian",
+            "url": "https://www.blogger.com/profile/12612752651476958824"
+          }
+        ],
+        "metatags": [
+          {
+            "og:image": "https://lh3.googleusercontent.com/blogger_img_proxy/AEn0k_ta4wK5j7LeH7wMYzRfcNYhFmM57-ijDVDJ-rSkiUfZQUV7kpZXJCn6w7oLuCvW4lORQOSuP94eaFBQmUJFIV3wvxWkM0iQOPGMAFXSeE--C1slZyU7xgcSFADz1OM04ocdriyv7s5DEnxLxXb-0g=w1200-h630-p-k-no-nu",
+            "viewport": "width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0",
+            "og:title": "\"Time turns into space…\" What is different about Estonia National Opera's new production of Parsifal? Nicola Raab speaks.",
+            "google-adsense-platform-domain": "blogspot.com",
+            "google-adsense-platform-account": "ca-host-pub-1556223355139109",
+            "og:url": "http://www.the-wagnerian.com/2011/06/time-turns-into-space-what-is-different.html",
+            "og:description": "News and information about the German Composer Richard Wagner and his work"
+          }
+        ],
+        "cse_image": [
+          {
+            "src": "http://parsifalestonia.files.wordpress.com/2011/06/img_0190.jpg?w=200&h=300"
+          }
+        ],
+        "blogposting": [
+          {
+            "articlebody": "Nicola Raab. Parsifal custom in the backgroundAs detailed here the highlight of this years Nargen Festival, will be the premier of Estonia National Opera's Parsifal. Due to an inability to...",
+            "name": "\"Time turns into space…\" What is different about Estonia National Opera's new production of Parsifal? Nicola Raab speaks.",
+            "postid": "2731215333290173395",
+            "blogid": "1456002242446561291",
+            "url": "http://www.the-wagnerian.com/2011/06/time-turns-into-space-what-is-different.html",
+            "datepublished": "6:10:00 pm"
+          }
+        ]
+      }
+    }
+  ]
+}

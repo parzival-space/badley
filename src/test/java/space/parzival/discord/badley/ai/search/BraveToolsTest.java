@@ -23,11 +23,11 @@ class BraveToolsTest {
     }
 
     @Test
-    void search_returns_validData() {
+    void searchBrave_returns_validData() {
         when(searchService.query(anyString())).thenReturn(createBraveQueryResponse());
 
         BraveTools braveTools = new BraveTools(searchService);
-        String result = braveTools.search("test query");
+        String result = braveTools.searchBrave("test query");
 
         assertNotNull(result);
         assertTrue(result.contains("https://example.com"));
@@ -38,11 +38,11 @@ class BraveToolsTest {
     }
 
     @Test
-    void search_returns_errorMessage() {
+    void searchBrave_returns_errorMessage() {
         when(searchService.query(anyString())).thenThrow(new RuntimeException("Test exception"));
 
         BraveTools braveTools = new BraveTools(searchService);
-        String result = braveTools.search("test query");
+        String result = braveTools.searchBrave("test query");
 
         assertNotNull(result);
         assertTrue(result.contains("Error fetching web search results: Test exception"));
