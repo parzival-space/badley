@@ -13,6 +13,7 @@ import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsMetacritic;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsRequirements;
 import space.parzival.discord.badley.service.steam.model.store.StoreFeaturedGame;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
@@ -183,7 +184,7 @@ public class SteamTools implements AiTools {
             gameDetails.put("id", response.getGame().getId());
             gameDetails.put("price", response.getGame().getPrice() != null ? response.getGame().getPrice().getFinalPrice() / 100.0 : 0);
             gameDetails.put("currency", response.getGame().getPrice() != null ? response.getGame().getPrice().getCurrency() : "N/A");
-            gameDetails.put("score", response.getGame().getMetacritic().getScore());
+            gameDetails.put("score", gameDetails.put("score", Optional.ofNullable(response.getGame().getMetacritic()).map(StoreAppDetailsMetacritic::getScore).orElse(0)));
             gameDetails.put("description", response.getGame().getShortDescription());
             gameDetails.put("developers", String.join(", ", response.getGame().getDevelopers()));
             gameDetails.put("publishers", String.join(", ", response.getGame().getPublishers()));
