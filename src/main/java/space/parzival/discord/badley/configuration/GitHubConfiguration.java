@@ -17,7 +17,7 @@ public class GitHubConfiguration {
     @ConditionalOnProperty(value = "badley.ai.tools.github.token")
     public GitHub github(GitHubProperties properties) throws IOException {
         return new GitHubBuilder()
-                .withOAuthToken(properties.getToken())
-                .build();
+            .withOAuthToken(properties.getToken())
+            .build();
     }
 }

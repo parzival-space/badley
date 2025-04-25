@@ -7,7 +7,9 @@ import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class SteamServiceTest {
 

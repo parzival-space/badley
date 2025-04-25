@@ -38,7 +38,7 @@ public class SteamService {
     private static final String FALLBACK_COUNTRY_CODE = "US";
 
     private static final Pattern PROFILE_ID_PATTERN =
-            Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");
+        Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");
 
     private final RestTemplate storeRestTemplate;
     private final RestTemplate webApiRestTemplate;
@@ -46,14 +46,14 @@ public class SteamService {
 
     public SteamService(RestTemplateBuilder restTemplateBuilder, SteamProperties properties) {
         storeRestTemplate = restTemplateBuilder
-                .rootUri("https://store.steampowered.com/api")
-                .defaultHeader(HttpHeaders.ACCEPT, "application/json")
-                .build();
+            .rootUri("https://store.steampowered.com/api")
+            .defaultHeader(HttpHeaders.ACCEPT, "application/json")
+            .build();
 
         webApiRestTemplate = restTemplateBuilder
-                .rootUri("https://api.steampowered.com")
-                .defaultHeader(HttpHeaders.ACCEPT, "application/json")
-                .build();
+            .rootUri("https://api.steampowered.com")
+            .defaultHeader(HttpHeaders.ACCEPT, "application/json")
+            .build();
 
         this.properties = properties;
     }
@@ -67,11 +67,11 @@ public class SteamService {
      */
     public StoreSearchResponse searchStore(String query, @Nullable String language, @Nullable String countryCode) {
         UriComponents searchUri = UriComponentsBuilder.newInstance()
-                .path("/storesearch")
-                .queryParam("term", query)
-                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-                .build();
+            .path("/storesearch")
+            .queryParam("term", query)
+            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
+            .build();
 
         return storeRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
     }
@@ -84,10 +84,10 @@ public class SteamService {
      */
     public StoreFeaturedResponse getFeaturedCategories(@Nullable String language, @Nullable String countryCode) {
         UriComponents featuredUri = UriComponentsBuilder.newInstance()
-                .path("/featuredcategories")
-                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-                .build();
+            .path("/featuredcategories")
+            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
+            .build();
 
         return storeRestTemplate.getForObject(featuredUri.toUriString(), StoreFeaturedResponse.class);
     }
@@ -101,32 +101,32 @@ public class SteamService {
      */
     public StoreAppDetailsResponse getAppDetails(String appId, @Nullable String language, @Nullable String countryCode) {
         UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-                .path("/appdetails")
-                .queryParam("appids", appId)
-                .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-                .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-                .build();
+            .path("/appdetails")
+            .queryParam("appids", appId)
+            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
+            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
+            .build();
 
         ResponseEntity<Map<String, StoreAppDetailsResponse>> response = storeRestTemplate.exchange(
-                appDetailsUri.toUriString(),
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                }
+            appDetailsUri.toUriString(),
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<>() {
+            }
         );
 
         if (response.getBody() == null)
             return StoreAppDetailsResponse.builder()
-                    .success(false)
-                    .game(null)
-                    .build();
+                .success(false)
+                .game(null)
+                .build();
 
-        return response.getBody().getOrDefault(
-                appId,
-                StoreAppDetailsResponse.builder()
-                        .success(false)
-                        .game(null)
-                        .build()
+        return response.getBody().getOrDefault( // NOSONAR - checked above
+            appId,
+            StoreAppDetailsResponse.builder()
+                .success(false)
+                .game(null)
+                .build()
         );
     }
 
@@ -142,29 +142,29 @@ public class SteamService {
 
         if (matcher.group(1) != null) {
             UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-                    .path("/ISteamUser/ResolveVanityURL/v1/")
-                    .queryParam("key", properties.getToken())
-                    .queryParam("vanityurl", matcher.group(1))
-                    .build();
+                .path("/ISteamUser/ResolveVanityURL/v1/")
+                .queryParam("key", properties.getToken())
+                .queryParam("vanityurl", matcher.group(1))
+                .build();
 
             ParameterizedTypeReference<WebApiGenericResponse<WebApiResolveVanityUrlResult>> responseType =
-                    new ParameterizedTypeReference<>() {
-                    };
+                new ParameterizedTypeReference<>() {
+                };
 
             return webApiRestTemplate.exchange(
-                    appDetailsUri.toUriString(),
-                    HttpMethod.GET,
-                    null,
-                    responseType
+                appDetailsUri.toUriString(),
+                HttpMethod.GET,
+                null,
+                responseType
             ).getBody();
         }
 
         return WebApiGenericResponse.<WebApiResolveVanityUrlResult>builder()
-                .response(WebApiResolveVanityUrlResult.builder()
-                        .steamId(matcher.group(2))
-                        .success(1)
-                        .build())
-                .build();
+            .response(WebApiResolveVanityUrlResult.builder()
+                .steamId(matcher.group(2))
+                .success(1)
+                .build())
+            .build();
     }
 
     /**
@@ -174,20 +174,20 @@ public class SteamService {
      */
     public WebApiGenericResponse<WebApiPlayerSummariesResult> getPlayerSummary(String userId) {
         UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-                .path("/ISteamUser/GetPlayerSummaries/v2/")
-                .queryParam("key", properties.getToken())
-                .queryParam("steamids", userId)
-                .build();
+            .path("/ISteamUser/GetPlayerSummaries/v2/")
+            .queryParam("key", properties.getToken())
+            .queryParam("steamids", userId)
+            .build();
 
         ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerSummariesResult>> responseType =
-                new ParameterizedTypeReference<>() {
-                };
+            new ParameterizedTypeReference<>() {
+            };
 
         return webApiRestTemplate.exchange(
-                appDetailsUri.toUriString(),
-                HttpMethod.GET,
-                null,
-                responseType
+            appDetailsUri.toUriString(),
+            HttpMethod.GET,
+            null,
+            responseType
         ).getBody();
     }
 }

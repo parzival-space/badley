@@ -22,12 +22,12 @@ public class WikipediaTools implements AiTools {
     private final WikipediaService wikipediaService;
 
     private static final String PAGE_INFO_TEMPLATE = """
-            Title: ${title}
-            Page ID: ${id}
-            
-            Content:
-            ${content}
-            """.stripIndent();
+        Title: ${title}
+        Page ID: ${id}
+        
+        Content:
+        ${content}
+        """.stripIndent();
 
     @Tool(description = "Get information from Wikipedia")
     public String queryWikipedia(String title) {
@@ -57,9 +57,9 @@ public class WikipediaTools implements AiTools {
             }
 
             return StringSubstitutor.replace(PAGE_INFO_TEMPLATE, Map.of(
-                    "title", page.getTitle(),
-                    "id", String.valueOf(page.getPageId()),
-                    "content", pageContent
+                "title", page.getTitle(),
+                "id", String.valueOf(page.getPageId()),
+                "content", pageContent
             ));
         } catch (Exception e) {
             log.error("Error while querying Wikipedia: {}", e.getMessage(), e);
@@ -78,9 +78,9 @@ public class WikipediaTools implements AiTools {
             WikiQueryPage page = response.getPages().values().stream().findFirst().orElseThrow();
 
             return StringSubstitutor.replace(PAGE_INFO_TEMPLATE, Map.of(
-                    "title", page.getTitle(),
-                    "id", String.valueOf(page.getPageId()),
-                    "content", page.getExtract()
+                "title", page.getTitle(),
+                "id", String.valueOf(page.getPageId()),
+                "content", page.getExtract()
             ));
         } catch (Exception e) {
             log.error("Error while retrieving random page from Wikipedia: {}", e.getMessage(), e);

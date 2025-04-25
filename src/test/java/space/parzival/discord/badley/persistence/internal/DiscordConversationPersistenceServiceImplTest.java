@@ -9,7 +9,10 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class DiscordConversationPersistenceServiceImplTest {
     private final DiscordConversationRepository repo = mock(DiscordConversationRepository.class);
@@ -20,10 +23,10 @@ class DiscordConversationPersistenceServiceImplTest {
         UUID fakeConversationId = UUID.randomUUID();
 
         when(repo.findById(fakeDiscordId)).thenReturn(Optional.of(
-                DiscordConversationEntity.builder()
-                        .discordId(fakeDiscordId)
-                        .conversationId(fakeConversationId)
-                        .build()
+            DiscordConversationEntity.builder()
+                .discordId(fakeDiscordId)
+                .conversationId(fakeConversationId)
+                .build()
         ));
 
         DiscordConversationPersistenceServiceImpl adapter = new DiscordConversationPersistenceServiceImpl(repo);
@@ -52,9 +55,9 @@ class DiscordConversationPersistenceServiceImplTest {
         adapter.assignDiscordIdToConversationId(fakeDiscordId, fakeConversationId);
 
         DiscordConversationEntity expectedEntity = DiscordConversationEntity.builder()
-                .discordId(fakeDiscordId)
-                .conversationId(fakeConversationId)
-                .build();
+            .discordId(fakeDiscordId)
+            .conversationId(fakeConversationId)
+            .build();
 
         // Verify that the repository's save method was called with the expected entity
         verify(repo, times(1)).save(expectedEntity);

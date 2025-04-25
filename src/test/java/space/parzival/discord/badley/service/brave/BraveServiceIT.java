@@ -11,7 +11,9 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import space.parzival.discord.badley.configuration.properties.BraveProperties;
 import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @EnableConfigurationProperties(BraveProperties.class)
@@ -32,10 +34,10 @@ class BraveServiceIT {
     @Test
     void query_returns_validData() {
         server.expect(request -> request.getURI().getPath().equals("/res/v1/web/search"))
-                .andRespond(withSuccess(
-                        resourceLoader.getResource("classpath:mock/brave/valid-response.json"),
-                        MediaType.APPLICATION_JSON
-                ));
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/brave/valid-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
 
         BraveQueryResponse result = service.query("test");
 
@@ -49,10 +51,10 @@ class BraveServiceIT {
     @Test
     void query_returns_errorResponse() {
         server.expect(request -> request.getURI().getPath().equals("/res/v1/web/search"))
-                .andRespond(withSuccess(
-                        resourceLoader.getResource("classpath:mock/brave/error-response.json"),
-                        MediaType.APPLICATION_JSON
-                ));
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/brave/error-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
 
         BraveQueryResponse result = service.query("test");
 

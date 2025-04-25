@@ -73,11 +73,11 @@ class OpenWeatherToolsTest {
         OpenWeatherMapClient openWeatherMapClient = mock(OpenWeatherMapClient.class);
         FiveDaysWeatherForecastRequest fiveDaysWeatherForecastRequest = mock(FiveDaysWeatherForecastRequest.class);
         FiveDaysWeatherForecastRequest.Builder fiveDaysWeatherForecastRequestBuilder =
-                mock(FiveDaysWeatherForecastRequest.Builder.class);
+            mock(FiveDaysWeatherForecastRequest.Builder.class);
 
         when(openWeatherMapClient.fiveDaysWeatherForecast()).thenReturn(fiveDaysWeatherForecastRequest);
         when(fiveDaysWeatherForecastRequest.cityName("Mock City", null, null))
-                .thenReturn(fiveDaysWeatherForecastRequestBuilder);
+            .thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.units(any())).thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.response()).thenReturn(forecastDTO);
 
@@ -102,11 +102,11 @@ class OpenWeatherToolsTest {
         OpenWeatherMapClient openWeatherMapClient = mock(OpenWeatherMapClient.class);
         FiveDaysWeatherForecastRequest fiveDaysWeatherForecastRequest = mock(FiveDaysWeatherForecastRequest.class);
         FiveDaysWeatherForecastRequest.Builder fiveDaysWeatherForecastRequestBuilder =
-                mock(FiveDaysWeatherForecastRequest.Builder.class);
+            mock(FiveDaysWeatherForecastRequest.Builder.class);
 
         when(openWeatherMapClient.fiveDaysWeatherForecast()).thenReturn(fiveDaysWeatherForecastRequest);
         when(fiveDaysWeatherForecastRequest.cityName("Mock City", null, null))
-                .thenReturn(fiveDaysWeatherForecastRequestBuilder);
+            .thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.units(any())).thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.response()).thenThrow(new RestClientException("Error fetching forecast"));
 

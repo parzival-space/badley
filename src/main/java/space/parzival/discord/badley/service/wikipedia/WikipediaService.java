@@ -15,9 +15,9 @@ public class WikipediaService {
 
     public WikipediaService(RestTemplateBuilder restTemplateBuilder) {
         this.apiRestTemplate = restTemplateBuilder
-                .rootUri("https://en.wikipedia.org/w/api.php")
-                .defaultHeader("Accept", "application/json")
-                .build();
+            .rootUri("https://en.wikipedia.org/w/api.php")
+            .defaultHeader("Accept", "application/json")
+            .build();
     }
 
     /**
@@ -28,12 +28,12 @@ public class WikipediaService {
      */
     public WikiQueryPagesResponse queryForPages(String pageTitle) {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-                .path("/")
-                .queryParam("action", "query")
-                .queryParam("format", "json")
-                .queryParam("titles", pageTitle)
-                .queryParam("prop", "extracts|info")
-                .build();
+            .path("/")
+            .queryParam("action", "query")
+            .queryParam("format", "json")
+            .queryParam("titles", pageTitle)
+            .queryParam("prop", "extracts|info")
+            .build();
 
         WikiQueryResponse response = apiRestTemplate.getForObject(apiUri.toUriString(), WikiQueryResponse.class);
         if (response == null)
@@ -49,14 +49,14 @@ public class WikipediaService {
      */
     public WikiQueryPagesResponse getRandomPage() {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-                .path("/")
-                .queryParam("action", "query")
-                .queryParam("generator", "random")
-                .queryParam("grnnamespace", 0)
-                .queryParam("grnlimit", 1)
-                .queryParam("prop", "extracts|info")
-                .queryParam("format", "json")
-                .build();
+            .path("/")
+            .queryParam("action", "query")
+            .queryParam("generator", "random")
+            .queryParam("grnnamespace", 0)
+            .queryParam("grnlimit", 1)
+            .queryParam("prop", "extracts|info")
+            .queryParam("format", "json")
+            .build();
 
         WikiQueryResponse response = apiRestTemplate.getForObject(apiUri.toUriString(), WikiQueryResponse.class);
         if (response == null)
@@ -67,13 +67,13 @@ public class WikipediaService {
 
     public WikiParsePageResponse parsePage(String pageTitle) {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-                .path("/")
-                .queryParam("action", "parse")
-                .queryParam("format", "json")
-                .queryParam("page", pageTitle)
-                .queryParam("prop", "text")
-                .queryParam("formatversion", 2)
-                .build();
+            .path("/")
+            .queryParam("action", "parse")
+            .queryParam("format", "json")
+            .queryParam("page", pageTitle)
+            .queryParam("prop", "text")
+            .queryParam("formatversion", 2)
+            .build();
 
         return apiRestTemplate.getForObject(apiUri.toUriString(), WikiParsePageResponse.class);
     }

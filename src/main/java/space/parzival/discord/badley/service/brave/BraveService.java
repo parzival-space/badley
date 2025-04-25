@@ -22,9 +22,9 @@ public class BraveService {
 
     public BraveService(RestTemplateBuilder restTemplateBuilder, BraveProperties braveProperties) {
         this.apiRestTemplate = restTemplateBuilder
-                .rootUri("https://api.search.brave.com")
-                .defaultHeader("x-subscription-token", braveProperties.getToken())
-                .build();
+            .rootUri("https://api.search.brave.com")
+            .defaultHeader("x-subscription-token", braveProperties.getToken())
+            .build();
     }
 
     /**
@@ -40,26 +40,26 @@ public class BraveService {
      */
     public BraveQueryResponse query(String query, String country, String language, int count, int offset) {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-                .path("/res/v1/web/search")
-                .queryParam("q", query)
-                .queryParam("country", country)
-                .queryParam("search_lang", language)
-                .queryParam("count", count)
-                .queryParam("offset", offset)
-                //.queryParam("freshness", "pw") // pd, pw, pm
-                .queryParam("summary", false)
-                .queryParam("safesearch", "off")
-                .queryParam("result_filter", "web")
-                .build();
+            .path("/res/v1/web/search")
+            .queryParam("q", query)
+            .queryParam("country", country)
+            .queryParam("search_lang", language)
+            .queryParam("count", count)
+            .queryParam("offset", offset)
+            //.queryParam("freshness", "pw") // pd, pw, pm
+            .queryParam("summary", false)
+            .queryParam("safesearch", "off")
+            .queryParam("result_filter", "web")
+            .build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
         return apiRestTemplate.exchange(
-                apiUri.toUriString(),
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                BraveQueryResponse.class
+            apiUri.toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(headers),
+            BraveQueryResponse.class
         ).getBody();
     }
 

@@ -51,25 +51,25 @@ class BraveToolsTest {
 
     private BraveQueryResponse createBraveQueryResponse() {
         return BraveQueryResponse.builder()
-                .web(createBraveQueryWebResults())
-                .build();
+            .web(createBraveQueryWebResults())
+            .build();
     }
 
     private BraveQueryWebResults createBraveQueryWebResults() {
         return BraveQueryWebResults.builder()
-                .resultType("web")
-                .results(List.of(createBraveQueryWebResult()))
-                .familyFriendly(true)
-                .build();
+            .resultType("web")
+            .results(List.of(createBraveQueryWebResult()))
+            .familyFriendly(true)
+            .build();
     }
 
     private BraveQueryWebResult createBraveQueryWebResult() {
         return BraveQueryWebResult.builder()
-                .url("https://example.com")
-                .title("Example Title")
-                .description("Example Description")
-                .familyFriendly(true)
-                .language("en")
-                .build();
+            .url("https://example.com")
+            .title("Example Title")
+            .description("Example Description")
+            .familyFriendly(true)
+            .language("en")
+            .build();
     }
 }

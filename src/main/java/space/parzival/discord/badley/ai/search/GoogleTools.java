@@ -20,10 +20,10 @@ public class GoogleTools implements AiTools {
     private final GoogleService googleService;
 
     private static final String WEB_SEARCH_RESULT = """
-            ${url}:
-            - Title: ${title}
-            - Description: ${description}
-            """.stripIndent();
+        ${url}:
+        - Title: ${title}
+        - Description: ${description}
+        """.stripIndent();
 
     @Tool(description = "Search the web for information.")
     public String searchGoogle(String query) {
@@ -33,12 +33,12 @@ public class GoogleTools implements AiTools {
             var response = googleService.query(query);
 
             return response.getItems().stream().map(result ->
-                            StringSubstitutor.replace(WEB_SEARCH_RESULT, Map.of(
-                                    "url", result.getLink(),
-                                    "title", result.getTitle(),
-                                    "description", result.getSnippet()
-                            )))
-                    .collect(Collectors.joining("\n"));
+                    StringSubstitutor.replace(WEB_SEARCH_RESULT, Map.of(
+                        "url", result.getLink(),
+                        "title", result.getTitle(),
+                        "description", result.getSnippet()
+                    )))
+                .collect(Collectors.joining("\n"));
         } catch (Exception e) {
             log.error("Error fetching web search results: {}", e.getMessage());
             return "Error fetching web search results: " + e.getMessage();

@@ -21,12 +21,12 @@ public class BraveTools implements AiTools {
     private final BraveService braveService;
 
     private static final String WEB_SEARCH_RESULT = """
-            ${url}:
-            - Title: ${title}
-            - Description: ${description}
-            - Family Friendly: ${familyFriendly}
-            - Language: ${language}
-            """.stripIndent();
+        ${url}:
+        - Title: ${title}
+        - Description: ${description}
+        - Family Friendly: ${familyFriendly}
+        - Language: ${language}
+        """.stripIndent();
 
     @Tool(description = "Search the web for information.")
     public String searchBrave(String query) {
@@ -36,13 +36,13 @@ public class BraveTools implements AiTools {
             BraveQueryResponse response = braveService.query(query);
 
             return response.getWeb().getResults().stream().map(result ->
-                    StringSubstitutor.replace(WEB_SEARCH_RESULT, Map.of(
-                            "url", result.getUrl(),
-                            "title", result.getTitle(),
-                            "description", result.getDescription(),
-                            "familyFriendly", result.isFamilyFriendly(),
-                            "language", result.getLanguage()
-                    ))).collect(Collectors.joining("\n"));
+                StringSubstitutor.replace(WEB_SEARCH_RESULT, Map.of(
+                    "url", result.getUrl(),
+                    "title", result.getTitle(),
+                    "description", result.getDescription(),
+                    "familyFriendly", result.isFamilyFriendly(),
+                    "language", result.getLanguage()
+                ))).collect(Collectors.joining("\n"));
         } catch (Exception e) {
             log.error("Error fetching web search results: {}", e.getMessage());
             return "Error fetching web search results: " + e.getMessage();

@@ -48,21 +48,21 @@ class GoogleToolsTest {
 
     private GoogleQueryResponse createGoogleQueryResponse() {
         return GoogleQueryResponse.builder()
-                .items(List.of(createGoogleQueryResult()))
-                .build();
+            .items(List.of(createGoogleQueryResult()))
+            .build();
     }
 
     private GoogleQueryResult createGoogleQueryResult() {
         return GoogleQueryResult.builder()
-                .kind("customsearch#result")
-                .title("Example Title")
-                .htmlTitle("Example Title")
-                .link("https://example.com")
-                .displayLink("example.com")
-                .snippet("Example Description")
-                .htmlSnippet("Example Description")
-                .formattedUrl("https://example.com")
-                .htmlFormattedUrl("https://example.com")
-                .build();
+            .kind("customsearch#result")
+            .title("Example Title")
+            .htmlTitle("Example Title")
+            .link("https://example.com")
+            .displayLink("example.com")
+            .snippet("Example Description")
+            .htmlSnippet("Example Description")
+            .formattedUrl("https://example.com")
+            .htmlFormattedUrl("https://example.com")
+            .build();
     }
 }

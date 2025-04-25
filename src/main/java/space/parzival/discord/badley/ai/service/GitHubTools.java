@@ -25,61 +25,61 @@ public class GitHubTools implements AiTools {
     private final GitHub gitHub;
 
     private static final String USER_INFO_TEMPLATE = """
-            User Information:
-            - Username: ${username}
-            - Email: ${email}
-            - Name: ${name}
-            - Bio: ${bio}
-            - Location: ${location}
-            - Company: ${company}
-            - Followers: ${followers}
-            - Following: ${following}
-            - Public Repos: ${public_repos}
-            - Public Gists: ${public_gists}
-            - Twitter: ${twitter}
-            - Blog / Website: ${blog}
-            - Profile URL: ${profile_url}
-            - Avatar URL: ${avatar_url}
-            """.stripIndent();
+        User Information:
+        - Username: ${username}
+        - Email: ${email}
+        - Name: ${name}
+        - Bio: ${bio}
+        - Location: ${location}
+        - Company: ${company}
+        - Followers: ${followers}
+        - Following: ${following}
+        - Public Repos: ${public_repos}
+        - Public Gists: ${public_gists}
+        - Twitter: ${twitter}
+        - Blog / Website: ${blog}
+        - Profile URL: ${profile_url}
+        - Avatar URL: ${avatar_url}
+        """.stripIndent();
 
     private static final String ORG_INFO_TEMPLATE = """
-            Organization Information:
-            - Organization Name: ${name}
-            - Email: ${email}
-            - Location: ${location}
-            - Followers: ${followers}
-            - Following: ${following}
-            - Public Repos: ${public_repos}
-            - Public Gists: ${public_gists}
-            - Twitter: ${twitter}
-            - Blog / Website: ${blog}
-            - Profile URL: ${profile_url}
-            - Avatar URL: ${avatar_url}
-            
-            Members:
-            ${members}
-            """.stripIndent();
+        Organization Information:
+        - Organization Name: ${name}
+        - Email: ${email}
+        - Location: ${location}
+        - Followers: ${followers}
+        - Following: ${following}
+        - Public Repos: ${public_repos}
+        - Public Gists: ${public_gists}
+        - Twitter: ${twitter}
+        - Blog / Website: ${blog}
+        - Profile URL: ${profile_url}
+        - Avatar URL: ${avatar_url}
+        
+        Members:
+        ${members}
+        """.stripIndent();
 
     private static final String REPO_INFO_TEMPLATE = """
-            Repository Information:
-            - Repository Name: ${name}
-            - Description: ${description}
-            - Homepage: ${homepage}
-            - Owner: ${owner}
-            - Default Branch: ${default_branch}
-            - Stars: ${stars}
-            - Forks: ${forks}
-            - Watchers: ${watchers}
-            - Open Issues: ${open_issues}
-            - Created At: ${created_at}
-            - Updated At: ${updated_at}
-            - Language: ${language}
-            - License: ${license}
-            - URL: ${url}
-            
-            README:
-            ${readme}
-            """.stripIndent();
+        Repository Information:
+        - Repository Name: ${name}
+        - Description: ${description}
+        - Homepage: ${homepage}
+        - Owner: ${owner}
+        - Default Branch: ${default_branch}
+        - Stars: ${stars}
+        - Forks: ${forks}
+        - Watchers: ${watchers}
+        - Open Issues: ${open_issues}
+        - Created At: ${created_at}
+        - Updated At: ${updated_at}
+        - Language: ${language}
+        - License: ${license}
+        - URL: ${url}
+        
+        README:
+        ${readme}
+        """.stripIndent();
 
     @Tool(description = "Get information about a GitHub user by username.")
     public String getUserInfo(String username) {
@@ -130,8 +130,8 @@ public class GitHubTools implements AiTools {
             orgInfo.put("profile_url", org.getHtmlUrl());
             orgInfo.put("avatar_url", org.getAvatarUrl());
             orgInfo.put("members", org.listMembers().toList().stream()
-                    .map(member -> String.format("- %s (%s)", member.getLogin(), member.getHtmlUrl()))
-                    .reduce((a, b) -> a + "\n" + b).orElse("No members found"));
+                .map(member -> String.format("- %s (%s)", member.getLogin(), member.getHtmlUrl()))
+                .reduce((a, b) -> a + "\n" + b).orElse("No members found"));
             return StringSubstitutor.replace(ORG_INFO_TEMPLATE, orgInfo);
         } catch (IOException e) {
             log.error("Error fetching organization information: {}", e.getMessage());
@@ -157,9 +157,9 @@ public class GitHubTools implements AiTools {
             repoInfo.put("watchers", repo.getWatchersCount());
             repoInfo.put("open_issues", repo.getOpenIssueCount());
             repoInfo.put("created_at", repo.getCreatedAt().atZone(ZoneId.systemDefault()).toLocalDateTime()
-                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             repoInfo.put("updated_at", repo.getUpdatedAt().atZone(ZoneId.systemDefault()).toLocalDateTime()
-                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
             repoInfo.put("language", repo.getLanguage());
             repoInfo.put("license", repo.getLicense() != null ? repo.getLicense().getName() : "No license");
             repoInfo.put("url", repo.getUrl());

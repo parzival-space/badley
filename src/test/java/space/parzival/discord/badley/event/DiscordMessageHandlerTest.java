@@ -14,7 +14,10 @@ import space.parzival.discord.badley.persistence.DiscordConversationPersistenceS
 
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class DiscordMessageHandlerTest {
     private final ChatClient chatClient = mock(ChatClient.class);

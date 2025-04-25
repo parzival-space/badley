@@ -19,8 +19,8 @@ public class GoogleService {
 
     public GoogleService(RestTemplateBuilder restTemplateBuilder, GoogleProperties googleProperties) {
         this.apiRestTemplate = restTemplateBuilder
-                .rootUri("https://www.googleapis.com")
-                .build();
+            .rootUri("https://www.googleapis.com")
+            .build();
         this.properties = googleProperties;
     }
 
@@ -36,16 +36,16 @@ public class GoogleService {
      */
     public GoogleQueryResponse query(String query, String country, String language, int count, int offset) {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-                .path("/customsearch/v1")
-                .queryParam("key", properties.getToken())
-                .queryParam("cx", properties.getEngineId())
-                .queryParam("q", query)
-                .queryParamIfPresent("gl", Optional.ofNullable(country != null ? country.toLowerCase() : null))
-                .queryParamIfPresent("lr", Optional.ofNullable(language != null ? "lang_" + language.toLowerCase() : null))
-                .queryParam("num", count)
-                .queryParam("start", offset)
-                .queryParam("safesearch", "off")
-                .build();
+            .path("/customsearch/v1")
+            .queryParam("key", properties.getToken())
+            .queryParam("cx", properties.getEngineId())
+            .queryParam("q", query)
+            .queryParamIfPresent("gl", Optional.ofNullable(country != null ? country.toLowerCase() : null))
+            .queryParamIfPresent("lr", Optional.ofNullable(language != null ? "lang_" + language.toLowerCase() : null))
+            .queryParam("num", count)
+            .queryParam("start", offset)
+            .queryParam("safesearch", "off")
+            .build();
 
         return apiRestTemplate.getForObject(apiUri.toUriString(), GoogleQueryResponse.class);
     }

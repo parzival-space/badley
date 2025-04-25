@@ -27,9 +27,9 @@ public class SpringAIConfiguration {
     public ChatClient chatClient() {
         log.info("Registering {} AI tools", aiToolsServices.size());
         return chatClientBuilder
-                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
-                .defaultSystem(aiProperties.getPersonality())
-                .defaultTools(aiToolsServices.toArray())
-                .build();
+            .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+            .defaultSystem(aiProperties.getPersonality())
+            .defaultTools(aiToolsServices.toArray())
+            .build();
     }
 }

@@ -33,78 +33,78 @@ public class SteamTools implements AiTools {
     private SteamService steam;
 
     private static final String GAME_INFO_TEMPLATE = """
-            ${title} (${type}):
-            - ID: ${id}
-            - Price: ${price} (${currency})
-            - Meta Score: ${score}
-            - Platforms:
-              - Windows: ${windows}
-              - Mac: ${mac}
-              - Linux: ${linux}
-            """.stripIndent();
+        ${title} (${type}):
+        - ID: ${id}
+        - Price: ${price} (${currency})
+        - Meta Score: ${score}
+        - Platforms:
+          - Windows: ${windows}
+          - Mac: ${mac}
+          - Linux: ${linux}
+        """.stripIndent();
 
     private static final String GAME_INFO_ADVANCED_TEMPLATE = """
-            ${title} (${type}):
-            - ID: ${id}
-            - Price: ${price} (${currency})
-            - Meta Score: ${score}
-            - Description: ${description}
-            - Developers: ${developers}
-            - Publishers: ${publishers}
-            - DLC Count: ${dlc_count}
-            - Website: ${website}
-            - System Requirements:
-              - Windows: ${windows_requirements}
-              - Mac: ${mac_requirements}
-              - Linux: ${linux_requirements}
-            - Platforms:
-              - Windows: ${windows}
-              - Mac: ${mac}
-              - Linux: ${linux}
-            """.stripIndent();
+        ${title} (${type}):
+        - ID: ${id}
+        - Price: ${price} (${currency})
+        - Meta Score: ${score}
+        - Description: ${description}
+        - Developers: ${developers}
+        - Publishers: ${publishers}
+        - DLC Count: ${dlc_count}
+        - Website: ${website}
+        - System Requirements:
+          - Windows: ${windows_requirements}
+          - Mac: ${mac_requirements}
+          - Linux: ${linux_requirements}
+        - Platforms:
+          - Windows: ${windows}
+          - Mac: ${mac}
+          - Linux: ${linux}
+        """.stripIndent();
 
     private static final String GAME_INFO_SALE_TEMPLATE = """
-            ${title}:
-            - ID: ${id}
-            - Price: ${price} (${currency})
-            - Discount: ${discount}% (was ${original_price})
-            - Discount Expiration: ${discount_expiration}
-            - Platforms:
-              - Windows: ${windows}
-              - Mac: ${mac}
-              - Linux: ${linux}
-            """.stripIndent();
+        ${title}:
+        - ID: ${id}
+        - Price: ${price} (${currency})
+        - Discount: ${discount}% (was ${original_price})
+        - Discount Expiration: ${discount_expiration}
+        - Platforms:
+          - Windows: ${windows}
+          - Mac: ${mac}
+          - Linux: ${linux}
+        """.stripIndent();
 
     private static final String USER_INFO_TEMPLATE = """
-            ${username}:
-            - ID: ${id}
-            - Real Name: ${real_name}
-            - Country: ${country}
-            - Profile URL: ${profile_url}
-            - Avatar URL: ${avatar_url}
-            - Last Logoff: ${last_logoff}
-            - Creation Date: ${creation_date}
-            """.stripIndent();
+        ${username}:
+        - ID: ${id}
+        - Real Name: ${real_name}
+        - Country: ${country}
+        - Profile URL: ${profile_url}
+        - Avatar URL: ${avatar_url}
+        - Last Logoff: ${last_logoff}
+        - Creation Date: ${creation_date}
+        """.stripIndent();
 
     private static final String FEATURED_CATEGORIES_TEMPLATE = """
-            Specials:
-            ${specials}
-            
-            Coming Soon:
-            ${coming_soon}
-            
-            Top Sellers:
-            ${top_sellers}
-            
-            New Releases:
-            ${new_releases}
-            """.stripIndent();
+        Specials:
+        ${specials}
+        
+        Coming Soon:
+        ${coming_soon}
+        
+        Top Sellers:
+        ${top_sellers}
+        
+        New Releases:
+        ${new_releases}
+        """.stripIndent();
 
     @Tool(description = "Search the Steam store.")
     public String searchStore(
-            @ToolParam(description = "The search Query") String query,
-            @ToolParam(description = "The result language written out. Example 'english'") String lang,
-            @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
+        @ToolParam(description = "The search Query") String query,
+        @ToolParam(description = "The result language written out. Example 'english'") String lang,
+        @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
         log.debug("AI is requesting Steam store search for query: {}, {}, {}", query, lang, countryCode);
 
         try {
@@ -116,17 +116,17 @@ public class SteamTools implements AiTools {
             }
 
             return response.getItems().stream().map(game -> StringSubstitutor.replace(GAME_INFO_TEMPLATE, Map.of(
-                            "title", game.getName(),
-                            "type", game.getType(),
-                            "id", game.getId(),
-                            "price", game.getPrice() != null ? game.getPrice().getFinalPrice() / 100.0 : 0,
-                            "currency", game.getPrice() != null ? game.getPrice().getCurrency() : "N/A",
-                            "score", game.getMetaScore() != null ? game.getMetaScore() : "N/A",
-                            "windows", game.getPlatforms() != null && game.getPlatforms().isWindows(),
-                            "mac", game.getPlatforms() != null && game.getPlatforms().isMac(),
-                            "linux", game.getPlatforms() != null && game.getPlatforms().isLinux()
-                    )))
-                    .collect(Collectors.joining("\n"));
+                    "title", game.getName(),
+                    "type", game.getType(),
+                    "id", game.getId(),
+                    "price", game.getPrice() != null ? game.getPrice().getFinalPrice() / 100.0 : 0,
+                    "currency", game.getPrice() != null ? game.getPrice().getCurrency() : "N/A",
+                    "score", game.getMetaScore() != null ? game.getMetaScore() : "N/A",
+                    "windows", game.getPlatforms() != null && game.getPlatforms().isWindows(),
+                    "mac", game.getPlatforms() != null && game.getPlatforms().isMac(),
+                    "linux", game.getPlatforms() != null && game.getPlatforms().isLinux()
+                )))
+                .collect(Collectors.joining("\n"));
         } catch (Exception e) {
             log.error("Error fetching Steam store search results: {}", e.getMessage(), e);
             return "Error fetching Steam store search results: " + e.getMessage();
@@ -135,26 +135,26 @@ public class SteamTools implements AiTools {
 
     @Tool(description = "Gets the current featured categories from the Steam store.")
     public String getFeaturedCategories(
-            @ToolParam(description = "The result language written out. Example 'english'") String lang,
-            @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
+        @ToolParam(description = "The result language written out. Example 'english'") String lang,
+        @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
         log.debug("AI is requesting Steam store featured categories: {}, {}", lang, countryCode);
 
         try {
             StoreFeaturedResponse response = steam.getFeaturedCategories(lang, countryCode);
 
             return StringSubstitutor.replace(FEATURED_CATEGORIES_TEMPLATE, Map.of(
-                    "specials", Optional.ofNullable(response.getSpecials().getItems()).map(items -> items.stream()
-                            .map(this::fillGameInfoSaleTemplate)
-                            .collect(Collectors.joining("\n"))).orElse("N/A"),
-                    "coming_soon", Optional.ofNullable(response.getComingSoon().getItems()).map(items -> items.stream()
-                            .map(this::fillGameInfoSaleTemplate)
-                            .collect(Collectors.joining("\n"))).orElse("N/A"),
-                    "top_sellers", Optional.ofNullable(response.getTopSellers().getItems()).map(items -> items.stream()
-                            .map(this::fillGameInfoSaleTemplate)
-                            .collect(Collectors.joining("\n"))).orElse("N/A"),
-                    "new_releases", Optional.ofNullable(response.getNewReleases().getItems()).map(items -> items.stream()
-                            .map(this::fillGameInfoSaleTemplate)
-                            .collect(Collectors.joining("\n"))).orElse("N/A")
+                "specials", Optional.ofNullable(response.getSpecials().getItems()).map(items -> items.stream()
+                    .map(this::fillGameInfoSaleTemplate)
+                    .collect(Collectors.joining("\n"))).orElse("N/A"),
+                "coming_soon", Optional.ofNullable(response.getComingSoon().getItems()).map(items -> items.stream()
+                    .map(this::fillGameInfoSaleTemplate)
+                    .collect(Collectors.joining("\n"))).orElse("N/A"),
+                "top_sellers", Optional.ofNullable(response.getTopSellers().getItems()).map(items -> items.stream()
+                    .map(this::fillGameInfoSaleTemplate)
+                    .collect(Collectors.joining("\n"))).orElse("N/A"),
+                "new_releases", Optional.ofNullable(response.getNewReleases().getItems()).map(items -> items.stream()
+                    .map(this::fillGameInfoSaleTemplate)
+                    .collect(Collectors.joining("\n"))).orElse("N/A")
             ));
         } catch (Exception e) {
             log.error("Error fetching Steam store featured categories: {}", e.getMessage(), e);
@@ -164,9 +164,9 @@ public class SteamTools implements AiTools {
 
     @Tool(description = "Gets more details about a specific game. ID has to be requested beforehand using the search tool.")
     public String getGameDetails(
-            @ToolParam(description = "The game id to get more details for.") String gameId,
-            @ToolParam(description = "The result language written out. Example 'english'") String lang,
-            @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
+        @ToolParam(description = "The game id to get more details for.") String gameId,
+        @ToolParam(description = "The result language written out. Example 'english'") String lang,
+        @ToolParam(description = "Two character country code used for currency. Example: 'US'") String countryCode) {
         log.debug("AI is requesting Steam store game details: {}, {}, {}", gameId, lang, countryCode);
 
         try {
@@ -234,16 +234,16 @@ public class SteamTools implements AiTools {
             }
 
             return StringSubstitutor.replace(USER_INFO_TEMPLATE, Map.of(
-                    "username", response.getResponse().getPlayers().getFirst().getPersonaName(),
-                    "id", response.getResponse().getPlayers().getFirst().getSteamId(),
-                    "real_name", response.getResponse().getPlayers().getFirst().getRealName(),
-                    "country", response.getResponse().getPlayers().getFirst().getLastCountryCode(),
-                    "profile_url", response.getResponse().getPlayers().getFirst().getProfileUrl(),
-                    "avatar_url", response.getResponse().getPlayers().getFirst().getAvatarUrl(),
-                    "last_logoff", response.getResponse().getPlayers().getFirst().getLastLogOff().toLocalDateTime()
-                            .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                    "creation_date", response.getResponse().getPlayers().getFirst().getTimeCreated().toLocalDateTime()
-                            .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                "username", response.getResponse().getPlayers().getFirst().getPersonaName(),
+                "id", response.getResponse().getPlayers().getFirst().getSteamId(),
+                "real_name", response.getResponse().getPlayers().getFirst().getRealName(),
+                "country", response.getResponse().getPlayers().getFirst().getLastCountryCode(),
+                "profile_url", response.getResponse().getPlayers().getFirst().getProfileUrl(),
+                "avatar_url", response.getResponse().getPlayers().getFirst().getAvatarUrl(),
+                "last_logoff", response.getResponse().getPlayers().getFirst().getLastLogOff().toLocalDateTime()
+                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                "creation_date", response.getResponse().getPlayers().getFirst().getTimeCreated().toLocalDateTime()
+                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
             ));
         } catch (Exception e) {
             log.error("Error fetching Steam user details from ID: {}", e.getMessage(), e);
@@ -253,17 +253,17 @@ public class SteamTools implements AiTools {
 
     private String fillGameInfoSaleTemplate(StoreFeaturedGame game) {
         return StringSubstitutor.replace(GAME_INFO_SALE_TEMPLATE, Map.of(
-                "title", game.getName(),
-                "id", game.getId(),
-                "price", game.getFinalPrice() / 100.0,
-                "currency", game.getCurrency(),
-                "discount", game.getDiscountPercent(),
-                "original_price", game.getOriginalPrice() / 100.0,
-                "discount_expiration", game.getDiscountExpiration().toLocalDateTime()
-                        .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                "windows", game.isWindowsAvailable(),
-                "mac", game.isMacAvailable(),
-                "linux", game.isLinuxAvailable()
+            "title", game.getName(),
+            "id", game.getId(),
+            "price", game.getFinalPrice() / 100.0,
+            "currency", game.getCurrency(),
+            "discount", game.getDiscountPercent(),
+            "original_price", game.getOriginalPrice() / 100.0,
+            "discount_expiration", game.getDiscountExpiration().toLocalDateTime()
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            "windows", game.isWindowsAvailable(),
+            "mac", game.isMacAvailable(),
+            "linux", game.isLinuxAvailable()
         ));
     }
 }
