@@ -2,14 +2,11 @@ package space.parzival.discord.badley.service.wikipedia;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.service.wikipedia.model.WikiParsePageResponse;
 import space.parzival.discord.badley.service.wikipedia.model.WikiQueryPagesResponse;
 import space.parzival.discord.badley.service.wikipedia.model.WikiQueryResponse;
