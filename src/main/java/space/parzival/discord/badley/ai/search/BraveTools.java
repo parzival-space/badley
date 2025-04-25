@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiToolsService;
+import space.parzival.discord.badley.ai.AiTools;
 import space.parzival.discord.badley.service.brave.BraveService;
 import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 @ConditionalOnProperty(value = "badley.ai.tools.brave.token")
 @AllArgsConstructor
-public class BraveTools implements AiToolsService {
+public class BraveTools implements AiTools {
     private final BraveService braveService;
 
     private static final String WEB_SEARCH_RESULT = """

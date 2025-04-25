@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiToolsService;
+import space.parzival.discord.badley.ai.AiTools;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Component
 @ConditionalOnProperty(value = "badley.ai.tools.openweather.token")
 @AllArgsConstructor
-public class OpenWeatherTools implements AiToolsService {
+public class OpenWeatherTools implements AiTools {
     private final OpenWeatherMapClient openWeatherClient;
 
     private static final String WEATHER_DAY_TEMPLATE = """

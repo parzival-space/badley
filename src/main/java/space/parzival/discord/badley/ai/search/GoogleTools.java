@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiToolsService;
+import space.parzival.discord.badley.ai.AiTools;
 import space.parzival.discord.badley.service.google.GoogleService;
 
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 @ConditionalOnProperty(value = "badley.ai.tools.google.token")
 @AllArgsConstructor
-public class GoogleTools implements AiToolsService {
+public class GoogleTools implements AiTools {
     private final GoogleService googleService;
 
     private static final String WEB_SEARCH_RESULT = """

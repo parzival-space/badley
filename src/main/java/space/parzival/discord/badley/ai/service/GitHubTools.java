@@ -7,7 +7,7 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiToolsService;
+import space.parzival.discord.badley.ai.AiTools;
 
 import java.io.IOException;
 import java.time.ZoneId;
@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 @ConditionalOnProperty(value = "badley.ai.tools.github.token")
 @AllArgsConstructor
-public class GitHubTools implements AiToolsService {
+public class GitHubTools implements AiTools {
     private final GitHub gitHub;
 
     @Tool(description = "Get information about a GitHub user by username.")
