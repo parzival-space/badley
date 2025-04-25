@@ -35,7 +35,7 @@ public class SteamTools implements AiTools {
               - Windows: %b
               - Mac: %b
               - Linux: %b
-            """;
+            """.stripIndent();
 
     private static final String GAME_INFO_ADVANCED_TEMPLATE = """
             %s (%s):
@@ -55,7 +55,7 @@ public class SteamTools implements AiTools {
               - Windows: %b
               - Mac: %b
               - Linux: %b
-            """;
+            """.stripIndent();
 
     private static final String GAME_INFO_SALE_TEMPLATE = """
             %s:
@@ -67,7 +67,18 @@ public class SteamTools implements AiTools {
               - Windows: %b
               - Mac: %b
               - Linux: %b
-            """;
+            """.stripIndent();
+
+    private static final String USER_INFO_TEMPLATE = """
+            %s:
+            - ID: %s
+            - Real Name: %s
+            - Country: %s
+            - Profile URL: %s
+            - Avatar URL: %s
+            - Last Logoff: %s
+            - Creation Date: %s
+            """.stripIndent();
 
     @Tool(description = "Search the Steam store.")
     public String searchStore(
@@ -214,16 +225,7 @@ public class SteamTools implements AiTools {
             }
 
             return String.format(
-                    """
-                    %s:
-                    - ID: %s
-                    - Real Name: %s
-                    - Country: %s
-                    - Profile URL: %s
-                    - Avatar URL: %s
-                    - Last Logoff: %s
-                    - Creation Date: %s
-                    """,
+                    USER_INFO_TEMPLATE,
                     response.getResponse().getPlayers().getFirst().getPersonaName(),
                     response.getResponse().getPlayers().getFirst().getSteamId(),
                     response.getResponse().getPlayers().getFirst().getRealName(),

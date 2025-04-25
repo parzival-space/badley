@@ -25,7 +25,7 @@ public class WikipediaTools implements AiTools {
             
             Content:
             %s
-            """;
+            """.stripIndent();
 
     @Tool(description = "Get information from Wikipedia")
     public String queryWikipedia(String title) {

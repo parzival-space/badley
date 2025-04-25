@@ -20,6 +20,63 @@ import java.time.format.DateTimeFormatter;
 public class GitHubTools implements AiTools {
     private final GitHub gitHub;
 
+    private static final String USER_INFO_TEMPLATE = """
+            User Information:
+            - Username: %s
+            - Email: %s
+            - Name: %s
+            - Bio: %s
+            - Location: %s
+            - Company: %s
+            - Followers: %d
+            - Following: %d
+            - Public Repos: %d
+            - Public Gists: %d
+            - Twitter: %s
+            - Blog / Website: %s
+            - Profile URL: %s
+            - Avatar URL: %s
+            """.stripIndent();
+
+    private static final String ORG_INFO_TEMPLATE = """
+            Organization Information:
+            - Organization Name: %s
+            - Email: %s
+            - Location: %s
+            - Followers: %d
+            - Following: %d
+            - Public Repos: %d
+            - Public Gists: %d
+            - Twitter: %s
+            - Blog / Website: %s
+            - Profile URL: %s
+            - Avatar URL: %s
+            
+            Members:
+            %s
+            """.stripIndent();
+
+    private static final String REPO_INFO_TEMPLATE = """
+            Repository Information:
+            - Repository Name: %s
+            - Description: %s
+            - Homepage: %s
+            - Owner: %s
+            - Default Branch: %s
+            - Stars: %d
+            - Forks: %d
+            - Watchers: %d
+            - Open Issues: %d
+            - Created At: %s
+            - Updated At: %s
+            - Language: %s
+            - License: %s
+            - URL: %s
+            
+            README:
+            %s
+            """.stripIndent();
+
     @Tool(description = "Get information about a GitHub user by username.")
     public String getUserInfo(String username) {
         log.debug("AI is requesting information about GitHub user: {}", username);
@@ -27,23 +84,7 @@ public class GitHubTools implements AiTools {
         try {
             var user = gitHub.getUser(username);
             return String.format(
-                    """
-                            User Information:
-                            - Username: %s
-                            - Email: %s
-                            - Name: %s
-                            - Bio: %s
-                            - Location: %s
-                            - Company: %s
-                            - Followers: %d
-                            - Following: %d
-                            - Public Repos: %d
-                            - Public Gists: %d
-                            - Twitter: %s
-                            - Blog / Website: %s
-                            - Profile URL: %s
-                            - Avatar URL: %s
-                            """,
+                    USER_INFO_TEMPLATE,
                     user.getLogin(), user.getEmail(), user.getName(), user.getBio(), user.getLocation(),
                     user.getCompany(), user.getFollowersCount(), user.getFollowingCount(), user.getPublicRepoCount(),
                     user.getPublicGistCount(), user.getTwitterUsername(), user.getBlog(), user.getHtmlUrl(),
@@ -61,23 +102,7 @@ public class GitHubTools implements AiTools {
         try {
             var org = gitHub.getOrganization(orgName);
             return String.format(
-                    """
-                            Organization Information:
-                            - Organization Name: %s
-                            - Email: %s
-                            - Location: %s
-                            - Followers: %d
-                            - Following: %d
-                            - Public Repos: %d
-                            - Public Gists: %d
-                            - Twitter: %s
-                            - Blog / Website: %s
-                            - Profile URL: %s
-                            - Avatar URL: %s
-                            
-                            Members:
-                            %s
-                            """,
+                    ORG_INFO_TEMPLATE,
                     org.getName(), org.getEmail(), org.getLocation(), org.getFollowersCount(),
                     org.getFollowingCount(), org.getPublicRepoCount(), org.getPublicGistCount(),
                     org.getTwitterUsername(), org.getBlog(), org.getHtmlUrl(), org.getAvatarUrl(),
@@ -101,26 +126,7 @@ public class GitHubTools implements AiTools {
         try {
             var repo = gitHub.getRepository(repoName);
             return String.format(
-                    """
-                            Repository Information:
-                            - Repository Name: %s
-                            - Description: %s
-                            - Homepage: %s
-                            - Owner: %s
-                            - Default Branch: %s
-                            - Stars: %d
-                            - Forks: %d
-                            - Watchers: %d
-                            - Open Issues: %d
-                            - Created At: %s
-                            - Updated At: %s
-                            - Language: %s
-                            - License: %s
-                            - URL: %s
-                            
-                            README:
-                            %s
-                            """,
+                    REPO_INFO_TEMPLATE,
                     repo.getFullName(), repo.getDescription(), repo.getHomepage(), repo.getOwnerName(),
                     repo.getDefaultBranch(), repo.getStargazersCount(), repo.getForksCount(), repo.getWatchersCount(),
                     repo.getOpenIssueCount(),

@@ -24,7 +24,7 @@ public class BraveTools implements AiTools {
             - Description: %s
             - Family Friendly: %b
             - Language: %s
-            """;
+            """.stripIndent();
 
     @Tool(description = "Search the web for information.")
     public String searchBrave(String query) {

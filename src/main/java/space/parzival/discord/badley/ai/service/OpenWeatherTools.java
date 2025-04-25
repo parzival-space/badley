@@ -35,7 +35,7 @@ public class OpenWeatherTools implements AiTools {
             
             Weather Descriptions:
             %s
-            """;
+            """.stripIndent();
 
     @Tool(description = "Get the current weather for a given location.")
     public String getCurrentWeather(String location) {

@@ -21,7 +21,7 @@ public class GoogleTools implements AiTools {
             %s:
             - Title: %s
             - Description: %s
-            """;
+            """.stripIndent();
 
     @Tool(description = "Search the web for information.")
     public String searchGoogle(String query) {
