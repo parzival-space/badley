@@ -1,0 +1,443 @@
+{
+  "query": {
+    "original": "parzival-space",
+    "show_strict_warning": false,
+    "is_navigational": true,
+    "is_news_breaking": false,
+    "spellcheck_off": true,
+    "country": "de",
+    "bad_results": false,
+    "should_fallback": false,
+    "postal_code": "",
+    "city": "",
+    "header_country": "",
+    "more_results_available": true,
+    "state": ""
+  },
+  "mixed": {
+    "type": "mixed",
+    "main": [
+      {
+        "type": "web",
+        "index": 0,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 1,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 2,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 3,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 4,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 5,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 6,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 7,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 8,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 9,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 10,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 11,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 12,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 13,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 14,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 15,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 16,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 17,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 18,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 19,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 20,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 21,
+        "all": false
+      },
+      {
+        "type": "web",
+        "index": 22,
+        "all": false
+      }
+    ],
+    "top": [],
+    "side": []
+  },
+  "type": "search",
+  "web": {
+    "type": "search",
+    "results": [
+      {
+        "title": "Parzival",
+        "url": "https://parzival.space/",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "<strong>parzival</strong>-<strong>space</strong> · developer audiophile gamer nerd ·",
+        "profile": {
+          "name": "Parzival",
+          "url": "https://parzival.space/",
+          "long_name": "parzival.space",
+          "img": "https://imgs.search.brave.com/VqOFX6vQI_xGHWDHpK_-aBM63csintTJjBmslkwJ0Gc/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOGQ3NWNlN2Qw/ZmZiMThjMTRkODI1/ODNlYzQxOTYyNzZl/ZTU2MjBlNTFjZTEy/YWNmMzZlNTdhODc2/NzU3MzAyYS9wYXJ6/aXZhbC5zcGFjZS8"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "generic",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "parzival.space",
+          "hostname": "parzival.space",
+          "favicon": "https://imgs.search.brave.com/VqOFX6vQI_xGHWDHpK_-aBM63csintTJjBmslkwJ0Gc/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvOGQ3NWNlN2Qw/ZmZiMThjMTRkODI1/ODNlYzQxOTYyNzZl/ZTU2MjBlNTFjZTEy/YWNmMzZlNTdhODc2/NzU3MzAyYS9wYXJ6/aXZhbC5zcGFjZS8",
+          "path": ""
+        }
+      },
+      {
+        "title": "User Parzival - Space Exploration Stack Exchange",
+        "url": "https://space.stackexchange.com/users/39775/parzival",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "Q&amp;A for spacecraft operators, scientists, engineers, and enthusiasts",
+        "profile": {
+          "name": "Stack Exchange",
+          "url": "https://space.stackexchange.com/users/39775/parzival",
+          "long_name": "space.stackexchange.com",
+          "img": "https://imgs.search.brave.com/aLh80EzPa0qw5yu5O79baOMzQOpZZMKbk5RxGh1C5wQ/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMThjYWNkOWNi/MzZlOTFkYTYwZjJj/YmE5YzM2ZTQ4ZDgw/N2I3MDcyMTg2OGMx/MDQwYjQ3MjdiODg3/ZjJlYzlhMi9zcGFj/ZS5zdGFja2V4Y2hh/bmdlLmNvbS8"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "generic",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "space.stackexchange.com",
+          "hostname": "space.stackexchange.com",
+          "favicon": "https://imgs.search.brave.com/aLh80EzPa0qw5yu5O79baOMzQOpZZMKbk5RxGh1C5wQ/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMThjYWNkOWNi/MzZlOTFkYTYwZjJj/YmE5YzM2ZTQ4ZDgw/N2I3MDcyMTg2OGMx/MDQwYjQ3MjdiODg3/ZjJlYzlhMi9zcGFj/ZS5zdGFja2V4Y2hh/bmdlLmNvbS8",
+          "path": "› users  › 39775  › parzival"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/Qp2hbpZk7_DpiWzr9nsp89qnuGCQzk89mSD7NUSN6I8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9jZG4u/c3N0YXRpYy5uZXQv/U2l0ZXMvc3BhY2Uv/SW1nL2FwcGxlLXRv/dWNoLWljb25AMi5w/bmc_dj1iYjM5YzAw/ZGJhMzQ",
+          "original": "https://cdn.sstatic.net/Sites/space/Img/apple-touch-icon@2.png?v=bb39c00dba34",
+          "logo": false
+        }
+      },
+      {
+        "title": "Sponsor @parzival-space on GitHub Sponsors · GitHub",
+        "url": "https://github.com/sponsors/parzival-space",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "A developer from Germany who spends much of his time trying to get his computer to do the things he wants it to do.",
+        "profile": {
+          "name": "GitHub",
+          "url": "https://github.com/sponsors/parzival-space",
+          "long_name": "github.com",
+          "img": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "generic",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "github.com",
+          "hostname": "github.com",
+          "favicon": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw",
+          "path": "› sponsors  › parzival-space"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/IQWDFFo8x5ox2iCflMCUgUQmul5KA7d9hErQCVTh-H8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9hdmF0/YXJzLmdpdGh1YnVz/ZXJjb250ZW50LmNv/bS91LzM4Mjg2NDI0/P3M9NDAwJmFtcDt2/PTQ",
+          "original": "https://avatars.githubusercontent.com/u/38286424?s=400&amp;v=4",
+          "logo": false
+        }
+      },
+      {
+        "title": "Parzival – Wikipedia",
+        "url": "https://de.wikipedia.org/wiki/Parzival",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "In kunstvoll verzahnten Handlungssträngen einer Doppelromanstruktur werden die Aventiuren erzählt, die abenteuerlichen Geschicke zweier ritterlicher Hauptfiguren – einerseits die Entwicklung des Titelhelden <strong>Parzival</strong> (von altfranzösisch Perceval) vom Unwissenden im Narrenkleid zum Gralskönig, ...",
+        "page_age": "2004-02-25T13:32:23",
+        "profile": {
+          "name": "Wikipedia",
+          "url": "https://de.wikipedia.org/wiki/Parzival",
+          "long_name": "de.wikipedia.org",
+          "img": "https://imgs.search.brave.com/isGN_dS_WoFpc8EQKa1Iw4s3pCrXpLAE_Wn_ILqXW10/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvZTY0NDY0YmVk/MjZlYjZhMjMwMmI3/OTZmNzM3N2JiOTAy/ODFjYzdiODA1NmE1/Mjk0ZTk1ZDkwYTA4/ZTFmOTMxZS9kZS53/aWtpcGVkaWEub3Jn/Lw"
+        },
+        "language": "de",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "generic",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "de.wikipedia.org",
+          "hostname": "de.wikipedia.org",
+          "favicon": "https://imgs.search.brave.com/isGN_dS_WoFpc8EQKa1Iw4s3pCrXpLAE_Wn_ILqXW10/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvZTY0NDY0YmVk/MjZlYjZhMjMwMmI3/OTZmNzM3N2JiOTAy/ODFjYzdiODA1NmE1/Mjk0ZTk1ZDkwYTA4/ZTFmOTMxZS9kZS53/aWtpcGVkaWEub3Jn/Lw",
+          "path": "› wiki  › Parzival"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/_O82xlRIzpjlbfmW9PSdX8K5zzvWXsRG7hHnksXfeFE/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy9l/L2UyL1dvbGZyYW1f/UGFyeml2YWxfUHJv/bG9nX2NwZzMzOS5q/cGc",
+          "original": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Wolfram_Parzival_Prolog_cpg339.jpg",
+          "logo": false
+        },
+        "age": "February 25, 2004"
+      },
+      {
+        "title": "Parzival-117 | Parzival-117 - Roberts Space Industries | Follow the development of Star Citizen and Squadron 42",
+        "url": "https://robertsspaceindustries.com/citizens/Parzival-117",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "Roberts <strong>Space</strong> Industries is the official go-to website for all news about Star Citizen and Squadron 42. It also hosts the online store for game items and merch, as well as all the community tools used by our fans.",
+        "profile": {
+          "name": "Parzival-117",
+          "url": "https://robertsspaceindustries.com/citizens/Parzival-117",
+          "long_name": "robertsspaceindustries.com",
+          "img": "https://imgs.search.brave.com/IJYMMPFF8fcM7sk7leDoS4gyYFpXk6Qer6dmWhcLPeU/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvN2RlOGJlOGY3/MzlhZTlhMzY3ZjYz/ZWJlNGQ3YmVmNDI3/OTA1NjY1NmRlZTAw/YmU0N2FhNGJlMzg5/MWViYTU3ZC9yb2Jl/cnRzc3BhY2VpbmR1/c3RyaWVzLmNvbS8"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "generic",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "robertsspaceindustries.com",
+          "hostname": "robertsspaceindustries.com",
+          "favicon": "https://imgs.search.brave.com/IJYMMPFF8fcM7sk7leDoS4gyYFpXk6Qer6dmWhcLPeU/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvN2RlOGJlOGY3/MzlhZTlhMzY3ZjYz/ZWJlNGQ3YmVmNDI3/OTA1NjY1NmRlZTAw/YmU0N2FhNGJlMzg5/MWViYTU3ZC9yb2Jl/cnRzc3BhY2VpbmR1/c3RyaWVzLmNvbS8",
+          "path": "› citizens  › Parzival-117"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/tVdFAtCKaPGzhYo9VVbv9nHfP675TF5KORM6x1XCCo4/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9jZG4u/cm9iZXJ0c3NwYWNl/aW5kdXN0cmllcy5j/b20vc3RhdGljL2lt/YWdlcy9SU0ktZmIu/anBn",
+          "original": "https://cdn.robertsspaceindustries.com/static/images/RSI-fb.jpg",
+          "logo": false
+        }
+      },
+      {
+        "title": "All Products – Parzival Co.",
+        "url": "https://parzivalco.com/collections/all-products",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "<strong>Parzival</strong> Co. ... Choosing a selection results in a full page refresh. Press the <strong>space</strong> key then arrow keys to make a selection.",
+        "profile": {
+          "name": "Parzivalco",
+          "url": "https://parzivalco.com/collections/all-products",
+          "long_name": "parzivalco.com",
+          "img": "https://imgs.search.brave.com/fEltStqJmRzhxHhdwEBVLYwJ_BpHwZ3pBKbraKYrZ84/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMTgxMzE4NWE0/NzFjMWY1ODcwMWMz/NDZlZWM1NTMyNGNm/NmQzN2E4YTdkOTcx/MGNjNzc3NzQ4MTA4/NGJmNmZhMC9wYXJ6/aXZhbGNvLmNvbS8"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "generic",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "parzivalco.com",
+          "hostname": "parzivalco.com",
+          "favicon": "https://imgs.search.brave.com/fEltStqJmRzhxHhdwEBVLYwJ_BpHwZ3pBKbraKYrZ84/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMTgxMzE4NWE0/NzFjMWY1ODcwMWMz/NDZlZWM1NTMyNGNm/NmQzN2E4YTdkOTcx/MGNjNzc3NzQ4MTA4/NGJmNmZhMC9wYXJ6/aXZhbGNvLmNvbS8",
+          "path": "› collections  › all-products"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/4kvUStp4ELprPKBwqKGW-KDoGPUPOr-8gfvzHk9jQjY/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9jZG4u/c2hvcGlmeS5jb20v/cy9maWxlcy8xLzAz/MDUvMzQyNy8xMTA5/L2ZpbGVzLzREMTIw/QzcyLUI5MDctNDA0/MC1BMTRBLTUzNEEz/RjEzN0FFMV9kZmYz/NGVkNC01NjA5LTQ3/YjItYjFhMC1jNGIy/ZmU3NmMwZjEucG5n/P3Y9MTU4OTU0NTMy/Mw",
+          "original": "https://cdn.shopify.com/s/files/1/0305/3427/1109/files/4D120C72-B907-4040-A14A-534A3F137AE1_dff34ed4-5609-47b2-b1a0-c4b2fe76c0f1.png?v=1589545323",
+          "logo": false
+        }
+      },
+      {
+        "title": "GitHub - parzival-space/PSpectrum: Allows programs to access the audio loop-back of your system.",
+        "url": "https://github.com/parzival-space/PSpectrum",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "Allows programs to access the audio loop-back of your system. - GitHub - <strong>parzival</strong>-<strong>space</strong>/PSpectrum: Allows programs to access the audio loop-back of your system.",
+        "profile": {
+          "name": "GitHub",
+          "url": "https://github.com/parzival-space/PSpectrum",
+          "long_name": "github.com",
+          "img": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "software",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "github.com",
+          "hostname": "github.com",
+          "favicon": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw",
+          "path": "› parzival-space  › PSpectrum"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/0kYHZZ5RYBLn70v-HvlY0_O3dtMvfXPBRucUuymM0k8/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9vcGVu/Z3JhcGguZ2l0aHVi/YXNzZXRzLmNvbS9m/ZjU0YWZkOGU1NGFi/MzkzYTU4ZjRiOWRh/MTYxZDA1ODZiMWQ0/MDI2ZjYxYmYzNzM5/NzEwOTJmNWI0ZDc0/ZTE2L3BhcnppdmFs/LXNwYWNlL1BTcGVj/dHJ1bQ",
+          "original": "https://opengraph.githubassets.com/ff54afd8e54ab393a58f4b9da161d0586b1d4026f61bf373971092f5b4d74e16/parzival-space/PSpectrum",
+          "logo": false
+        }
+      },
+      {
+        "title": "GitHub - parzival-space/Linux-Guides: Just some notes so I dont have to re-read the docs every time I want to do stuff.",
+        "url": "https://github.com/parzival-space/Linux-Guides",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "Just some notes so I dont have to re-read the docs every time I want to do stuff. - GitHub - <strong>parzival</strong>-<strong>space</strong>/Linux-Guides: Just some notes so I dont have to re-read the docs every time I want to do ...",
+        "profile": {
+          "name": "GitHub",
+          "url": "https://github.com/parzival-space/Linux-Guides",
+          "long_name": "github.com",
+          "img": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "software",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "github.com",
+          "hostname": "github.com",
+          "favicon": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw",
+          "path": "› parzival-space  › Linux-Guides"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/anG7ggBs9pQo_T4iczJiCnLqTh2MUUthNQvOZh3SWEg/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9vcGVu/Z3JhcGguZ2l0aHVi/YXNzZXRzLmNvbS84/YjEzYzdlYWUyN2Zk/Yzk3NmZkMWU0YzNi/MWFkYWY1NGNjNjA4/NjM1YjJkMGUzMjNj/NGFkYjI0NTk1YWQ0/ZjNiL3BhcnppdmFs/LXNwYWNlL0xpbnV4/LUd1aWRlcw",
+          "original": "https://opengraph.githubassets.com/8b13c7eae27fdc976fd1e4c3b1adaf54cc608635b2d0e323c4adb24595ad4f3b/parzival-space/Linux-Guides",
+          "logo": false
+        }
+      },
+      {
+        "title": "GitHub - parzival-space/audiovizbd: Adds an audio visualizer behind the user modal.",
+        "url": "https://github.com/parzival-space/audiovizbd",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "Adds an audio visualizer behind the user modal. Contribute to <strong>parzival</strong>-<strong>space</strong>/audiovizbd development by creating an account on GitHub.",
+        "profile": {
+          "name": "GitHub",
+          "url": "https://github.com/parzival-space/audiovizbd",
+          "long_name": "github.com",
+          "img": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "software",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "github.com",
+          "hostname": "github.com",
+          "favicon": "https://imgs.search.brave.com/xxsA4YxzaR0cl-DBsH9-lpv2gsif3KMYgM87p26bs_o/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvYWQyNWM1NjA5/ZjZmZjNlYzI2MDNk/N2VkNmJhYjE2MzZl/MDY5ZTMxMDUzZmY1/NmU3NWIzNWVmMjk0/NTBjMjJjZi9naXRo/dWIuY29tLw",
+          "path": "› parzival-space  › audiovizbd"
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/_YtAnTkMeIO2WdBb-9FtZOurwZvbl0ZsKVuTP4ssUHY/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9vcGVu/Z3JhcGguZ2l0aHVi/YXNzZXRzLmNvbS9k/ZjQyMGE2YjdjMjk2/OGM4YmJmMWNhMzM5/MDA4ZmI5OWJiMjYz/Y2ZiZTRlNTcxZTFh/MmQ0MTNhMTE2ODNi/NmNmL3BhcnppdmFs/LXNwYWNlL2F1ZGlv/dml6YmQ",
+          "original": "https://opengraph.githubassets.com/df420a6b7c2968c8bbf1ca339008fb99bb263cfbe4e571e1a2d413a11683b6cf/parzival-space/audiovizbd",
+          "logo": false
+        }
+      },
+      {
+        "title": "Parzival Co. | Designer Clothing Lifestyle Brand Made For The Bold",
+        "url": "https://parzivalco.com/",
+        "is_source_local": false,
+        "is_source_both": false,
+        "description": "Press the <strong>space</strong> key then arrow keys to make a selection.",
+        "profile": {
+          "name": "Parzivalco",
+          "url": "https://parzivalco.com/",
+          "long_name": "parzivalco.com",
+          "img": "https://imgs.search.brave.com/fEltStqJmRzhxHhdwEBVLYwJ_BpHwZ3pBKbraKYrZ84/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMTgxMzE4NWE0/NzFjMWY1ODcwMWMz/NDZlZWM1NTMyNGNm/NmQzN2E4YTdkOTcx/MGNjNzc3NzQ4MTA4/NGJmNmZhMC9wYXJ6/aXZhbGNvLmNvbS8"
+        },
+        "language": "en",
+        "family_friendly": true,
+        "type": "search_result",
+        "subtype": "generic",
+        "is_live": false,
+        "meta_url": {
+          "scheme": "https",
+          "netloc": "parzivalco.com",
+          "hostname": "parzivalco.com",
+          "favicon": "https://imgs.search.brave.com/fEltStqJmRzhxHhdwEBVLYwJ_BpHwZ3pBKbraKYrZ84/rs:fit:32:32:1:0/g:ce/aHR0cDovL2Zhdmlj/b25zLnNlYXJjaC5i/cmF2ZS5jb20vaWNv/bnMvMTgxMzE4NWE0/NzFjMWY1ODcwMWMz/NDZlZWM1NTMyNGNm/NmQzN2E4YTdkOTcx/MGNjNzc3NzQ4MTA4/NGJmNmZhMC9wYXJ6/aXZhbGNvLmNvbS8",
+          "path": ""
+        },
+        "thumbnail": {
+          "src": "https://imgs.search.brave.com/4kvUStp4ELprPKBwqKGW-KDoGPUPOr-8gfvzHk9jQjY/rs:fit:200:200:1:0/g:ce/aHR0cHM6Ly9jZG4u/c2hvcGlmeS5jb20v/cy9maWxlcy8xLzAz/MDUvMzQyNy8xMTA5/L2ZpbGVzLzREMTIw/QzcyLUI5MDctNDA0/MC1BMTRBLTUzNEEz/RjEzN0FFMV9kZmYz/NGVkNC01NjA5LTQ3/YjItYjFhMC1jNGIy/ZmU3NmMwZjEucG5n/P3Y9MTU4OTU0NTMy/Mw",
+          "original": "https://cdn.shopify.com/s/files/1/0305/3427/1109/files/4D120C72-B907-4040-A14A-534A3F137AE1_dff34ed4-5609-47b2-b1a0-c4b2fe76c0f1.png?v=1589545323",
+          "logo": false
+        }
+      }
+    ],
+    "family_friendly": true
+  }
+}

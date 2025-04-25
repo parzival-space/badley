@@ -1,0 +1,23 @@
+{
+  "type": "ErrorResponse",
+  "error": {
+    "id": "5c31e409-f9e2-4f9e-a722-0e5309e23c01",
+    "status": 422,
+    "code": "VALIDATION",
+    "detail": "Unable to validate request parameter(s)",
+    "meta": {
+      "errors": [
+        {
+          "type": "int_parsing",
+          "loc": [
+            "query",
+            "count"
+          ],
+          "msg": "Input should be a valid integer, unable to parse string as an integer",
+          "input": "10sd"
+        }
+      ]
+    }
+  },
+  "time": 1745593592
+}
