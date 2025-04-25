@@ -116,15 +116,15 @@ public class SteamTools implements AiTools {
             }
 
             return response.getItems().stream().map(game -> StringSubstitutor.replace(GAME_INFO_TEMPLATE, Map.of(
-                        "title", game.getName(),
-                        "type", game.getType(),
-                        "id", game.getId(),
-                        "price", game.getPrice() != null ? game.getPrice().getFinalPrice() / 100.0 : 0,
-                        "currency", game.getPrice() != null ? game.getPrice().getCurrency() : "N/A",
-                        "score", game.getMetaScore() != null ? game.getMetaScore() : "N/A",
-                        "windows", game.getPlatforms() != null && game.getPlatforms().isWindows(),
-                        "mac", game.getPlatforms() != null && game.getPlatforms().isMac(),
-                        "linux", game.getPlatforms() != null && game.getPlatforms().isLinux()
+                            "title", game.getName(),
+                            "type", game.getType(),
+                            "id", game.getId(),
+                            "price", game.getPrice() != null ? game.getPrice().getFinalPrice() / 100.0 : 0,
+                            "currency", game.getPrice() != null ? game.getPrice().getCurrency() : "N/A",
+                            "score", game.getMetaScore() != null ? game.getMetaScore() : "N/A",
+                            "windows", game.getPlatforms() != null && game.getPlatforms().isWindows(),
+                            "mac", game.getPlatforms() != null && game.getPlatforms().isMac(),
+                            "linux", game.getPlatforms() != null && game.getPlatforms().isLinux()
                     )))
                     .collect(Collectors.joining("\n"));
         } catch (Exception e) {
@@ -253,7 +253,7 @@ public class SteamTools implements AiTools {
 
     private String fillGameInfoSaleTemplate(StoreFeaturedGame game) {
         return StringSubstitutor.replace(GAME_INFO_SALE_TEMPLATE, Map.of(
-            "title", game.getName(),
+                "title", game.getName(),
                 "id", game.getId(),
                 "price", game.getFinalPrice() / 100.0,
                 "currency", game.getCurrency(),

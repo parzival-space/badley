@@ -85,25 +85,25 @@ public class OpenWeatherTools implements AiTools {
                     .response();
 
             return resp.getList().stream().map(forecast -> {
-                Map<String, Object> forecastData = new HashMap<>();
-                forecastData.put("location", resp.getCity().getName());
-                forecastData.put("country", resp.getCity().getCountry());
-                forecastData.put("date", forecast.getDtTxt());
-                forecastData.put("temperature", forecast.getMain().getTemp());
-                forecastData.put("feels_like", forecast.getMain().getFeelsLike());
-                forecastData.put("temperature_min", forecast.getMain().getTempMin());
-                forecastData.put("temperature_max", forecast.getMain().getTempMax());
-                forecastData.put("temperature_kf", forecast.getMain().getTempKf());
-                forecastData.put("pressure", forecast.getMain().getPressure());
-                forecastData.put("humidity", forecast.getMain().getHumidity());
-                forecastData.put("wind_speed", forecast.getWind().getSpeed());
-                forecastData.put("wind_direction", forecast.getWind().getDeg());
-                forecastData.put("weather_descriptions", forecast.getWeather().stream()
-                        .map(weather -> String.format("- %s: %s", weather.getMain(), weather.getDescription()))
-                        .reduce((a, b) -> a + "\n" + b).orElse("No description available"));
-                return StringSubstitutor.replace(WEATHER_DAY_TEMPLATE, forecastData);
-            })
-            .collect(Collectors.joining("\n\n"));
+                        Map<String, Object> forecastData = new HashMap<>();
+                        forecastData.put("location", resp.getCity().getName());
+                        forecastData.put("country", resp.getCity().getCountry());
+                        forecastData.put("date", forecast.getDtTxt());
+                        forecastData.put("temperature", forecast.getMain().getTemp());
+                        forecastData.put("feels_like", forecast.getMain().getFeelsLike());
+                        forecastData.put("temperature_min", forecast.getMain().getTempMin());
+                        forecastData.put("temperature_max", forecast.getMain().getTempMax());
+                        forecastData.put("temperature_kf", forecast.getMain().getTempKf());
+                        forecastData.put("pressure", forecast.getMain().getPressure());
+                        forecastData.put("humidity", forecast.getMain().getHumidity());
+                        forecastData.put("wind_speed", forecast.getWind().getSpeed());
+                        forecastData.put("wind_direction", forecast.getWind().getDeg());
+                        forecastData.put("weather_descriptions", forecast.getWeather().stream()
+                                .map(weather -> String.format("- %s: %s", weather.getMain(), weather.getDescription()))
+                                .reduce((a, b) -> a + "\n" + b).orElse("No description available"));
+                        return StringSubstitutor.replace(WEATHER_DAY_TEMPLATE, forecastData);
+                    })
+                    .collect(Collectors.joining("\n\n"));
         } catch (RestClientException e) {
             log.error("Error fetching forecast: {}", e.getMessage());
             return "Error fetching forecast: " + e.getMessage();

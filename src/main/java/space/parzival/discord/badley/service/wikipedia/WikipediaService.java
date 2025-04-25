@@ -22,6 +22,7 @@ public class WikipediaService {
 
     /**
      * Queries the Wikipedia API for a page or multiple pages with the given title.
+     *
      * @param pageTitle The title of the page to query.
      * @return The response containing the page information as well as the extracted html.
      */
@@ -43,6 +44,7 @@ public class WikipediaService {
 
     /**
      * Queries the Wikipedia API for a random page.
+     *
      * @return The response containing the page information as well as the extracted html.
      */
     public WikiQueryPagesResponse getRandomPage() {

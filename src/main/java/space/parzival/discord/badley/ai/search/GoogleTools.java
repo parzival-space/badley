@@ -33,11 +33,11 @@ public class GoogleTools implements AiTools {
             var response = googleService.query(query);
 
             return response.getItems().stream().map(result ->
-                    StringSubstitutor.replace(WEB_SEARCH_RESULT, Map.of(
-                            "url", result.getLink(),
-                            "title", result.getTitle(),
-                            "description", result.getSnippet()
-                    )))
+                            StringSubstitutor.replace(WEB_SEARCH_RESULT, Map.of(
+                                    "url", result.getLink(),
+                                    "title", result.getTitle(),
+                                    "description", result.getSnippet()
+                            )))
                     .collect(Collectors.joining("\n"));
         } catch (Exception e) {
             log.error("Error fetching web search results: {}", e.getMessage());

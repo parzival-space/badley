@@ -26,11 +26,12 @@ public class GoogleService {
 
     /**
      * Queries the Google Programmable Search API for a web search with the given parameters.
-     * @param query The search query to perform.
-     * @param country The country code to use for the search. (Two lowercase-letter ISO 3166-1 alpha-2 code)
+     *
+     * @param query    The search query to perform.
+     * @param country  The country code to use for the search. (Two lowercase-letter ISO 3166-1 alpha-2 code)
      * @param language The language code to use for the search. (Two-letter ISO 639-1 code)
-     * @param count The number of results to return. (Less or equal to 10)
-     * @param offset The number of results to skip. (Less or equal to 10)
+     * @param count    The number of results to return. (Less or equal to 10)
+     * @param offset   The number of results to skip. (Less or equal to 10)
      * @return The response containing the search results.
      */
     public GoogleQueryResponse query(String query, String country, String language, int count, int offset) {
@@ -51,6 +52,7 @@ public class GoogleService {
 
     /**
      * Queries the Google Programmable Search API for a web search with the given parameters.
+     *
      * @param query The search query to perform.
      * @return The response containing the search results.
      */

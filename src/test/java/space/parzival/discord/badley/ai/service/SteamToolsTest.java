@@ -6,9 +6,9 @@ import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.store.*;
 import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePlatforms;
 import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePrice;
-import space.parzival.discord.badley.service.steam.model.store.*;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummary;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;

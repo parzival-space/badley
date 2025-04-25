@@ -20,7 +20,6 @@ import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSumm
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,7 +79,7 @@ public class SteamService {
     /**
      * Fetches the featured categories from the Steam store.
      *
-     * @param language The language to use for the request. If null, "english" will be used.
+     * @param language    The language to use for the request. If null, "english" will be used.
      * @param countryCode The country code to use for the request. If null, "US" will be used.
      */
     public StoreFeaturedResponse getFeaturedCategories(@Nullable String language, @Nullable String countryCode) {
@@ -96,8 +95,8 @@ public class SteamService {
     /**
      * Retrieves the details of specific apps from the Steam store.
      *
-     * @param appId The list of app IDs to retrieve details for.
-     * @param language The language to use for the request. If null, "english" will be used.
+     * @param appId       The list of app IDs to retrieve details for.
+     * @param language    The language to use for the request. If null, "english" will be used.
      * @param countryCode The country code to use for the request. If null, "US" will be used.
      */
     public StoreAppDetailsResponse getAppDetails(String appId, @Nullable String language, @Nullable String countryCode) {
@@ -112,7 +111,8 @@ public class SteamService {
                 appDetailsUri.toUriString(),
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<>() {}
+                new ParameterizedTypeReference<>() {
+                }
         );
 
         if (response.getBody() == null)
@@ -132,6 +132,7 @@ public class SteamService {
 
     /**
      * Resolves a Steam profile URL to a Steam ID.
+     *
      * @param profileUrl The profile URL to resolve.
      */
     public WebApiGenericResponse<WebApiResolveVanityUrlResult> resolveProfileUrl(String profileUrl) {
@@ -147,7 +148,8 @@ public class SteamService {
                     .build();
 
             ParameterizedTypeReference<WebApiGenericResponse<WebApiResolveVanityUrlResult>> responseType =
-                    new ParameterizedTypeReference<>() {};
+                    new ParameterizedTypeReference<>() {
+                    };
 
             return webApiRestTemplate.exchange(
                     appDetailsUri.toUriString(),
@@ -167,6 +169,7 @@ public class SteamService {
 
     /**
      * Retrieves the player summary for a given Steam ID.
+     *
      * @param userId The Steam ID to retrieve the summary for.
      */
     public WebApiGenericResponse<WebApiPlayerSummariesResult> getPlayerSummary(String userId) {
@@ -177,7 +180,8 @@ public class SteamService {
                 .build();
 
         ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerSummariesResult>> responseType =
-                new ParameterizedTypeReference<>() {};
+                new ParameterizedTypeReference<>() {
+                };
 
         return webApiRestTemplate.exchange(
                 appDetailsUri.toUriString(),

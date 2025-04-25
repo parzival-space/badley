@@ -29,13 +29,14 @@ public class BraveService {
 
     /**
      * Queries the Brave Search API for a web search with the given parameters.
-     * @apiNote This API has a rate limit of 2000 requests per month on the free plan.
-     * @param query The search query to perform.
-     * @param country The country code to use for the search. (Two uppercase-letter ISO 3166-1 alpha-2 code)
+     *
+     * @param query    The search query to perform.
+     * @param country  The country code to use for the search. (Two uppercase-letter ISO 3166-1 alpha-2 code)
      * @param language The language code to use for the search. (Two-letter ISO 639-1 code)
-     * @param count The number of results to return. (Less or equal to 50)
-     * @param offset The number of results to skip. (Less or equal to 9)
+     * @param count    The number of results to return. (Less or equal to 50)
+     * @param offset   The number of results to skip. (Less or equal to 9)
      * @return The response containing the search results.
+     * @apiNote This API has a rate limit of 2000 requests per month on the free plan.
      */
     public BraveQueryResponse query(String query, String country, String language, int count, int offset) {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
@@ -64,9 +65,10 @@ public class BraveService {
 
     /**
      * Queries the Brave Search API for a web search with the given parameters.
-     * @apiNote This API has a rate limit of 2000 requests per month on the free plan.
+     *
      * @param query The search query to perform.
      * @return The response containing the search results.
+     * @apiNote This API has a rate limit of 2000 requests per month on the free plan.
      */
     public BraveQueryResponse query(String query) {
         return query(query, "US", "en", 10, 0);
