@@ -2,6 +2,7 @@ package space.parzival.discord.badley.ai.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.text.StringSubstitutor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import space.parzival.discord.badley.service.wikipedia.model.WikiParsePageRespon
 import space.parzival.discord.badley.service.wikipedia.model.WikiQueryPagesResponse;
 import space.parzival.discord.badley.service.wikipedia.model.query.WikiQueryPage;
 
+import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
@@ -20,11 +22,11 @@ public class WikipediaTools implements AiTools {
     private final WikipediaService wikipediaService;
 
     private static final String PAGE_INFO_TEMPLATE = """
-            Title: %s
-            Page ID: %d
+            Title: ${title}
+            Page ID: ${id}
             
             Content:
-            %s
+            ${content}
             """.stripIndent();
 
     @Tool(description = "Get information from Wikipedia")
@@ -54,7 +56,11 @@ public class WikipediaTools implements AiTools {
                 pageContent = parsePageResponse.getParseResult().getParsedText();
             }
 
-            return String.format(PAGE_INFO_TEMPLATE, page.getTitle(), page.getPageId(), pageContent);
+            return StringSubstitutor.replace(PAGE_INFO_TEMPLATE, Map.of(
+                    "title", page.getTitle(),
+                    "id", String.valueOf(page.getPageId()),
+                    "content", pageContent
+            ));
         } catch (Exception e) {
             log.error("Error while querying Wikipedia: {}", e.getMessage(), e);
             return "Error while querying Wikipedia: " + e.getMessage();
@@ -71,7 +77,11 @@ public class WikipediaTools implements AiTools {
 
             WikiQueryPage page = response.getPages().values().stream().findFirst().orElseThrow();
 
-            return String.format(PAGE_INFO_TEMPLATE, page.getTitle(), page.getPageId(), page.getExtract());
+            return StringSubstitutor.replace(PAGE_INFO_TEMPLATE, Map.of(
+                    "title", page.getTitle(),
+                    "id", String.valueOf(page.getPageId()),
+                    "content", page.getExtract()
+            ));
         } catch (Exception e) {
             log.error("Error while retrieving random page from Wikipedia: {}", e.getMessage(), e);
             return "Error while retrieving random page from Wikipedia: " + e.getMessage();
