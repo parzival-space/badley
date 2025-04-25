@@ -27,7 +27,7 @@ public class BraveTools implements AiToolsService {
             """;
 
     @Tool(description = "Search the web for information.")
-    public String search(String query) {
+    public String searchBrave(String query) {
         log.debug("AI is requesting web search results from Brave for query: {}", query);
 
         try {
