@@ -4,12 +4,10 @@ import org.junit.jupiter.api.Test;
 import space.parzival.discord.badley.service.wikipedia.WikipediaService;
 import space.parzival.discord.badley.service.wikipedia.model.WikiParsePageResponse;
 import space.parzival.discord.badley.service.wikipedia.model.WikiQueryPagesResponse;
-import space.parzival.discord.badley.service.wikipedia.model.WikiQueryResponse;
 import space.parzival.discord.badley.service.wikipedia.model.query.WikiParsePage;
 import space.parzival.discord.badley.service.wikipedia.model.query.WikiQueryPage;
 
 import java.time.OffsetDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
