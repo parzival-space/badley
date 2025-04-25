@@ -17,7 +17,7 @@ import java.util.Objects;
 @Component
 @AllArgsConstructor
 public class WikipediaTools implements AiToolsService {
-    private WikipediaService wikipediaService;
+    private final WikipediaService wikipediaService;
 
     private static final String PAGE_INFO_TEMPLATE = """
             Title: %s
