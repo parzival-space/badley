@@ -22,15 +22,15 @@ public class DiscordClientConfiguration {
     @Bean
     public JDA discordClient(DiscordClientProperties discordClientProperties) {
         return JDABuilder
-                .createLight(
-                        discordClientProperties.getToken(),
-                        EnumSet.of(
-                                GatewayIntent.GUILD_MESSAGES,
-                                GatewayIntent.GUILD_MEMBERS,
-                                GatewayIntent.MESSAGE_CONTENT
-                        ))
-                .addEventListeners(discordEventListeners != null ? discordEventListeners.toArray() : List.of().toArray())
-                .setAutoReconnect(discordClientProperties.isAutoReconnect())
-                .build();
+            .createLight(
+                discordClientProperties.getToken(),
+                EnumSet.of(
+                    GatewayIntent.GUILD_MESSAGES,
+                    GatewayIntent.GUILD_MEMBERS,
+                    GatewayIntent.MESSAGE_CONTENT
+                ))
+            .addEventListeners(discordEventListeners != null ? discordEventListeners.toArray() : List.of().toArray())
+            .setAutoReconnect(discordClientProperties.isAutoReconnect())
+            .build();
     }
 }

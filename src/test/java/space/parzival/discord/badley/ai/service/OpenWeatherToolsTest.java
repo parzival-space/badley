@@ -39,14 +39,14 @@ class OpenWeatherToolsTest {
         String result = openWeatherTools.getCurrentWeather("Mock City");
 
         assertTrue(result.contains("Forecast for Mock City [CC]"));
-        assertTrue(result.contains("Temperature: 25.00 °C"));
-        assertTrue(result.contains("Feels Like: 26.00 °C"));
-        assertTrue(result.contains("Temperature Min: 24.00 °C"));
-        assertTrue(result.contains("Temperature Max: 27.00 °C"));
-        assertTrue(result.contains("Temperature KF: 0.00 °C"));
+        assertTrue(result.contains("Temperature: 25.0 °C"));
+        assertTrue(result.contains("Feels Like: 26.0 °C"));
+        assertTrue(result.contains("Temperature Min: 24.0 °C"));
+        assertTrue(result.contains("Temperature Max: 27.0 °C"));
+        assertTrue(result.contains("Temperature KF: 0.0 °C"));
         assertTrue(result.contains("Pressure: 1013 hPa"));
         assertTrue(result.contains("Humidity: 60%"));
-        assertTrue(result.contains("Wind Speed: 5.00 m/s"));
+        assertTrue(result.contains("Wind Speed: 5.0 m/s"));
         assertTrue(result.contains("Wind Direction: 180°"));
         assertTrue(result.contains("- Clear: clear sky"));
     }
@@ -73,11 +73,11 @@ class OpenWeatherToolsTest {
         OpenWeatherMapClient openWeatherMapClient = mock(OpenWeatherMapClient.class);
         FiveDaysWeatherForecastRequest fiveDaysWeatherForecastRequest = mock(FiveDaysWeatherForecastRequest.class);
         FiveDaysWeatherForecastRequest.Builder fiveDaysWeatherForecastRequestBuilder =
-                mock(FiveDaysWeatherForecastRequest.Builder.class);
+            mock(FiveDaysWeatherForecastRequest.Builder.class);
 
         when(openWeatherMapClient.fiveDaysWeatherForecast()).thenReturn(fiveDaysWeatherForecastRequest);
         when(fiveDaysWeatherForecastRequest.cityName("Mock City", null, null))
-                .thenReturn(fiveDaysWeatherForecastRequestBuilder);
+            .thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.units(any())).thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.response()).thenReturn(forecastDTO);
 
@@ -85,14 +85,14 @@ class OpenWeatherToolsTest {
         String result = openWeatherTools.getForecast("Mock City");
 
         assertTrue(result.contains("Forecast for Mock City [CC]"));
-        assertTrue(result.contains("Temperature: 25.00 °C"));
-        assertTrue(result.contains("Feels Like: 26.00 °C"));
-        assertTrue(result.contains("Temperature Min: 24.00 °C"));
-        assertTrue(result.contains("Temperature Max: 27.00 °C"));
-        assertTrue(result.contains("Temperature KF: 0.00 °C"));
+        assertTrue(result.contains("Temperature: 25.0 °C"));
+        assertTrue(result.contains("Feels Like: 26.0 °C"));
+        assertTrue(result.contains("Temperature Min: 24.0 °C"));
+        assertTrue(result.contains("Temperature Max: 27.0 °C"));
+        assertTrue(result.contains("Temperature KF: 0.0 °C"));
         assertTrue(result.contains("Pressure: 1013 hPa"));
         assertTrue(result.contains("Humidity: 60%"));
-        assertTrue(result.contains("Wind Speed: 5.00 m/s"));
+        assertTrue(result.contains("Wind Speed: 5.0 m/s"));
         assertTrue(result.contains("Wind Direction: 180°"));
         assertTrue(result.contains("- Clear: clear sky"));
     }
@@ -102,11 +102,11 @@ class OpenWeatherToolsTest {
         OpenWeatherMapClient openWeatherMapClient = mock(OpenWeatherMapClient.class);
         FiveDaysWeatherForecastRequest fiveDaysWeatherForecastRequest = mock(FiveDaysWeatherForecastRequest.class);
         FiveDaysWeatherForecastRequest.Builder fiveDaysWeatherForecastRequestBuilder =
-                mock(FiveDaysWeatherForecastRequest.Builder.class);
+            mock(FiveDaysWeatherForecastRequest.Builder.class);
 
         when(openWeatherMapClient.fiveDaysWeatherForecast()).thenReturn(fiveDaysWeatherForecastRequest);
         when(fiveDaysWeatherForecastRequest.cityName("Mock City", null, null))
-                .thenReturn(fiveDaysWeatherForecastRequestBuilder);
+            .thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.units(any())).thenReturn(fiveDaysWeatherForecastRequestBuilder);
         when(fiveDaysWeatherForecastRequestBuilder.response()).thenThrow(new RestClientException("Error fetching forecast"));
 

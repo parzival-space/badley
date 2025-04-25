@@ -33,12 +33,12 @@ class WikipediaServiceIT {
     @Test
     void queryForPages_returns_emptyArticles() throws JsonProcessingException {
         String apiResponseJson = objectMapper.writeValueAsString(WikiQueryResponse.builder()
-                .queryResult(WikiQueryPagesResponse.builder()
-                        .pages(Map.of())
-                        .build())
-                .build());
+            .queryResult(WikiQueryPagesResponse.builder()
+                .pages(Map.of())
+                .build())
+            .build());
         server.expect(requestTo("/?action=query&format=json&titles=Test&prop=extracts%7Cinfo"))
-                .andRespond(withSuccess(apiResponseJson, MediaType.APPLICATION_JSON));
+            .andRespond(withSuccess(apiResponseJson, MediaType.APPLICATION_JSON));
 
         WikiQueryPagesResponse response = service.queryForPages("Test");
         assertEquals(0, response.getPages().size());
@@ -47,7 +47,7 @@ class WikipediaServiceIT {
     @Test
     void queryForPages_throws_becauseNullResponse() {
         server.expect(requestTo("/?action=query&format=json&titles=Test&prop=extracts%7Cinfo"))
-                .andRespond(withSuccess());
+            .andRespond(withSuccess());
 
         assertThrows(IllegalArgumentException.class, () -> {
             service.queryForPages("Test");
@@ -57,12 +57,12 @@ class WikipediaServiceIT {
     @Test
     void getRandomPage_returns_emptyArticles() throws JsonProcessingException {
         String apiResponseJson = objectMapper.writeValueAsString(WikiQueryResponse.builder()
-                .queryResult(WikiQueryPagesResponse.builder()
-                        .pages(Map.of())
-                        .build())
-                .build());
+            .queryResult(WikiQueryPagesResponse.builder()
+                .pages(Map.of())
+                .build())
+            .build());
         server.expect(requestTo("/?action=query&generator=random&grnnamespace=0&grnlimit=1&prop=extracts%7Cinfo&format=json"))
-                .andRespond(withSuccess(apiResponseJson, MediaType.APPLICATION_JSON));
+            .andRespond(withSuccess(apiResponseJson, MediaType.APPLICATION_JSON));
 
         WikiQueryPagesResponse response = service.getRandomPage();
         assertEquals(0, response.getPages().size());
@@ -71,7 +71,7 @@ class WikipediaServiceIT {
     @Test
     void getRandomPage_throws_becauseNullResponse() {
         server.expect(requestTo("/?action=query&generator=random&grnnamespace=0&grnlimit=1&prop=extracts%7Cinfo&format=json"))
-                .andRespond(withSuccess());
+            .andRespond(withSuccess());
 
         assertThrows(IllegalArgumentException.class, () -> {
             service.getRandomPage();
@@ -81,12 +81,12 @@ class WikipediaServiceIT {
     @Test
     void parsePage_returns_validData() throws JsonProcessingException {
         String apiResponseJson = objectMapper.writeValueAsString(WikiParsePageResponse.builder()
-                .parseResult(WikiParsePage.builder()
-                        .parsedText("Hello World")
-                        .build())
-                .build());
+            .parseResult(WikiParsePage.builder()
+                .parsedText("Hello World")
+                .build())
+            .build());
         server.expect(requestTo("/?action=parse&format=json&page=Test&prop=text&formatversion=2"))
-                .andRespond(withSuccess(apiResponseJson, MediaType.APPLICATION_JSON));
+            .andRespond(withSuccess(apiResponseJson, MediaType.APPLICATION_JSON));
 
         WikiParsePageResponse response = service.parsePage("Test");
         assertEquals("Hello World", response.getParseResult().getParsedText());

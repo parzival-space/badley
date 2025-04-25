@@ -19,38 +19,40 @@ public class GoogleService {
 
     public GoogleService(RestTemplateBuilder restTemplateBuilder, GoogleProperties googleProperties) {
         this.apiRestTemplate = restTemplateBuilder
-                .rootUri("https://www.googleapis.com")
-                .build();
+            .rootUri("https://www.googleapis.com")
+            .build();
         this.properties = googleProperties;
     }
 
     /**
      * Queries the Google Programmable Search API for a web search with the given parameters.
-     * @param query The search query to perform.
-     * @param country The country code to use for the search. (Two lowercase-letter ISO 3166-1 alpha-2 code)
+     *
+     * @param query    The search query to perform.
+     * @param country  The country code to use for the search. (Two lowercase-letter ISO 3166-1 alpha-2 code)
      * @param language The language code to use for the search. (Two-letter ISO 639-1 code)
-     * @param count The number of results to return. (Less or equal to 10)
-     * @param offset The number of results to skip. (Less or equal to 10)
+     * @param count    The number of results to return. (Less or equal to 10)
+     * @param offset   The number of results to skip. (Less or equal to 10)
      * @return The response containing the search results.
      */
     public GoogleQueryResponse query(String query, String country, String language, int count, int offset) {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-                .path("/customsearch/v1")
-                .queryParam("key", properties.getToken())
-                .queryParam("cx", properties.getEngineId())
-                .queryParam("q", query)
-                .queryParamIfPresent("gl", Optional.ofNullable(country != null ? country.toLowerCase() : null))
-                .queryParamIfPresent("lr", Optional.ofNullable(language != null ? "lang_" + language.toLowerCase() : null))
-                .queryParam("num", count)
-                .queryParam("start", offset)
-                .queryParam("safesearch", "off")
-                .build();
+            .path("/customsearch/v1")
+            .queryParam("key", properties.getToken())
+            .queryParam("cx", properties.getEngineId())
+            .queryParam("q", query)
+            .queryParamIfPresent("gl", Optional.ofNullable(country != null ? country.toLowerCase() : null))
+            .queryParamIfPresent("lr", Optional.ofNullable(language != null ? "lang_" + language.toLowerCase() : null))
+            .queryParam("num", count)
+            .queryParam("start", offset)
+            .queryParam("safesearch", "off")
+            .build();
 
         return apiRestTemplate.getForObject(apiUri.toUriString(), GoogleQueryResponse.class);
     }
 
     /**
      * Queries the Google Programmable Search API for a web search with the given parameters.
+     *
      * @param query The search query to perform.
      * @return The response containing the search results.
      */

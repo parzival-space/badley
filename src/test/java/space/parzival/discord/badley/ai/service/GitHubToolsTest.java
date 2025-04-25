@@ -1,7 +1,13 @@
 package space.parzival.discord.badley.ai.service;
 
 import org.junit.jupiter.api.Test;
-import org.kohsuke.github.*;
+import org.kohsuke.github.GHContent;
+import org.kohsuke.github.GHLicense;
+import org.kohsuke.github.GHOrganization;
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GHUser;
+import org.kohsuke.github.GitHub;
+import org.kohsuke.github.PagedIterable;
 
 import java.io.IOException;
 import java.net.URI;

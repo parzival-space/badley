@@ -30,35 +30,35 @@ public class DiscordMessageHandler extends ListenerAdapter {
         event.getChannel().sendTyping().queue();
 
         UUID conversationId = Optional
-                .ofNullable(discordPersistence.getConversationIdByDiscordId(
-                        event.getMessage().getMessageReference() != null ?
-                                event.getMessage().getMessageReference().getMessageId() :
-                                event.getMessage().getId()))
-                .orElse(UUID.randomUUID());
+            .ofNullable(discordPersistence.getConversationIdByDiscordId(
+                event.getMessage().getMessageReference() != null ?
+                    event.getMessage().getMessageReference().getMessageId() :
+                    event.getMessage().getId()))
+            .orElse(UUID.randomUUID());
 
         String aiResponse = chatClient.prompt()
-                .advisors(advisorSpec -> advisorSpec.param("chat_memory_conversation_id", conversationId.toString()))
-                .messages(new UserMessage(
-                        String.join("\n\n",
-                                String.format("%s: %s",
-                                        event.getMessage().getAuthor().getEffectiveName(),
-                                        event.getMessage().getContentDisplay()),
-                                event.getMessage().getAttachments().stream()
-                                        .filter(attachment -> !attachment.isImage())
-                                        .map(discordAttachmentMapper::mapToInvalidMediaString)
-                                        .collect(Collectors.joining("\n"))),
-                        event.getMessage().getAttachments().stream()
-                                .filter(Message.Attachment::isImage)
-                                .map(discordAttachmentMapper::mapToMedia)
-                                .filter(Objects::nonNull)
-                                .toList()
-                ))
-                .call()
-                .content();
+            .advisors(advisorSpec -> advisorSpec.param("chat_memory_conversation_id", conversationId.toString()))
+            .messages(new UserMessage(
+                String.join("\n\n",
+                    String.format("%s: %s",
+                        event.getMessage().getAuthor().getEffectiveName(),
+                        event.getMessage().getContentDisplay()),
+                    event.getMessage().getAttachments().stream()
+                        .filter(attachment -> !attachment.isImage())
+                        .map(discordAttachmentMapper::mapToInvalidMediaString)
+                        .collect(Collectors.joining("\n"))),
+                event.getMessage().getAttachments().stream()
+                    .filter(Message.Attachment::isImage)
+                    .map(discordAttachmentMapper::mapToMedia)
+                    .filter(Objects::nonNull)
+                    .toList()
+            ))
+            .call()
+            .content();
 
         if (aiResponse != null) {
             event.getMessage().reply(aiResponse).queue(discordResp ->
-                    discordPersistence.assignDiscordIdToConversationId(discordResp.getId(), conversationId));
+                discordPersistence.assignDiscordIdToConversationId(discordResp.getId(), conversationId));
         } else {
             log.error("AI response was null for message: {}", event.getMessage().getContentRaw());
             event.getMessage().reply("Nope! Something hasn't worked here.").queue();
@@ -67,8 +67,8 @@ public class DiscordMessageHandler extends ListenerAdapter {
 
     private boolean botShouldIgnoreMessage(Message message) {
         return message.getAuthor().isBot() ||
-                message.getAuthor().isSystem() ||
-                message.getMentions().getUsers().stream().noneMatch(u ->
-                        u.getId().equals(message.getJDA().getSelfUser().getId()));
+            message.getAuthor().isSystem() ||
+            message.getMentions().getUsers().stream().noneMatch(u ->
+                u.getId().equals(message.getJDA().getSelfUser().getId()));
     }
 }

@@ -2,26 +2,28 @@ package space.parzival.discord.badley.ai.search;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.text.StringSubstitutor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiToolsService;
+import space.parzival.discord.badley.ai.AiTools;
 import space.parzival.discord.badley.service.google.GoogleService;
 
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Component
 @ConditionalOnProperty(value = "badley.ai.tools.google.token")
 @AllArgsConstructor
-public class GoogleTools implements AiToolsService {
+public class GoogleTools implements AiTools {
     private final GoogleService googleService;
 
     private static final String WEB_SEARCH_RESULT = """
-            %s:
-            - Title: %s
-            - Description: %s
-            """;
+        ${url}:
+        - Title: ${title}
+        - Description: ${description}
+        """.stripIndent();
 
     @Tool(description = "Search the web for information.")
     public String searchGoogle(String query) {
@@ -31,9 +33,12 @@ public class GoogleTools implements AiToolsService {
             var response = googleService.query(query);
 
             return response.getItems().stream().map(result ->
-                    String.format(WEB_SEARCH_RESULT,
-                            result.getLink(), result.getTitle(), result.getSnippet()))
-                    .collect(Collectors.joining("\n"));
+                    StringSubstitutor.replace(WEB_SEARCH_RESULT, Map.of(
+                        "url", result.getLink(),
+                        "title", result.getTitle(),
+                        "description", result.getSnippet()
+                    )))
+                .collect(Collectors.joining("\n"));
         } catch (Exception e) {
             log.error("Error fetching web search results: {}", e.getMessage());
             return "Error fetching web search results: " + e.getMessage();

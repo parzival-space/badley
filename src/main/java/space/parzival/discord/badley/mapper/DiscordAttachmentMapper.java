@@ -16,9 +16,9 @@ public interface DiscordAttachmentMapper {
 
     default String mapToInvalidMediaString(Message.Attachment attachment) {
         return String.format("<invalid_attachment id='%s' size=%d type='%s'>%s</invalid_attachment>",
-                attachment.getId(),
-                attachment.getSize(),
-                attachment.getContentType(),
-                attachment.getFileName());
+            attachment.getId(),
+            attachment.getSize(),
+            attachment.getContentType(),
+            attachment.getFileName());
     }
 }
