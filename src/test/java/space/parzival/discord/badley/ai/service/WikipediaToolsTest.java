@@ -117,12 +117,6 @@ class WikipediaToolsTest {
         assertTrue(result.contains("Error while retrieving random page from Wikipedia"));
     }
 
-    private WikiQueryResponse createWikiQueryResponse(int pageId, String extract) {
-        return WikiQueryResponse.builder()
-                .queryResult(createWikiQueryPagesResponse(pageId, extract))
-                .build();
-    }
-
     private WikiQueryPagesResponse createWikiQueryPagesResponse(int pageId, String extract) {
         return WikiQueryPagesResponse.builder()
                 .pages(Map.of(String.valueOf(pageId), createWikiQueryPage(pageId, extract)))
