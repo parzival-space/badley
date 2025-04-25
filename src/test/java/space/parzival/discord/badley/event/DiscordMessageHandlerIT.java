@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-public class DiscordMessageHandlerIT {
+class DiscordMessageHandlerIT {
     private static final String AUTHOR_ID = "123456789";
     private static final String BOT_ID = "987654321";
 
