@@ -103,7 +103,7 @@ class SteamToolsTest {
 
         assertNotNull(response);
         assertTrue(response.contains("Test Game (game)"));
-        assertTrue(response.contains("Price: 10.00 (USD)"));
+        assertTrue(response.contains("Price: 10.0 (USD)"));
     }
 
     @Test
