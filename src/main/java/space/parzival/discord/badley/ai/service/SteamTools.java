@@ -86,6 +86,20 @@ public class SteamTools implements AiTools {
             - Creation Date: ${creation_date}
             """.stripIndent();
 
+    private static final String FEATURED_CATEGORIES_TEMPLATE = """
+            Specials:
+            ${specials}
+            
+            Coming Soon:
+            ${coming_soon}
+            
+            Top Sellers:
+            ${top_sellers}
+            
+            New Releases:
+            ${new_releases}
+            """.stripIndent();
+
     @Tool(description = "Search the Steam store.")
     public String searchStore(
             @ToolParam(description = "The search Query") String query,
@@ -127,37 +141,21 @@ public class SteamTools implements AiTools {
 
         try {
             StoreFeaturedResponse response = steam.getFeaturedCategories(lang, countryCode);
-            StringBuilder result = new StringBuilder();
 
-            // special
-            if (response.getSpecials() != null) {
-                result.append(response.getSpecials().getName());
-                result.append("\n");
-                response.getSpecials().getItems().forEach(game -> result.append(fillGameInfoSaleTemplate(game)));
-            }
-
-            // coming soon
-            if (response.getComingSoon() != null) {
-                result.append(response.getComingSoon().getName());
-                result.append("\n");
-                response.getComingSoon().getItems().forEach(game -> result.append(fillGameInfoSaleTemplate(game)));
-            }
-
-            // top sellers
-            if (response.getTopSellers() != null) {
-                result.append(response.getTopSellers().getName());
-                result.append("\n");
-                response.getTopSellers().getItems().forEach(game -> result.append(fillGameInfoSaleTemplate(game)));
-            }
-
-            // new sellers
-            if (response.getNewReleases() != null) {
-                result.append(response.getNewReleases().getName());
-                result.append("\n");
-                response.getNewReleases().getItems().forEach(game -> result.append(fillGameInfoSaleTemplate(game)));
-            }
-
-            return result.toString();
+            return StringSubstitutor.replace(FEATURED_CATEGORIES_TEMPLATE, Map.of(
+                    "specials", Optional.ofNullable(response.getSpecials().getItems()).map(items -> items.stream()
+                            .map(this::fillGameInfoSaleTemplate)
+                            .collect(Collectors.joining("\n"))).orElse("N/A"),
+                    "coming_soon", Optional.ofNullable(response.getComingSoon().getItems()).map(items -> items.stream()
+                            .map(this::fillGameInfoSaleTemplate)
+                            .collect(Collectors.joining("\n"))).orElse("N/A"),
+                    "top_sellers", Optional.ofNullable(response.getTopSellers().getItems()).map(items -> items.stream()
+                            .map(this::fillGameInfoSaleTemplate)
+                            .collect(Collectors.joining("\n"))).orElse("N/A"),
+                    "new_releases", Optional.ofNullable(response.getNewReleases().getItems()).map(items -> items.stream()
+                            .map(this::fillGameInfoSaleTemplate)
+                            .collect(Collectors.joining("\n"))).orElse("N/A")
+            ));
         } catch (Exception e) {
             log.error("Error fetching Steam store featured categories: {}", e.getMessage(), e);
             return "Error fetching Steam store featured categories: " + e.getMessage();
