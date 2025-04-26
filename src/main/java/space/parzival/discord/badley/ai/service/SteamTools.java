@@ -14,6 +14,7 @@ import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsMetacritic;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsRequirements;
 import space.parzival.discord.badley.service.steam.model.store.StoreFeaturedGame;
@@ -87,6 +88,13 @@ public class SteamTools implements AiTools {
         - Avatar URL: ${avatar_url}
         - Last Logoff: ${last_logoff}
         - Creation Date: ${creation_date}
+        - Bans:
+          - Community Banned: ${community_banned}
+          - VAC Banned: ${vac_banned}
+          - Number of VAC Bans: ${number_of_vac_bans}
+          - Days Since Last Ban: ${days_since_last_ban}
+          - Number of Game Bans: ${number_of_game_bans}
+          - Economy Ban: ${economy_ban}
         """.stripIndent();
 
     private static final String FEATURED_CATEGORIES_TEMPLATE = """
@@ -236,18 +244,28 @@ public class SteamTools implements AiTools {
                 return "No results found for your user ID.";
             }
 
-            return StringSubstitutor.replace(USER_INFO_TEMPLATE, Map.of(
-                "username", response.getResponse().getPlayers().getFirst().getPersonaName(),
-                "id", response.getResponse().getPlayers().getFirst().getSteamId(),
-                "real_name", response.getResponse().getPlayers().getFirst().getRealName(),
-                "country", response.getResponse().getPlayers().getFirst().getLastCountryCode(),
-                "profile_url", response.getResponse().getPlayers().getFirst().getProfileUrl(),
-                "avatar_url", response.getResponse().getPlayers().getFirst().getAvatarUrl(),
-                "last_logoff", response.getResponse().getPlayers().getFirst().getLastLogOff().toLocalDateTime()
-                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                "creation_date", response.getResponse().getPlayers().getFirst().getTimeCreated().toLocalDateTime()
-                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            ));
+            WebApiPlayerBansResponse bansResponse =
+                steam.getPlayerBans(response.getResponse().getPlayers().getFirst().getSteamId());
+
+            Map<String, Object> userDetails = new HashMap<>();
+            userDetails.put("username", response.getResponse().getPlayers().getFirst().getPersonaName());
+            userDetails.put("id", response.getResponse().getPlayers().getFirst().getSteamId());
+            userDetails.put("real_name", response.getResponse().getPlayers().getFirst().getRealName());
+            userDetails.put("country", response.getResponse().getPlayers().getFirst().getLastCountryCode());
+            userDetails.put("profile_url", response.getResponse().getPlayers().getFirst().getProfileUrl());
+            userDetails.put("avatar_url", response.getResponse().getPlayers().getFirst().getAvatarUrl());
+            userDetails.put("last_logoff", response.getResponse().getPlayers().getFirst().getLastLogOff().toLocalDateTime()
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            userDetails.put("creation_date", response.getResponse().getPlayers().getFirst().getTimeCreated().toLocalDateTime()
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+            userDetails.put("community_banned", bansResponse.getPlayers().getFirst().isCommunityBanned());
+            userDetails.put("vac_banned", bansResponse.getPlayers().getFirst().isVacBanned());
+            userDetails.put("number_of_vac_bans", bansResponse.getPlayers().getFirst().getNumberOfVacBans());
+            userDetails.put("days_since_last_ban", bansResponse.getPlayers().getFirst().getDaysSinceLastBan());
+            userDetails.put("number_of_game_bans", bansResponse.getPlayers().getFirst().getNumberOfGameBans());
+            userDetails.put("economy_ban", bansResponse.getPlayers().getFirst().getEconomyBan());
+
+            return StringSubstitutor.replace(USER_INFO_TEMPLATE, userDetails);
         } catch (Exception e) {
             log.error("Error fetching Steam user details from ID: {}", e.getMessage(), e);
             return "Error fetching Steam user details from ID: " + e.getMessage();
@@ -262,8 +280,8 @@ public class SteamTools implements AiTools {
             "currency", game.getCurrency(),
             "discount", game.getDiscountPercent(),
             "original_price", game.getOriginalPrice() / 100.0,
-            "discount_expiration", game.getDiscountExpiration().toLocalDateTime()
-                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            "discount_expiration", Optional.ofNullable(game.getDiscountExpiration()).map(expirationTime -> expirationTime.toLocalDateTime()
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).orElse("N/A"),
             "windows", game.isWindowsAvailable(),
             "mac", game.isMacAvailable(),
             "linux", game.isLinuxAvailable()
