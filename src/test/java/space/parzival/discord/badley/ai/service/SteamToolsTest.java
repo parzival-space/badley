@@ -187,8 +187,6 @@ class SteamToolsTest {
 
         assertNotNull(response);
         assertTrue(response.contains("Test User"));
-        assertTrue(response.contains("Level: 100"));
-        assertTrue(response.contains("Real Name"));
         assertTrue(response.contains("https://steamcommunity.com/id/testuser"));
         assertTrue(response.contains("https://avatar.url"));
     }
@@ -285,7 +283,7 @@ class SteamToolsTest {
         return WebApiPlayerSummary.builder()
             .steamId("123456789")
             .personaName("Test User")
-            .realName("Real Name")
+            .realName(null)
             .profileUrl("https://steamcommunity.com/id/testuser")
             .avatarUrl("https://avatar.url")
             .lastCountryCode("US")
