@@ -279,7 +279,7 @@ public class SteamTools implements AiTools {
     }
 
     @Tool(description = "Get details about a user via their Steam ID. The ID has to be requested beforehand.")
-    private String getUserBanDetails(String userId) {
+    public String getUserBanDetails(String userId) {
         log.debug("AI is requesting Steam user ban details from ID: {}", userId);
 
         try {

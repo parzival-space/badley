@@ -20,6 +20,8 @@ import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerBanI
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummary;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiRecentGameInfo;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiRecentGamesInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.time.OffsetDateTime;
@@ -206,6 +208,60 @@ class SteamToolsTest {
         assertTrue(response.contains("Error fetching data"));
     }
 
+    @Test
+    void getUserBanDetails_returns_validData() {
+        SteamWebService steamWebService = mock(SteamWebService.class);
+        SteamStoreService steamStoreService = mock(SteamStoreService.class);
+
+        when(steamWebService.getPlayerBans(anyString())).thenReturn(createWebApiPlayerBansResponse());
+
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
+        String response = steamTools.getUserBanDetails("123456789");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Community Banned: true"));
+        assertTrue(response.contains("VAC Banned: true"));
+        assertTrue(response.contains("Days Since Last Ban: 30"));
+        assertTrue(response.contains("Number of Game Bans: 0"));
+        assertTrue(response.contains("Economy Ban: none"));
+    }
+
+    @Test
+    void getUserRecentGames_returns_validData() {
+        SteamWebService steamWebService = mock(SteamWebService.class);
+        SteamStoreService steamStoreService = mock(SteamStoreService.class);
+
+        when(steamWebService.getRecentPlayedGames(anyString()))
+            .thenReturn(WebApiGenericResponse.< WebApiRecentGamesInfo >builder()
+                .response(WebApiRecentGamesInfo.builder()
+                    .total(1)
+                    .games(List.of(createWebApiRecentGameInfo()))
+                    .build())
+                .build()
+            );
+
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
+        String response = steamTools.getUserRecentGames("123456789");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Test Game"));
+        assertTrue(response.contains("Playtime (2 weeks): 2"));
+    }
+
+    @Test
+    void getUserLevel_returns_validData() {
+        SteamWebService steamWebService = mock(SteamWebService.class);
+        SteamStoreService steamStoreService = mock(SteamStoreService.class);
+
+        when(steamWebService.getPlayerLevel(anyString())).thenReturn(createWebApiPlayerLevelInfo());
+
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
+        String response = steamTools.getUserLevel("123456789");
+
+        assertNotNull(response);
+        assertTrue(response.contains("Level: 100"));
+    }
+
     private StoreSearchGame createStoreSearchGame() {
         return StoreSearchGame.builder()
             .id(123456)
@@ -311,6 +367,19 @@ class SteamToolsTest {
                     .economyBan("none")
                     .build()
             ))
+            .build();
+    }
+
+    private WebApiRecentGameInfo createWebApiRecentGameInfo() {
+        return WebApiRecentGameInfo.builder()
+            .id(123456)
+            .name("Test Game")
+            .playtimeForever(60)
+            .playtime2Weeks(120)
+            .playtimeWindowsForever(180)
+            .playtimeMacForever(240)
+            .playtimeLinuxForever(300)
+            .playtimeDeckForever(360)
             .build();
     }
 }
