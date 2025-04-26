@@ -1,26 +1,19 @@
 package space.parzival.discord.badley.service.steam;
 
-import jakarta.annotation.Nullable;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.configuration.properties.SteamProperties;
-import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
-import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
-import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
-import java.util.Map;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,14 +26,14 @@ import java.util.regex.Pattern;
  */
 @Service
 @ConditionalOnProperty(value = "badley.ai.tools.steam.token")
-public class SteamService {
+public class SteamWebService {
     private static final Pattern PROFILE_ID_PATTERN =
         Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");
 
     private final RestTemplate apiRestTemplate;
     private final SteamProperties properties;
 
-    public SteamService(RestTemplateBuilder restTemplateBuilder, SteamProperties properties) {
+    public SteamWebService(RestTemplateBuilder restTemplateBuilder, SteamProperties properties) {
         apiRestTemplate = restTemplateBuilder
             .rootUri("https://api.steampowered.com")
             .defaultHeader(HttpHeaders.ACCEPT, "application/json")

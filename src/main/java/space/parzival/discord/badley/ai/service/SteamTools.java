@@ -8,7 +8,7 @@ import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiTools;
-import space.parzival.discord.badley.service.steam.SteamService;
+import space.parzival.discord.badley.service.steam.SteamWebService;
 import space.parzival.discord.badley.service.steam.SteamStoreService;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.steam.token")
 @AllArgsConstructor
 public class SteamTools implements AiTools {
-    private SteamService steam;
+    private SteamWebService steam;
     private SteamStoreService steamStore;
 
     private static final String GAME_INFO_TEMPLATE = """

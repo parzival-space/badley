@@ -1,7 +1,7 @@
 package space.parzival.discord.badley.ai.service;
 
 import org.junit.jupiter.api.Test;
-import space.parzival.discord.badley.service.steam.SteamService;
+import space.parzival.discord.badley.service.steam.SteamWebService;
 import space.parzival.discord.badley.service.steam.SteamStoreService;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
@@ -32,7 +32,7 @@ class SteamToolsTest {
 
     @Test
     void searchStore_returns_validData() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
         StoreSearchResponse mockResponse = StoreSearchResponse.builder()
             .total(1)
@@ -41,7 +41,7 @@ class SteamToolsTest {
 
         when(steamStoreService.searchStore(anyString(), anyString(), anyString())).thenReturn(mockResponse);
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.searchStore("Test Game", "english", "US");
 
         assertNotNull(response);
@@ -52,13 +52,13 @@ class SteamToolsTest {
 
     @Test
     void searchStore_returns_errorMessage() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
 
         when(steamStoreService.searchStore(anyString(), anyString(), anyString()))
             .thenThrow(new RuntimeException("Error fetching data"));
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.searchStore("Test Game", "english", "US");
 
         assertNotNull(response);
@@ -67,7 +67,7 @@ class SteamToolsTest {
 
     @Test
     void getFeaturedCategories_returns_validData() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
         StoreFeaturedResponse mockResponse = StoreFeaturedResponse.builder()
             .comingSoon(StoreFeaturedContainer.builder().items(List.of(createStoreFeaturedGame())).build())
@@ -77,7 +77,7 @@ class SteamToolsTest {
             .build();
         when(steamStoreService.getFeaturedCategories(anyString(), anyString())).thenReturn(mockResponse);
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getFeaturedCategories("english", "US");
 
         assertNotNull(response);
@@ -86,13 +86,13 @@ class SteamToolsTest {
 
     @Test
     void getFeaturedCategories_returns_errorMessage() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
 
         when(steamStoreService.getFeaturedCategories(anyString(), anyString()))
             .thenThrow(new RuntimeException("Error fetching data"));
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getFeaturedCategories("english", "US");
 
         assertNotNull(response);
@@ -101,7 +101,7 @@ class SteamToolsTest {
 
     @Test
     void getGameDetails_returns_validData() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
         StoreAppDetailsResponse mockResponse = StoreAppDetailsResponse.builder()
             .game(createStoreAppDetailsGame())
@@ -109,7 +109,7 @@ class SteamToolsTest {
             .build();
         when(steamStoreService.getAppDetails(anyString(), anyString(), anyString())).thenReturn(mockResponse);
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getGameDetails("123456", "english", "US");
 
         assertNotNull(response);
@@ -119,13 +119,13 @@ class SteamToolsTest {
 
     @Test
     void getGameDetails_returns_errorMessage() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
 
         when(steamStoreService.getAppDetails(anyString(), anyString(), anyString()))
             .thenThrow(new RuntimeException("Error fetching data"));
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getGameDetails("123456", "english", "US");
 
         assertNotNull(response);
@@ -134,7 +134,7 @@ class SteamToolsTest {
 
     @Test
     void getUserIdFromProfileUrl_returns_validData() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
         WebApiGenericResponse<WebApiResolveVanityUrlResult> mockResponse = WebApiGenericResponse.<WebApiResolveVanityUrlResult>builder()
             .response(WebApiResolveVanityUrlResult.builder()
@@ -142,9 +142,9 @@ class SteamToolsTest {
                 .success(1)
                 .build())
             .build();
-        when(steamService.resolveProfileUrl(anyString())).thenReturn(mockResponse);
+        when(steamWebService.resolveProfileUrl(anyString())).thenReturn(mockResponse);
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getUserIdFromProfileUrl("https://steamcommunity.com/id/testuser");
 
         assertNotNull(response);
@@ -153,13 +153,13 @@ class SteamToolsTest {
 
     @Test
     void getUserIdFromProfileUrl_returns_errorMessage() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
 
-        when(steamService.resolveProfileUrl(anyString()))
+        when(steamWebService.resolveProfileUrl(anyString()))
             .thenThrow(new RuntimeException("Error fetching data"));
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getUserIdFromProfileUrl("https://steamcommunity.com/id/testuser");
 
         assertNotNull(response);
@@ -168,16 +168,16 @@ class SteamToolsTest {
 
     @Test
     void getUserDetailsFromId_return_validData() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
         WebApiGenericResponse<WebApiPlayerSummariesResult> mockResponse = WebApiGenericResponse.<WebApiPlayerSummariesResult>builder()
             .response(WebApiPlayerSummariesResult.builder()
                 .players(List.of(createWebApiPlayerSummary()))
                 .build())
             .build();
-        when(steamService.getPlayerSummary(anyString())).thenReturn(mockResponse);
+        when(steamWebService.getPlayerSummary(anyString())).thenReturn(mockResponse);
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getUserDetailsFromId("123456789");
 
         assertNotNull(response);
@@ -189,13 +189,13 @@ class SteamToolsTest {
 
     @Test
     void getUserDetailsFromId_returns_errorMessage() {
-        SteamService steamService = mock(SteamService.class);
+        SteamWebService steamWebService = mock(SteamWebService.class);
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
 
-        when(steamService.getPlayerSummary(anyString()))
+        when(steamWebService.getPlayerSummary(anyString()))
             .thenThrow(new RuntimeException("Error fetching data"));
 
-        SteamTools steamTools = new SteamTools(steamService, steamStoreService);
+        SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getUserDetailsFromId("123456789");
 
         assertNotNull(response);
