@@ -35,11 +35,6 @@ class SteamStoreServiceIT {
     @Autowired
     private ResourceLoader resourceLoader;
 
-    @BeforeEach
-    void setUp() {
-        server.reset();
-    }
-
     @Test
     void searchStore_returns_validData() {
         server.expect(requestTo("/storesearch?term=test&l=english&cc=DE"))
