@@ -1,0 +1,98 @@
+package space.parzival.discord.badley.service.steam;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.client.MockRestServiceServer;
+import space.parzival.discord.badley.configuration.properties.SteamProperties;
+import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
+@EnableConfigurationProperties(SteamProperties.class)
+@RestClientTest(value = SteamWebService.class, properties = {
+    "badley.ai.tools.steam.token=token",
+})
+class SteamWebServiceIT {
+    @Autowired
+    private SteamWebService service;
+
+    @Autowired
+    private MockRestServiceServer server;
+
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    @Test
+    void resolveProfileUrl_returns_validData() {
+        server.expect(requestTo("/ISteamUser/ResolveVanityURL/v1/?key=token&vanityurl=parzival-space"))
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/steam/web/valid-resolvevanityurl-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
+
+        WebApiGenericResponse<WebApiResolveVanityUrlResult> response =
+            service.resolveProfileUrl("https://steamcommunity.com/id/parzival-space/");
+
+        assertNotNull(response);
+        assertEquals(1, response.getResponse().getSuccess());
+        assertEquals("76561198197402058", response.getResponse().getSteamId());
+    }
+
+    @Test
+    void resolveProfileUrl_returns_emptyData() {
+        server.expect(requestTo("/ISteamUser/ResolveVanityURL/v1/?key=token&vanityurl=test"))
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/steam/web/empty-resolvevanityurl-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
+
+        WebApiGenericResponse<WebApiResolveVanityUrlResult> response =
+            service.resolveProfileUrl("https://steamcommunity.com/id/test/");
+
+        assertNotNull(response);
+        assertEquals(42, response.getResponse().getSuccess());
+        assertNull(response.getResponse().getSteamId());
+    }
+
+    @Test
+    void getPlayerSummary_returns_validData() {
+        server.expect(requestTo("/ISteamUser/GetPlayerSummaries/v2/?key=token&steamids=76561198197402058"))
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/steam/web/valid-getplayersummaries-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
+
+        WebApiGenericResponse<WebApiPlayerSummariesResult> response =
+            service.getPlayerSummary("76561198197402058");
+
+        assertNotNull(response);
+        assertEquals(1, response.getResponse().getPlayers().size());
+        assertEquals("76561198197402058", response.getResponse().getPlayers().getFirst().getSteamId());
+        assertEquals("Parzival", response.getResponse().getPlayers().getFirst().getPersonaName());
+    }
+
+    @Test
+    void getPlayerSummary_returns_emptyData() {
+        server.expect(requestTo("/ISteamUser/GetPlayerSummaries/v2/?key=token&steamids=76561198197402058"))
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/steam/web/empty-getplayersummaries-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
+
+        WebApiGenericResponse<WebApiPlayerSummariesResult> response =
+            service.getPlayerSummary("76561198197402058");
+
+        assertNotNull(response);
+        assertEquals(0, response.getResponse().getPlayers().size());
+    }
+}

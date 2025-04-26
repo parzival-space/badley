@@ -1,0 +1,26 @@
+{
+    "response": {
+        "players": [
+            {
+                "steamid": "76561198197402058",
+                "communityvisibilitystate": 3,
+                "profilestate": 1,
+                "personaname": "Parzival",
+                "commentpermission": 1,
+                "profileurl": "https://steamcommunity.com/id/parzival-space/",
+                "avatar": "https://avatars.steamstatic.com/7dea8e77e4270ba29456b36c3e9c019c1a653878.jpg",
+                "avatarmedium": "https://avatars.steamstatic.com/7dea8e77e4270ba29456b36c3e9c019c1a653878_medium.jpg",
+                "avatarfull": "https://avatars.steamstatic.com/7dea8e77e4270ba29456b36c3e9c019c1a653878_full.jpg",
+                "avatarhash": "7dea8e77e4270ba29456b36c3e9c019c1a653878",
+                "lastlogoff": 1745624693,
+                "personastate": 1,
+                "realname": "@parzivalspace",
+                "primaryclanid": "103582791472929463",
+                "timecreated": 1432057932,
+                "personastateflags": 0,
+                "loccountrycode": "DE",
+                "locstatecode": "06"
+            }
+        ]
+    }
+}
