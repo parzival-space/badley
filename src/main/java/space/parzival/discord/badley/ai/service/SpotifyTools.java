@@ -108,7 +108,7 @@ public class SpotifyTools implements AiTools {
                 .map(artist -> StringSubstitutor.replace(ARTIST_INFO, Map.of(
                     "artist.name", artist.getName(),
                     "artist.followers", artist.getFollowers().getTotal(),
-                    "artist.genres", Arrays.toString(artist.getGenres()),
+                    "artist.genres", String.join(", ", artist.getGenres()),
                     "artist.popularity", artist.getPopularity(),
                     "artist.externalUrls", String.join(", ", artist.getExternalUrls().getExternalUrls().values()),
                     "artist.spotifyUrl", artist.getUri()
