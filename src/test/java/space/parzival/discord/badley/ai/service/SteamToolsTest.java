@@ -7,6 +7,7 @@ import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsGame;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsMetacritic;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsRequirements;
@@ -15,6 +16,8 @@ import space.parzival.discord.badley.service.steam.model.store.StoreFeaturedGame
 import space.parzival.discord.badley.service.steam.model.store.StoreSearchGame;
 import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePlatforms;
 import space.parzival.discord.badley.service.steam.model.store.generic.StoreGamePrice;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerBanInfo;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummary;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
@@ -176,12 +179,15 @@ class SteamToolsTest {
                 .build())
             .build();
         when(steamWebService.getPlayerSummary(anyString())).thenReturn(mockResponse);
+        when(steamWebService.getPlayerLevel(anyString())).thenReturn(createWebApiPlayerLevelInfo());
+        when(steamWebService.getPlayerBans(anyString())).thenReturn(createWebApiPlayerBansResponse());
 
         SteamTools steamTools = new SteamTools(steamWebService, steamStoreService);
         String response = steamTools.getUserDetailsFromId("123456789");
 
         assertNotNull(response);
         assertTrue(response.contains("Test User"));
+        assertTrue(response.contains("Level: 100"));
         assertTrue(response.contains("Real Name"));
         assertTrue(response.contains("https://steamcommunity.com/id/testuser"));
         assertTrue(response.contains("https://avatar.url"));
@@ -285,6 +291,28 @@ class SteamToolsTest {
             .lastCountryCode("US")
             .lastLogOff(OffsetDateTime.now())
             .timeCreated(OffsetDateTime.now())
+            .build();
+    }
+
+    private WebApiGenericResponse<WebApiPlayerLevelInfo> createWebApiPlayerLevelInfo() {
+        return WebApiGenericResponse.<WebApiPlayerLevelInfo>builder()
+            .response(WebApiPlayerLevelInfo.builder()
+                .level(100)
+                .build())
+            .build();
+    }
+
+    private WebApiPlayerBansResponse createWebApiPlayerBansResponse() {
+        return WebApiPlayerBansResponse.builder()
+            .players(List.of(
+                WebApiPlayerBanInfo.builder()
+                    .communityBanned(true)
+                    .vacBanned(true)
+                    .daysSinceLastBan(30)
+                    .numberOfGameBans(0)
+                    .economyBan("none")
+                    .build()
+            ))
             .build();
     }
 }

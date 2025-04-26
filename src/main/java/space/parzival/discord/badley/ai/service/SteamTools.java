@@ -18,6 +18,7 @@ import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansRespons
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsMetacritic;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsRequirements;
 import space.parzival.discord.badley.service.steam.model.store.StoreFeaturedGame;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
@@ -82,6 +83,7 @@ public class SteamTools implements AiTools {
     private static final String USER_INFO_TEMPLATE = """
         ${username}:
         - ID: ${id}
+        - Level: ${level}
         - Real Name: ${real_name}
         - Country: ${country}
         - Profile URL: ${profile_url}
@@ -247,8 +249,12 @@ public class SteamTools implements AiTools {
             WebApiPlayerBansResponse bansResponse =
                 steam.getPlayerBans(response.getResponse().getPlayers().getFirst().getSteamId());
 
+            WebApiGenericResponse<WebApiPlayerLevelInfo> levelResponse =
+                steam.getPlayerLevel(response.getResponse().getPlayers().getFirst().getSteamId());
+
             Map<String, Object> userDetails = new HashMap<>();
             userDetails.put("username", response.getResponse().getPlayers().getFirst().getPersonaName());
+            userDetails.put("level", levelResponse.getResponse().getLevel());
             userDetails.put("id", response.getResponse().getPlayers().getFirst().getSteamId());
             userDetails.put("real_name", response.getResponse().getPlayers().getFirst().getRealName());
             userDetails.put("country", response.getResponse().getPlayers().getFirst().getLastCountryCode());
