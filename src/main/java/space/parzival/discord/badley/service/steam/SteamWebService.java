@@ -11,6 +11,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
@@ -101,5 +102,20 @@ public class SteamWebService {
             null,
             responseType
         ).getBody();
+    }
+
+    /**
+     * Retrieves the player bans for a given Steam ID.
+     *
+     * @param userId The Steam ID to retrieve the bans for.
+     */
+    public WebApiPlayerBansResponse getPlayerBans(String userId) {
+        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
+            .path("/ISteamUser/GetPlayerBans/v1/")
+            .queryParam("key", properties.getToken())
+            .queryParam("steamids", userId)
+            .build();
+
+        return apiRestTemplate.getForObject(appDetailsUri.toUriString(), WebApiPlayerBansResponse.class);
     }
 }

@@ -9,12 +9,15 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
@@ -94,5 +97,27 @@ class SteamWebServiceIT {
 
         assertNotNull(response);
         assertEquals(0, response.getResponse().getPlayers().size());
+    }
+
+    @Test
+    void getPlayerBans_returns_validData() {
+        server.expect(requestTo("/ISteamUser/GetPlayerBans/v1/?key=token&steamids=76561198197402058"))
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/steam/web/valid-getplayerbans-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
+
+        WebApiPlayerBansResponse response =
+            service.getPlayerBans("76561198197402058");
+
+        assertNotNull(response);
+        assertEquals(1, response.getPlayers().size());
+        assertEquals("76561198197402058", response.getPlayers().getFirst().getSteamId());
+        assertFalse(response.getPlayers().getFirst().isCommunityBanned());
+        assertTrue(response.getPlayers().getFirst().isVacBanned());
+        assertEquals(1, response.getPlayers().getFirst().getNumberOfVacBans());
+        assertEquals(1757, response.getPlayers().getFirst().getDaysSinceLastBan());
+        assertEquals(0, response.getPlayers().getFirst().getNumberOfGameBans());
+        assertEquals("none", response.getPlayers().getFirst().getEconomyBan());
     }
 }
