@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * This Service uses multiple public and undocumented APIs from Valve.
  * The undocumented APIs have been documented by the community and are available
  * on the <a href="https://github.com/Revadike/InternalSteamWebAPI/wiki">Revadlike/InternalSteamAPI</a> GitHub page.
- * Additional documentations can be found on the <a href="https://steamapi.xpaw.me">Stean Web API Documentation</a>
+ * Additional documentations can be found on the <a href="https://steamapi.xpaw.me">Steam Web API Documentation</a>
  * by xPaw.
  */
 @Service
