@@ -39,6 +39,7 @@
     <mapstruct.version>1.6.3</mapstruct.version>
     <github-api.version>2.0-rc.3</github-api.version>
     <owm-api.version>0.6.0</owm-api.version>
+    <spotify.version>9.2.0</spotify.version>
     <sonar.organization>parzival-space</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
@@ -97,6 +98,12 @@
       <groupId>io.github.mbenincasa</groupId>
       <artifactId>java-open-weather-map-client</artifactId>
       <version>${owm-api.version}</version>
+    </dependency>
+    <dependency>
+      <!-- https://github.com/spotify-web-api-java/spotify-web-api-java -->
+      <groupId>se.michaelthelin.spotify</groupId>
+      <artifactId>spotify-web-api-java</artifactId>
+      <version>${spotify.version}</version>
     </dependency>
 
     <dependency>
