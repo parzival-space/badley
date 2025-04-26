@@ -1,0 +1,161 @@
+{
+    "total": 9,
+    "items": [
+        {
+            "type": "app",
+            "name": "Baldur's Gate 3",
+            "id": 1086940,
+            "price": {
+                "currency": "EUR",
+                "initial": 5999,
+                "final": 5999
+            },
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1086940/3dd81008e9c385caf68152450c22353f6a8abec9/capsule_231x87.jpg?t=1744744220",
+            "metascore": "96",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": false
+            },
+            "streamingvideo": false,
+            "controller_support": "full"
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate 3 - Digital Deluxe Edition DLC",
+            "id": 2378500,
+            "price": {
+                "currency": "EUR",
+                "initial": 975,
+                "final": 975
+            },
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2378500/capsule_231x87.jpg?t=1692306965",
+            "metascore": "",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": false
+            },
+            "streamingvideo": false
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate: Enhanced Edition",
+            "id": 228280,
+            "price": {
+                "currency": "EUR",
+                "initial": 1950,
+                "final": 1950
+            },
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/228280/capsule_231x87.jpg?t=1744397403",
+            "metascore": "78",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": true
+            },
+            "streamingvideo": false
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate II: Enhanced Edition",
+            "id": 257350,
+            "price": {
+                "currency": "EUR",
+                "initial": 1950,
+                "final": 1950
+            },
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/257350/capsule_231x87.jpg?t=1744397673",
+            "metascore": "78",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": true
+            },
+            "streamingvideo": false
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate: Siege of Dragonspear",
+            "id": 385970,
+            "price": {
+                "currency": "EUR",
+                "initial": 1950,
+                "final": 1950
+            },
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/385970/capsule_231x87.jpg?t=1730826985",
+            "metascore": "77",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": true
+            },
+            "streamingvideo": false
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate: Dark Alliance",
+            "id": 1695830,
+            "price": {
+                "currency": "EUR",
+                "initial": 2999,
+                "final": 2999
+            },
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1695830/capsule_231x87.jpg?t=1654887460",
+            "metascore": "",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": true
+            },
+            "streamingvideo": false,
+            "controller_support": "full"
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate: Dark Alliance II",
+            "id": 1889930,
+            "price": {
+                "currency": "EUR",
+                "initial": 2999,
+                "final": 2999
+            },
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1889930/capsule_231x87.jpg?t=1698777298",
+            "metascore": "",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": true
+            },
+            "streamingvideo": false,
+            "controller_support": "full"
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate 3 Toolkit Data",
+            "id": 2956320,
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2956320/capsule_231x87.jpg?t=1725896725",
+            "metascore": "",
+            "platforms": {
+                "windows": true,
+                "mac": false,
+                "linux": false
+            },
+            "streamingvideo": false,
+            "controller_support": "full"
+        },
+        {
+            "type": "app",
+            "name": "Baldur's Gate: Reflections Of Myth & Valor",
+            "id": 2488970,
+            "tiny_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2488970/1d3ff93075523366b4ce6bd0b221c890f71242b0/capsule_231x87.jpg?t=1744393597",
+            "metascore": "",
+            "platforms": {
+                "windows": true,
+                "mac": true,
+                "linux": true
+            },
+            "streamingvideo": false
+        }
+    ]
+}

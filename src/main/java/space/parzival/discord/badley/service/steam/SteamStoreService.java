@@ -11,18 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
-import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
-import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
-import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This Service uses multiple public and undocumented APIs from Valve.
@@ -33,29 +27,17 @@ import java.util.regex.Pattern;
  */
 @Service
 @ConditionalOnProperty(value = "badley.ai.tools.steam.token")
-public class SteamService {
+public class SteamStoreService {
     private static final String FALLBACK_LANGUAGE = "english";
     private static final String FALLBACK_COUNTRY_CODE = "US";
 
-    private static final Pattern PROFILE_ID_PATTERN =
-        Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");
+    private final RestTemplate apiRestTemplate;
 
-    private final RestTemplate storeRestTemplate;
-    private final RestTemplate webApiRestTemplate;
-    private final SteamProperties properties;
-
-    public SteamService(RestTemplateBuilder restTemplateBuilder, SteamProperties properties) {
-        storeRestTemplate = restTemplateBuilder
+    public SteamStoreService(RestTemplateBuilder restTemplateBuilder) {
+        apiRestTemplate = restTemplateBuilder
             .rootUri("https://store.steampowered.com/api")
             .defaultHeader(HttpHeaders.ACCEPT, "application/json")
             .build();
-
-        webApiRestTemplate = restTemplateBuilder
-            .rootUri("https://api.steampowered.com")
-            .defaultHeader(HttpHeaders.ACCEPT, "application/json")
-            .build();
-
-        this.properties = properties;
     }
 
     /**
@@ -73,7 +55,7 @@ public class SteamService {
             .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
             .build();
 
-        return storeRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
+        return apiRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
     }
 
     /**
@@ -89,7 +71,7 @@ public class SteamService {
             .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
             .build();
 
-        return storeRestTemplate.getForObject(featuredUri.toUriString(), StoreFeaturedResponse.class);
+        return apiRestTemplate.getForObject(featuredUri.toUriString(), StoreFeaturedResponse.class);
     }
 
     /**
@@ -107,7 +89,7 @@ public class SteamService {
             .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
             .build();
 
-        ResponseEntity<Map<String, StoreAppDetailsResponse>> response = storeRestTemplate.exchange(
+        ResponseEntity<Map<String, StoreAppDetailsResponse>> response = apiRestTemplate.exchange(
             appDetailsUri.toUriString(),
             HttpMethod.GET,
             null,
@@ -128,66 +110,5 @@ public class SteamService {
                 .game(null)
                 .build()
         );
-    }
-
-    /**
-     * Resolves a Steam profile URL to a Steam ID.
-     *
-     * @param profileUrl The profile URL to resolve.
-     */
-    public WebApiGenericResponse<WebApiResolveVanityUrlResult> resolveProfileUrl(String profileUrl) {
-        Matcher matcher = PROFILE_ID_PATTERN.matcher(profileUrl);
-        if (!matcher.find())
-            throw new IllegalArgumentException("Invalid profile URL: " + profileUrl);
-
-        if (matcher.group(1) != null) {
-            UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-                .path("/ISteamUser/ResolveVanityURL/v1/")
-                .queryParam("key", properties.getToken())
-                .queryParam("vanityurl", matcher.group(1))
-                .build();
-
-            ParameterizedTypeReference<WebApiGenericResponse<WebApiResolveVanityUrlResult>> responseType =
-                new ParameterizedTypeReference<>() {
-                };
-
-            return webApiRestTemplate.exchange(
-                appDetailsUri.toUriString(),
-                HttpMethod.GET,
-                null,
-                responseType
-            ).getBody();
-        }
-
-        return WebApiGenericResponse.<WebApiResolveVanityUrlResult>builder()
-            .response(WebApiResolveVanityUrlResult.builder()
-                .steamId(matcher.group(2))
-                .success(1)
-                .build())
-            .build();
-    }
-
-    /**
-     * Retrieves the player summary for a given Steam ID.
-     *
-     * @param userId The Steam ID to retrieve the summary for.
-     */
-    public WebApiGenericResponse<WebApiPlayerSummariesResult> getPlayerSummary(String userId) {
-        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-            .path("/ISteamUser/GetPlayerSummaries/v2/")
-            .queryParam("key", properties.getToken())
-            .queryParam("steamids", userId)
-            .build();
-
-        ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerSummariesResult>> responseType =
-            new ParameterizedTypeReference<>() {
-            };
-
-        return webApiRestTemplate.exchange(
-            appDetailsUri.toUriString(),
-            HttpMethod.GET,
-            null,
-            responseType
-        ).getBody();
     }
 }

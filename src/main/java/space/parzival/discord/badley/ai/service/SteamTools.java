@@ -8,15 +8,19 @@ import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiTools;
-import space.parzival.discord.badley.service.steam.SteamService;
+import space.parzival.discord.badley.service.steam.SteamStoreService;
+import space.parzival.discord.badley.service.steam.SteamWebService;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
+import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsMetacritic;
 import space.parzival.discord.badley.service.steam.model.store.StoreAppDetailsRequirements;
 import space.parzival.discord.badley.service.steam.model.store.StoreFeaturedGame;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiRecentGamesInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.time.format.DateTimeFormatter;
@@ -31,7 +35,8 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.steam.token")
 @AllArgsConstructor
 public class SteamTools implements AiTools {
-    private SteamService steam;
+    private SteamWebService steam;
+    private SteamStoreService steamStore;
 
     private static final String GAME_INFO_TEMPLATE = """
         ${title} (${type}):
@@ -87,6 +92,27 @@ public class SteamTools implements AiTools {
         - Creation Date: ${creation_date}
         """.stripIndent();
 
+    private static final String USER_INFO_BANS_TEMPLATE = """
+        Ban Statistics:
+          - Community Banned: ${community_banned}
+          - VAC Banned: ${vac_banned}
+          - Number of VAC Bans: ${number_of_vac_bans}
+          - Days Since Last Ban: ${days_since_last_ban}
+          - Number of Game Bans: ${number_of_game_bans}
+          - Economy Ban: ${economy_ban}
+        """.stripIndent();
+
+    private static final String RECENT_GAME_INFO_TEMPLATE = """
+        ${title}:
+        - ID: ${id}
+        - Playtime (2 weeks): ${playtime_2weeks}
+        - Playtime (forever): ${playtime_forever}
+        - Playtime Windows (forever): ${playtime_windows_forever}
+        - Playtime Mac (forever): ${playtime_mac_forever}
+        - Playtime Linux (forever): ${playtime_linux_forever}
+        - Playtime Steam Deck (forever): ${playtime_deck_forever}
+        """.stripIndent();
+
     private static final String FEATURED_CATEGORIES_TEMPLATE = """
         Specials:
         ${specials}
@@ -109,7 +135,7 @@ public class SteamTools implements AiTools {
         log.debug("AI is requesting Steam store search for query: {}, {}, {}", query, lang, countryCode);
 
         try {
-            StoreSearchResponse response = steam.searchStore(query, lang, countryCode);
+            StoreSearchResponse response = steamStore.searchStore(query, lang, countryCode);
 
             if (response.getTotal() == 0) {
                 log.debug("No results found for query: {}", query);
@@ -141,7 +167,7 @@ public class SteamTools implements AiTools {
         log.debug("AI is requesting Steam store featured categories: {}, {}", lang, countryCode);
 
         try {
-            StoreFeaturedResponse response = steam.getFeaturedCategories(lang, countryCode);
+            StoreFeaturedResponse response = steamStore.getFeaturedCategories(lang, countryCode);
 
             return StringSubstitutor.replace(FEATURED_CATEGORIES_TEMPLATE, Map.of(
                 "specials", Optional.ofNullable(response.getSpecials().getItems()).map(items -> items.stream()
@@ -171,7 +197,7 @@ public class SteamTools implements AiTools {
         log.debug("AI is requesting Steam store game details: {}, {}, {}", gameId, lang, countryCode);
 
         try {
-            StoreAppDetailsResponse response = steam.getAppDetails(gameId, lang, countryCode);
+            StoreAppDetailsResponse response = steamStore.getAppDetails(gameId, lang, countryCode);
 
             if (!response.isSuccess()) {
                 log.debug("No results found for game IDs: {}", gameId);
@@ -184,7 +210,7 @@ public class SteamTools implements AiTools {
             gameDetails.put("id", response.getGame().getId());
             gameDetails.put("price", response.getGame().getPrice() != null ? response.getGame().getPrice().getFinalPrice() / 100.0 : 0);
             gameDetails.put("currency", response.getGame().getPrice() != null ? response.getGame().getPrice().getCurrency() : "N/A");
-            gameDetails.put("score", gameDetails.put("score", Optional.ofNullable(response.getGame().getMetacritic()).map(StoreAppDetailsMetacritic::getScore).orElse(0)));
+            gameDetails.put("score", Optional.ofNullable(response.getGame().getMetacritic()).map(StoreAppDetailsMetacritic::getScore).orElse(0));
             gameDetails.put("description", response.getGame().getShortDescription());
             gameDetails.put("developers", String.join(", ", response.getGame().getDevelopers()));
             gameDetails.put("publishers", String.join(", ", response.getGame().getPublishers()));
@@ -237,18 +263,92 @@ public class SteamTools implements AiTools {
             return StringSubstitutor.replace(USER_INFO_TEMPLATE, Map.of(
                 "username", response.getResponse().getPlayers().getFirst().getPersonaName(),
                 "id", response.getResponse().getPlayers().getFirst().getSteamId(),
-                "real_name", response.getResponse().getPlayers().getFirst().getRealName(),
-                "country", response.getResponse().getPlayers().getFirst().getLastCountryCode(),
+                "real_name", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getRealName()).orElse(""),
+                "country", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getLastCountryCode()).orElse(""),
                 "profile_url", response.getResponse().getPlayers().getFirst().getProfileUrl(),
                 "avatar_url", response.getResponse().getPlayers().getFirst().getAvatarUrl(),
-                "last_logoff", response.getResponse().getPlayers().getFirst().getLastLogOff().toLocalDateTime()
-                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                "creation_date", response.getResponse().getPlayers().getFirst().getTimeCreated().toLocalDateTime()
-                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+                "last_logoff", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getLastLogOff()).map(u -> u.toLocalDateTime()
+                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).orElse("N/A"),
+                "creation_date", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getTimeCreated()).map(u -> u.toLocalDateTime()
+                    .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).orElse("N/A")
             ));
         } catch (Exception e) {
             log.error("Error fetching Steam user details from ID: {}", e.getMessage(), e);
             return "Error fetching Steam user details from ID: " + e.getMessage();
+        }
+    }
+
+    @Tool(description = "Get details about a user via their Steam ID. The ID has to be requested beforehand.")
+    public String getUserBanDetails(String userId) {
+        log.debug("AI is requesting Steam user ban details from ID: {}", userId);
+
+        try {
+            WebApiPlayerBansResponse response = steam.getPlayerBans(userId);
+
+            if (response == null || response.getPlayers() == null || response.getPlayers().isEmpty()) {
+                log.debug("No ban details found for user ID: {}", userId);
+                return "No ban details found for your user ID.";
+            }
+
+            return StringSubstitutor.replace(USER_INFO_BANS_TEMPLATE, Map.of(
+                "community_banned", response.getPlayers().getFirst().isCommunityBanned(),
+                "vac_banned", response.getPlayers().getFirst().isVacBanned(),
+                "number_of_vac_bans", response.getPlayers().getFirst().getNumberOfVacBans(),
+                "days_since_last_ban", response.getPlayers().getFirst().getDaysSinceLastBan(),
+                "number_of_game_bans", response.getPlayers().getFirst().getNumberOfGameBans(),
+                "economy_ban", response.getPlayers().getFirst().getEconomyBan()
+            ));
+        } catch (Exception e) {
+            log.error("Error fetching Steam user ban details from ID: {}", e.getMessage(), e);
+            return "Error fetching Steam user ban details from ID: " + e.getMessage();
+        }
+    }
+
+    @Tool(description = "Get a users recent games via their Steam ID. The ID has to be requested beforehand.")
+    public String getUserRecentGames(String userId) {
+        log.debug("AI is requesting Steam user recent games from ID: {}", userId);
+
+        try {
+            WebApiGenericResponse<WebApiRecentGamesInfo> response = steam.getRecentPlayedGames(userId);
+
+            if (response == null || response.getResponse() == null || response.getResponse().getGames() == null) {
+                log.debug("No recent games found for user ID: {}", userId);
+                return "No recent games found for your user ID.";
+            }
+
+            return response.getResponse().getGames().stream()
+                .map(game -> StringSubstitutor.replace(RECENT_GAME_INFO_TEMPLATE, Map.of(
+                    "title", game.getName(),
+                    "id", game.getId(),
+                    "playtime_2weeks", game.getPlaytime2Weeks() / 60,
+                    "playtime_forever", game.getPlaytimeForever() / 60,
+                    "playtime_windows_forever", game.getPlaytimeWindowsForever() / 60,
+                    "playtime_mac_forever", game.getPlaytimeMacForever() / 60,
+                    "playtime_linux_forever", game.getPlaytimeLinuxForever() / 60,
+                    "playtime_deck_forever", game.getPlaytimeDeckForever() / 60
+                ))).collect(Collectors.joining("\n"));
+        } catch (Exception e) {
+            log.error("Error fetching Steam user recent games from ID: {}", e.getMessage(), e);
+            return "Error fetching Steam user recent games from ID: " + e.getMessage();
+        }
+    }
+
+    @Tool(description = "Get a users Steam level via their Steam ID. The ID has to be requested beforehand.")
+    public String getUserLevel(String userId) {
+        log.debug("AI is requesting Steam user level from ID: {}", userId);
+
+        try {
+            WebApiGenericResponse<WebApiPlayerLevelInfo> levelResponse = steam.getPlayerLevel(userId);
+
+            if (levelResponse == null || levelResponse.getResponse() == null) {
+                log.debug("No level details found for user ID: {}", userId);
+                return "No level details found for your user ID.";
+            }
+
+            return String.format("User Level: %d", levelResponse.getResponse().getLevel());
+        } catch (Exception e) {
+            log.error("Error fetching Steam user level from ID: {}", e.getMessage(), e);
+            return "Error fetching Steam user level from ID: " + e.getMessage();
         }
     }
 
@@ -260,8 +360,8 @@ public class SteamTools implements AiTools {
             "currency", game.getCurrency(),
             "discount", game.getDiscountPercent(),
             "original_price", game.getOriginalPrice() / 100.0,
-            "discount_expiration", game.getDiscountExpiration().toLocalDateTime()
-                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+            "discount_expiration", Optional.ofNullable(game.getDiscountExpiration()).map(expirationTime -> expirationTime.toLocalDateTime()
+                .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).orElse("N/A"),
             "windows", game.isWindowsAvailable(),
             "mac", game.isMacAvailable(),
             "linux", game.isLinuxAvailable()
