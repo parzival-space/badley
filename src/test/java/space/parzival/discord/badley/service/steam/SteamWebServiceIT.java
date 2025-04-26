@@ -10,6 +10,7 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
@@ -119,5 +120,20 @@ class SteamWebServiceIT {
         assertEquals(1757, response.getPlayers().getFirst().getDaysSinceLastBan());
         assertEquals(0, response.getPlayers().getFirst().getNumberOfGameBans());
         assertEquals("none", response.getPlayers().getFirst().getEconomyBan());
+    }
+
+    @Test
+    void getPlayerLevel_returns_validData() {
+        server.expect(requestTo("/IPlayerService/GetSteamLevel/v1/?key=token&steamid=76561198197402058"))
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/steam/web/valid-getsteamlevel-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
+
+        WebApiGenericResponse<WebApiPlayerLevelInfo> response =
+            service.getPlayerLevel("76561198197402058");
+
+        assertNotNull(response);
+        assertEquals(94, response.getResponse().getLevel());
     }
 }

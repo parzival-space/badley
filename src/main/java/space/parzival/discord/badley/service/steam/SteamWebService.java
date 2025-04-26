@@ -12,6 +12,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.configuration.properties.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
@@ -117,5 +118,28 @@ public class SteamWebService {
             .build();
 
         return apiRestTemplate.getForObject(appDetailsUri.toUriString(), WebApiPlayerBansResponse.class);
+    }
+
+    /**
+     * Retrieves the player level for a given Steam ID.
+     *
+     * @param userId The Steam ID to retrieve the level for.
+     */
+    public WebApiGenericResponse<WebApiPlayerLevelInfo> getPlayerLevel(String userId) {
+        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
+            .path("/IPlayerService/GetSteamLevel/v1/")
+            .queryParam("key", properties.getToken())
+            .queryParam("steamid", userId)
+            .build();
+
+        ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerLevelInfo>> responseType =
+            new ParameterizedTypeReference<>() {};
+
+        return apiRestTemplate.exchange(
+            appDetailsUri.toUriString(),
+            HttpMethod.GET,
+            null,
+            responseType
+        ).getBody();
     }
 }
