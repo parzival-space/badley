@@ -1,5 +1,6 @@
 package space.parzival.discord.badley.configuration;
 
+import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.ParseException;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -36,6 +37,12 @@ public class SpotifyConfiguration {
         scheduleTokenRefreshAsync();
 
         return this.apiClient;
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        log.info("Shutting down Spotify API client...");
+        this.scheduler.shutdown();
     }
 
     private void scheduleTokenRefreshAsync() {
