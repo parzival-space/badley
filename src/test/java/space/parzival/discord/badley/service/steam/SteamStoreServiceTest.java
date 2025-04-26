@@ -11,11 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class SteamServiceTest {
+class SteamStoreServiceTest {
 
     @Test
     void searchStore() {
-        SteamService steamService = new SteamService(new RestTemplateBuilder(), new SteamProperties(""));
+        SteamStoreService steamService = new SteamStoreService(new RestTemplateBuilder());
 
         StoreSearchResponse result = steamService.searchStore("Sea of Thieves", "english", null);
         assertNotNull(result);
@@ -27,7 +27,7 @@ class SteamServiceTest {
 
     @Test
     void getFeaturedCategories() {
-        SteamService steamService = new SteamService(new RestTemplateBuilder(), new SteamProperties(""));
+        SteamStoreService steamService = new SteamStoreService(new RestTemplateBuilder());
 
         StoreFeaturedResponse result = steamService.getFeaturedCategories(null, null);
         assertNotNull(result);
@@ -41,7 +41,7 @@ class SteamServiceTest {
     @Test
     void getAppDetails() {
         final String APP_ID = "346110";
-        SteamService steamService = new SteamService(new RestTemplateBuilder(), new SteamProperties(""));
+        SteamStoreService steamService = new SteamStoreService(new RestTemplateBuilder());
 
         StoreAppDetailsResponse result = steamService.getAppDetails(APP_ID, null, null);
         assertNotNull(result);

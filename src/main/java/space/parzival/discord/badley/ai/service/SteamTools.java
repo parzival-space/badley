@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiTools;
 import space.parzival.discord.badley.service.steam.SteamService;
+import space.parzival.discord.badley.service.steam.SteamStoreService;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;
 import space.parzival.discord.badley.service.steam.model.StoreFeaturedResponse;
 import space.parzival.discord.badley.service.steam.model.StoreSearchResponse;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SteamTools implements AiTools {
     private SteamService steam;
+    private SteamStoreService steamStore;
 
     private static final String GAME_INFO_TEMPLATE = """
         ${title} (${type}):
@@ -109,7 +111,7 @@ public class SteamTools implements AiTools {
         log.debug("AI is requesting Steam store search for query: {}, {}, {}", query, lang, countryCode);
 
         try {
-            StoreSearchResponse response = steam.searchStore(query, lang, countryCode);
+            StoreSearchResponse response = steamStore.searchStore(query, lang, countryCode);
 
             if (response.getTotal() == 0) {
                 log.debug("No results found for query: {}", query);
@@ -141,7 +143,7 @@ public class SteamTools implements AiTools {
         log.debug("AI is requesting Steam store featured categories: {}, {}", lang, countryCode);
 
         try {
-            StoreFeaturedResponse response = steam.getFeaturedCategories(lang, countryCode);
+            StoreFeaturedResponse response = steamStore.getFeaturedCategories(lang, countryCode);
 
             return StringSubstitutor.replace(FEATURED_CATEGORIES_TEMPLATE, Map.of(
                 "specials", Optional.ofNullable(response.getSpecials().getItems()).map(items -> items.stream()
@@ -171,7 +173,7 @@ public class SteamTools implements AiTools {
         log.debug("AI is requesting Steam store game details: {}, {}, {}", gameId, lang, countryCode);
 
         try {
-            StoreAppDetailsResponse response = steam.getAppDetails(gameId, lang, countryCode);
+            StoreAppDetailsResponse response = steamStore.getAppDetails(gameId, lang, countryCode);
 
             if (!response.isSuccess()) {
                 log.debug("No results found for game IDs: {}", gameId);

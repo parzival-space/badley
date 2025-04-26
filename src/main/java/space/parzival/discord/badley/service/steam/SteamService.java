@@ -34,100 +34,19 @@ import java.util.regex.Pattern;
 @Service
 @ConditionalOnProperty(value = "badley.ai.tools.steam.token")
 public class SteamService {
-    private static final String FALLBACK_LANGUAGE = "english";
-    private static final String FALLBACK_COUNTRY_CODE = "US";
-
     private static final Pattern PROFILE_ID_PATTERN =
         Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");
 
-    private final RestTemplate storeRestTemplate;
-    private final RestTemplate webApiRestTemplate;
+    private final RestTemplate apiRestTemplate;
     private final SteamProperties properties;
 
     public SteamService(RestTemplateBuilder restTemplateBuilder, SteamProperties properties) {
-        storeRestTemplate = restTemplateBuilder
-            .rootUri("https://store.steampowered.com/api")
-            .defaultHeader(HttpHeaders.ACCEPT, "application/json")
-            .build();
-
-        webApiRestTemplate = restTemplateBuilder
+        apiRestTemplate = restTemplateBuilder
             .rootUri("https://api.steampowered.com")
             .defaultHeader(HttpHeaders.ACCEPT, "application/json")
             .build();
 
         this.properties = properties;
-    }
-
-    /**
-     * Searches the Steam store for games.
-     *
-     * @param query       The search query to use.
-     * @param language    The language to use for the search. If null, "english" will be used.
-     * @param countryCode The country code to use for the search. If null, "US" will be used.
-     */
-    public StoreSearchResponse searchStore(String query, @Nullable String language, @Nullable String countryCode) {
-        UriComponents searchUri = UriComponentsBuilder.newInstance()
-            .path("/storesearch")
-            .queryParam("term", query)
-            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-            .build();
-
-        return storeRestTemplate.getForObject(searchUri.toUriString(), StoreSearchResponse.class);
-    }
-
-    /**
-     * Fetches the featured categories from the Steam store.
-     *
-     * @param language    The language to use for the request. If null, "english" will be used.
-     * @param countryCode The country code to use for the request. If null, "US" will be used.
-     */
-    public StoreFeaturedResponse getFeaturedCategories(@Nullable String language, @Nullable String countryCode) {
-        UriComponents featuredUri = UriComponentsBuilder.newInstance()
-            .path("/featuredcategories")
-            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-            .build();
-
-        return storeRestTemplate.getForObject(featuredUri.toUriString(), StoreFeaturedResponse.class);
-    }
-
-    /**
-     * Retrieves the details of specific apps from the Steam store.
-     *
-     * @param appId       The list of app IDs to retrieve details for.
-     * @param language    The language to use for the request. If null, "english" will be used.
-     * @param countryCode The country code to use for the request. If null, "US" will be used.
-     */
-    public StoreAppDetailsResponse getAppDetails(String appId, @Nullable String language, @Nullable String countryCode) {
-        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
-            .path("/appdetails")
-            .queryParam("appids", appId)
-            .queryParam("l", Optional.ofNullable(language).orElse(FALLBACK_LANGUAGE))
-            .queryParam("cc", Optional.ofNullable(countryCode).orElse(FALLBACK_COUNTRY_CODE))
-            .build();
-
-        ResponseEntity<Map<String, StoreAppDetailsResponse>> response = storeRestTemplate.exchange(
-            appDetailsUri.toUriString(),
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<>() {
-            }
-        );
-
-        if (response.getBody() == null)
-            return StoreAppDetailsResponse.builder()
-                .success(false)
-                .game(null)
-                .build();
-
-        return response.getBody().getOrDefault( // NOSONAR - checked above
-            appId,
-            StoreAppDetailsResponse.builder()
-                .success(false)
-                .game(null)
-                .build()
-        );
     }
 
     /**
@@ -151,7 +70,7 @@ public class SteamService {
                 new ParameterizedTypeReference<>() {
                 };
 
-            return webApiRestTemplate.exchange(
+            return apiRestTemplate.exchange(
                 appDetailsUri.toUriString(),
                 HttpMethod.GET,
                 null,
@@ -183,7 +102,7 @@ public class SteamService {
             new ParameterizedTypeReference<>() {
             };
 
-        return webApiRestTemplate.exchange(
+        return apiRestTemplate.exchange(
             appDetailsUri.toUriString(),
             HttpMethod.GET,
             null,
