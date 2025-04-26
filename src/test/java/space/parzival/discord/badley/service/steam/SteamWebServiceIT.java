@@ -12,6 +12,7 @@ import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiRecentGamesInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -135,5 +136,30 @@ class SteamWebServiceIT {
 
         assertNotNull(response);
         assertEquals(94, response.getResponse().getLevel());
+    }
+
+    @Test
+    void getRecentPlayedGames_returns_validData() {
+        server.expect(requestTo("/IPlayerService/GetRecentlyPlayedGames/v1/?key=token&steamid=76561198197402058"))
+            .andRespond(withSuccess(
+                resourceLoader.getResource("classpath:mock/steam/web/valid-recentplayedgames-response.json"),
+                MediaType.APPLICATION_JSON
+            ));
+
+        WebApiGenericResponse<WebApiRecentGamesInfo> response =
+            service.getRecentPlayedGames("76561198197402058");
+
+        assertNotNull(response);
+        assertEquals(11, response.getResponse().getTotal());
+        assertEquals(1172620, response.getResponse().getGames().getFirst().getId());
+        assertEquals("Sea of Thieves", response.getResponse().getGames().getFirst().getName());
+        assertEquals(501, response.getResponse().getGames().getFirst().getPlaytime2Weeks());
+        assertEquals(13558, response.getResponse().getGames().getFirst().getPlaytimeForever());
+        assertEquals("f95f362708fc326511c5d86566c447ee625bf776",
+            response.getResponse().getGames().getFirst().getIconUrl());
+        assertEquals(13395, response.getResponse().getGames().getFirst().getPlaytimeWindowsForever());
+        assertEquals(0, response.getResponse().getGames().getFirst().getPlaytimeMacForever());
+        assertEquals(162, response.getResponse().getGames().getFirst().getPlaytimeLinuxForever());
+        assertEquals(88, response.getResponse().getGames().getFirst().getPlaytimeDeckForever());
     }
 }

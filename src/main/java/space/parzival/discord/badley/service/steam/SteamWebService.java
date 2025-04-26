@@ -14,6 +14,7 @@ import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerSummariesResult;
+import space.parzival.discord.badley.service.steam.model.webapi.WebApiRecentGamesInfo;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 
 import java.util.regex.Matcher;
@@ -133,6 +134,29 @@ public class SteamWebService {
             .build();
 
         ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerLevelInfo>> responseType =
+            new ParameterizedTypeReference<>() {};
+
+        return apiRestTemplate.exchange(
+            appDetailsUri.toUriString(),
+            HttpMethod.GET,
+            null,
+            responseType
+        ).getBody();
+    }
+
+    /**
+     * Retrieves the recently played games for a given Steam ID.
+     *
+     * @param userId The Steam ID to retrieve the recently played games for.
+     */
+    public WebApiGenericResponse<WebApiRecentGamesInfo> getRecentPlayedGames(String userId) {
+        UriComponents appDetailsUri = UriComponentsBuilder.newInstance()
+            .path("/IPlayerService/GetRecentlyPlayedGames/v1/")
+            .queryParam("key", properties.getToken())
+            .queryParam("steamid", userId)
+            .build();
+
+        ParameterizedTypeReference<WebApiGenericResponse<WebApiRecentGamesInfo>> responseType =
             new ParameterizedTypeReference<>() {};
 
         return apiRestTemplate.exchange(
