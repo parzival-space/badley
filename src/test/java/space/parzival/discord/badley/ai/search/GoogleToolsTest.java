@@ -32,6 +32,7 @@ class GoogleToolsTest {
     @Test
     void searchGoogle_returns_validData() throws IOException {
         when(cseList.setQ(anyString())).thenReturn(cseList);
+        when(cseList.setSafe(anyString())).thenReturn(cseList);
         when(cseList.execute()).thenReturn(createSearch());
 
         GoogleTools googleTools = new GoogleTools(customSearchApi);
@@ -46,6 +47,7 @@ class GoogleToolsTest {
     @Test
     void searchGoogle_returns_errorMessage() throws IOException {
         when(cseList.setQ(anyString())).thenReturn(cseList);
+        when(cseList.setSafe(anyString())).thenReturn(cseList);
         when(cseList.execute()).thenThrow(new IOException("Test exception"));
 
         GoogleTools googleTools = new GoogleTools(customSearchApi);
