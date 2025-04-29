@@ -34,6 +34,7 @@ public class GoogleTools implements AiTools {
         try {
             Search response = googleCustomSearchAPI.cse().list()
                 .setQ(query)
+                .setSafe("off")
                 .execute();
 
             return response.getItems().stream().map(result ->
