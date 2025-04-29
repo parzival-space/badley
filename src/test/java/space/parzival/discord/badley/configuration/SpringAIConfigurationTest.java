@@ -20,7 +20,7 @@ class SpringAIConfigurationTest {
         ChatMemory chatMemory = mock(ChatMemory.class);
         AiProperties aiProperties = new AiProperties("TestAI", "Test personality");
 
-        SpringAIConfiguration springAIConfiguration = new SpringAIConfiguration(chatClientBuilder, chatMemory, aiProperties, List.of());
+        SpringAIConfiguration springAIConfiguration = new SpringAIConfiguration(List.of(), chatClientBuilder, chatMemory, aiProperties);
 
         assertDoesNotThrow(() -> {
             ChatClient chatClient = springAIConfiguration.chatClient();
