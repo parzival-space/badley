@@ -40,6 +40,8 @@
     <github-api.version>2.0-rc.3</github-api.version>
     <owm-api.version>0.6.0</owm-api.version>
     <spotify.version>9.2.0</spotify.version>
+    <google.client.version>2.7.2</google.client.version>
+    <google.customsearch.version>v1-rev20240821-2.0.0</google.customsearch.version>
     <sonar.organization>parzival-space</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
@@ -104,6 +106,18 @@
       <groupId>se.michaelthelin.spotify</groupId>
       <artifactId>spotify-web-api-java</artifactId>
       <version>${spotify.version}</version>
+    </dependency>
+    <dependency>
+      <!-- https://github.com/googleapis/google-api-java-client/ -->
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>${google.client.version}</version>
+    </dependency>
+    <dependency>
+      <!-- https://github.com/googleapis/google-api-java-client-services/tree/main/clients/google-api-services-customsearch/v1 -->
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-customsearch</artifactId>
+      <version>${google.customsearch.version}</version>
     </dependency>
 
     <dependency>
