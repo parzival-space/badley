@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.configuration.google;
+package space.parzival.discord.badley.configuration.ai.google;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.GenericUrl;
@@ -8,7 +8,7 @@ import com.google.api.services.customsearch.v1.CustomSearchAPIRequestInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.util.UriComponentsBuilder;
-import space.parzival.discord.badley.configuration.properties.GoogleProperties;
+import space.parzival.discord.badley.configuration.properties.tools.GoogleProperties;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;

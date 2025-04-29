@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import space.parzival.discord.badley.configuration.properties.BraveProperties;
+import space.parzival.discord.badley.configuration.properties.tools.BraveProperties;
 import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 
 import java.util.List;

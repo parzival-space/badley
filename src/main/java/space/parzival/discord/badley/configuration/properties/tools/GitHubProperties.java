@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.configuration.properties;
+package space.parzival.discord.badley.configuration.properties.tools;
 
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
@@ -6,11 +6,11 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "badley.ai.tools.openweather")
+@ConfigurationProperties(prefix = "badley.ai.tools.github")
 @AllArgsConstructor
-public class OpenWeatherProperties {
+public class GitHubProperties {
     /**
-     * The OpenWeather API token to use for authentication.
+     * The GitHub token to use for authentication.
      */
     private @Nullable String token;
 }

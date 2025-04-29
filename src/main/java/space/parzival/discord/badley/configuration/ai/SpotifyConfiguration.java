@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.configuration;
+package space.parzival.discord.badley.configuration.ai;
 
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.ClientCredentials;
-import space.parzival.discord.badley.configuration.properties.SpotifyProperties;
+import space.parzival.discord.badley.configuration.properties.tools.SpotifyProperties;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

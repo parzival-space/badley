@@ -3,7 +3,7 @@ package space.parzival.discord.badley.service.steam;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import space.parzival.discord.badley.configuration.properties.SteamProperties;
+import space.parzival.discord.badley.configuration.properties.tools.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiResolveVanityUrlResult;
 

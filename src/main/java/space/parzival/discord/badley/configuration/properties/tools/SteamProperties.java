@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.configuration.properties;
+package space.parzival.discord.badley.configuration.properties.tools;
 
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;

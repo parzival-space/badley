@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import space.parzival.discord.badley.configuration.properties.SteamProperties;
+import space.parzival.discord.badley.configuration.properties.tools.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;
