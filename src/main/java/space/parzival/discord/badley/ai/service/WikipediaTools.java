@@ -19,8 +19,6 @@ import java.util.Objects;
 @Component
 @AllArgsConstructor
 public class WikipediaTools implements AiTools {
-    private final WikipediaService wikipediaService;
-
     private static final String PAGE_INFO_TEMPLATE = """
         Title: ${title}
         Page ID: ${id}
@@ -28,6 +26,7 @@ public class WikipediaTools implements AiTools {
         Content:
         ${content}
         """.stripIndent();
+    private final WikipediaService wikipediaService;
 
     @Tool(description = "Get information from Wikipedia")
     public String queryWikipedia(String title) {

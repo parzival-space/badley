@@ -32,8 +32,6 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.spotify.client-secret")
 @AllArgsConstructor
 public class SpotifyTools implements AiTools {
-    private SpotifyApi spotifyApi;
-
     private static final String ARTIST_INFO = """
         ${artist.name}:
         - Followers: ${artist.followers}
@@ -42,7 +40,6 @@ public class SpotifyTools implements AiTools {
         - External URLs: ${artist.externalUrls}
         - URL: ${artist.spotifyUrl}
         """.stripIndent();
-
     private static final String TRACK_INFO = """
         ${track.name}:
         - Duration: ${track.duration}
@@ -54,7 +51,6 @@ public class SpotifyTools implements AiTools {
         - Track Number: ${track.trackNumber}
         - URL: ${track.spotifyUrl}
         """.stripIndent();
-
     private static final String ALBUM_INFO = """
         ${album.name}:
         - Type: ${album.type}
@@ -63,7 +59,6 @@ public class SpotifyTools implements AiTools {
         - Total Tracks: ${album.tracks}
         - URL: ${album.spotifyUrl}
         """.stripIndent();
-
     private static final String PLAYLIST_INFO = """
         ${playlist.name}:
         - Description: ${playlist.description}
@@ -71,7 +66,6 @@ public class SpotifyTools implements AiTools {
         - Tracks: ${playlist.tracks}
         - URL: ${playlist.spotifyUrl}
         """.stripIndent();
-
     private static final String SHOW_INFO = """
         ${show.name}:
         - Description: ${show.description}
@@ -80,7 +74,6 @@ public class SpotifyTools implements AiTools {
         - Publisher: ${show.publisher}
         - URL: ${show.spotifyUrl}
         """.stripIndent();
-
     private static final String EPISODE_INFO = """
         ${episode.name}:
         - Description: ${episode.description}
@@ -91,6 +84,7 @@ public class SpotifyTools implements AiTools {
         - Release Date: ${episode.releaseDate}
         - URL: ${episode.spotifyUrl}
         """.stripIndent();
+    private SpotifyApi spotifyApi;
 
     @Tool(description = "Search Spotify for artists.")
     public String searchSpotifyForArtists(String query) {

@@ -35,9 +35,6 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.steam.token")
 @AllArgsConstructor
 public class SteamTools implements AiTools {
-    private SteamWebService steam;
-    private SteamStoreService steamStore;
-
     private static final String GAME_INFO_TEMPLATE = """
         ${title} (${type}):
         - ID: ${id}
@@ -48,7 +45,6 @@ public class SteamTools implements AiTools {
           - Mac: ${mac}
           - Linux: ${linux}
         """.stripIndent();
-
     private static final String GAME_INFO_ADVANCED_TEMPLATE = """
         ${title} (${type}):
         - ID: ${id}
@@ -68,7 +64,6 @@ public class SteamTools implements AiTools {
           - Mac: ${mac}
           - Linux: ${linux}
         """.stripIndent();
-
     private static final String GAME_INFO_SALE_TEMPLATE = """
         ${title}:
         - ID: ${id}
@@ -80,7 +75,6 @@ public class SteamTools implements AiTools {
           - Mac: ${mac}
           - Linux: ${linux}
         """.stripIndent();
-
     private static final String USER_INFO_TEMPLATE = """
         ${username}:
         - ID: ${id}
@@ -91,7 +85,6 @@ public class SteamTools implements AiTools {
         - Last Logoff: ${last_logoff}
         - Creation Date: ${creation_date}
         """.stripIndent();
-
     private static final String USER_INFO_BANS_TEMPLATE = """
         Ban Statistics:
           - Community Banned: ${community_banned}
@@ -101,7 +94,6 @@ public class SteamTools implements AiTools {
           - Number of Game Bans: ${number_of_game_bans}
           - Economy Ban: ${economy_ban}
         """.stripIndent();
-
     private static final String RECENT_GAME_INFO_TEMPLATE = """
         ${title}:
         - ID: ${id}
@@ -112,7 +104,6 @@ public class SteamTools implements AiTools {
         - Playtime Linux (forever): ${playtime_linux_forever}
         - Playtime Steam Deck (forever): ${playtime_deck_forever}
         """.stripIndent();
-
     private static final String FEATURED_CATEGORIES_TEMPLATE = """
         Specials:
         ${specials}
@@ -126,6 +117,8 @@ public class SteamTools implements AiTools {
         New Releases:
         ${new_releases}
         """.stripIndent();
+    private SteamWebService steam;
+    private SteamStoreService steamStore;
 
     @Tool(description = "Search the Steam store.")
     public String searchStore(

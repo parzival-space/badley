@@ -232,7 +232,7 @@ class SteamToolsTest {
         SteamStoreService steamStoreService = mock(SteamStoreService.class);
 
         when(steamWebService.getRecentPlayedGames(anyString()))
-            .thenReturn(WebApiGenericResponse.< WebApiRecentGamesInfo >builder()
+            .thenReturn(WebApiGenericResponse.<WebApiRecentGamesInfo>builder()
                 .response(WebApiRecentGamesInfo.builder()
                     .total(1)
                     .games(List.of(createWebApiRecentGameInfo()))

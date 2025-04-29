@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.brave.token")
 @AllArgsConstructor
 public class BraveTools implements AiTools {
-    private final BraveService braveService;
-
     private static final String WEB_SEARCH_RESULT = """
         ${url}:
         - Title: ${title}
@@ -27,6 +25,7 @@ public class BraveTools implements AiTools {
         - Family Friendly: ${familyFriendly}
         - Language: ${language}
         """.stripIndent();
+    private final BraveService braveService;
 
     @Tool(description = "Search the web for information.")
     public String searchBrave(String query) {

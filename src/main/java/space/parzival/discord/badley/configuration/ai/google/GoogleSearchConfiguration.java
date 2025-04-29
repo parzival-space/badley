@@ -27,17 +27,17 @@ public class GoogleSearchConfiguration {
             GoogleNetHttpTransport.newTrustedTransport(),
             GsonFactory.getDefaultInstance(),
             null)
-                .setApplicationName(appName)
-                .setCustomSearchAPIRequestInitializer(
-                    new CustomSearchAPIRequestInitializer(properties.getToken()))
-                .setHttpRequestInitializer(httpRequest -> {
-                    // For some weird reason, the Google Custom Search API requires the cx parameter to be set in
-                    // the URL. This sucks because we would need to set it in every request. Instead, we are
-                    // overwriting the default HttpRequestInitializer to pre-populate the cx parameter.
-                    UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUri(httpRequest.getUrl().toURI());
-                    uriBuilder.queryParamIfPresent("cx", Optional.ofNullable(properties.getEngineId()));
-                    httpRequest.setUrl(new GenericUrl(uriBuilder.build(true).toUri()));
-                })
-                .build();
+            .setApplicationName(appName)
+            .setCustomSearchAPIRequestInitializer(
+                new CustomSearchAPIRequestInitializer(properties.getToken()))
+            .setHttpRequestInitializer(httpRequest -> {
+                // For some weird reason, the Google Custom Search API requires the cx parameter to be set in
+                // the URL. This sucks because we would need to set it in every request. Instead, we are
+                // overwriting the default HttpRequestInitializer to pre-populate the cx parameter.
+                UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromUri(httpRequest.getUrl().toURI());
+                uriBuilder.queryParamIfPresent("cx", Optional.ofNullable(properties.getEngineId()));
+                httpRequest.setUrl(new GenericUrl(uriBuilder.build(true).toUri()));
+            })
+            .build();
     }
 }

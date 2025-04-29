@@ -19,13 +19,12 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.google.token")
 @AllArgsConstructor
 public class GoogleTools implements AiTools {
-    private final CustomSearchAPI googleCustomSearchAPI;
-
     private static final String WEB_SEARCH_RESULT = """
         ${url}:
         - Title: ${title}
         - Description: ${description}
         """.stripIndent();
+    private final CustomSearchAPI googleCustomSearchAPI;
 
     @Tool(description = "Search the web for information.")
     public String searchGoogle(String query) {

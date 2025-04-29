@@ -51,7 +51,7 @@ class SpotifyToolsTest {
     void searchSpotifyForArtists() throws IOException, ParseException, SpotifyWebApiException {
         Paging<Artist> artists = new Paging.Builder<Artist>()
             .setTotal(1)
-            .setItems(new Artist[] {
+            .setItems(new Artist[]{
                 new Artist.Builder()
                     .setName("Test Artist")
                     .setFollowers(new Followers.Builder().setTotal(1).build())

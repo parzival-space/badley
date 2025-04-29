@@ -134,7 +134,8 @@ public class SteamWebService {
             .build();
 
         ParameterizedTypeReference<WebApiGenericResponse<WebApiPlayerLevelInfo>> responseType =
-            new ParameterizedTypeReference<>() {};
+            new ParameterizedTypeReference<>() {
+            };
 
         return apiRestTemplate.exchange(
             appDetailsUri.toUriString(),
@@ -157,7 +158,8 @@ public class SteamWebService {
             .build();
 
         ParameterizedTypeReference<WebApiGenericResponse<WebApiRecentGamesInfo>> responseType =
-            new ParameterizedTypeReference<>() {};
+            new ParameterizedTypeReference<>() {
+            };
 
         return apiRestTemplate.exchange(
             appDetailsUri.toUriString(),

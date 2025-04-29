@@ -22,8 +22,6 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.openweather.token")
 @AllArgsConstructor
 public class OpenWeatherTools implements AiTools {
-    private final OpenWeatherMapClient openWeatherClient;
-
     private static final String WEATHER_DAY_TEMPLATE = """
         Forecast for ${location} [${country}] on ${date}:
         - Temperature: ${temperature} °C
@@ -39,6 +37,7 @@ public class OpenWeatherTools implements AiTools {
         Weather Descriptions:
         ${weather_descriptions}
         """.stripIndent();
+    private final OpenWeatherMapClient openWeatherClient;
 
     @Tool(description = "Get the current weather for a given location.")
     public String getCurrentWeather(String location) {
