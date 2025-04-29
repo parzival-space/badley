@@ -8,7 +8,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.client.MockRestServiceServer;
-import space.parzival.discord.badley.configuration.properties.BraveProperties;
+import space.parzival.discord.badley.configuration.properties.tools.BraveProperties;
 import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

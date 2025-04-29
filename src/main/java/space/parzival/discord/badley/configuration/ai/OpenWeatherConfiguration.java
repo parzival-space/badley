@@ -1,11 +1,11 @@
-package space.parzival.discord.badley.configuration;
+package space.parzival.discord.badley.configuration.ai;
 
 import io.github.mbenincasa.javaopenweathermapclient.client.DefaultOpenWeatherMapClient;
 import io.github.mbenincasa.javaopenweathermapclient.client.OpenWeatherMapClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import space.parzival.discord.badley.configuration.properties.OpenWeatherProperties;
+import space.parzival.discord.badley.configuration.properties.tools.OpenWeatherProperties;
 
 import java.util.Objects;
 

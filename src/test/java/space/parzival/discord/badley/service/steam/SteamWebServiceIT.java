@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
-import space.parzival.discord.badley.configuration.properties.SteamProperties;
+import space.parzival.discord.badley.configuration.properties.tools.SteamProperties;
 import space.parzival.discord.badley.service.steam.model.WebApiGenericResponse;
 import space.parzival.discord.badley.service.steam.model.WebApiPlayerBansResponse;
 import space.parzival.discord.badley.service.steam.model.webapi.WebApiPlayerLevelInfo;

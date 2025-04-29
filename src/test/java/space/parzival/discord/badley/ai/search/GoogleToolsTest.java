@@ -1,11 +1,12 @@
 package space.parzival.discord.badley.ai.search;
 
+import com.google.api.services.customsearch.v1.CustomSearchAPI;
+import com.google.api.services.customsearch.v1.model.Result;
+import com.google.api.services.customsearch.v1.model.Search;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import space.parzival.discord.badley.service.google.GoogleService;
-import space.parzival.discord.badley.service.google.model.GoogleQueryResponse;
-import space.parzival.discord.badley.service.google.model.query.GoogleQueryResult;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -15,18 +16,26 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class GoogleToolsTest {
-    private GoogleService googleService;
+    private CustomSearchAPI customSearchApi;
+    private CustomSearchAPI.Cse cse;
+    private CustomSearchAPI.Cse.List cseList;
 
     @BeforeEach
-    void setUp() {
-        googleService = mock(GoogleService.class);
+    void setUp() throws IOException {
+        customSearchApi = mock(CustomSearchAPI.class);
+        cse = mock(CustomSearchAPI.Cse.class);
+        cseList = mock(CustomSearchAPI.Cse.List.class);
+        when(customSearchApi.cse()).thenReturn(cse);
+        when(cse.list()).thenReturn(cseList);
     }
 
     @Test
-    void searchGoogle_returns_validData() {
-        when(googleService.query(anyString())).thenReturn(createGoogleQueryResponse());
+    void searchGoogle_returns_validData() throws IOException {
+        when(cseList.setQ(anyString())).thenReturn(cseList);
+        when(cseList.setSafe(anyString())).thenReturn(cseList);
+        when(cseList.execute()).thenReturn(createSearch());
 
-        GoogleTools googleTools = new GoogleTools(googleService);
+        GoogleTools googleTools = new GoogleTools(customSearchApi);
         String result = googleTools.searchGoogle("test query");
 
         assertNotNull(result);
@@ -36,33 +45,29 @@ class GoogleToolsTest {
     }
 
     @Test
-    void searchGoogle_returns_errorMessage() {
-        when(googleService.query(anyString())).thenThrow(new RuntimeException("Test exception"));
+    void searchGoogle_returns_errorMessage() throws IOException {
+        when(cseList.setQ(anyString())).thenReturn(cseList);
+        when(cseList.setSafe(anyString())).thenReturn(cseList);
+        when(cseList.execute()).thenThrow(new IOException("Test exception"));
 
-        GoogleTools googleTools = new GoogleTools(googleService);
+        GoogleTools googleTools = new GoogleTools(customSearchApi);
         String result = googleTools.searchGoogle("test query");
 
         assertNotNull(result);
         assertTrue(result.contains("Error fetching web search results: Test exception"));
     }
 
-    private GoogleQueryResponse createGoogleQueryResponse() {
-        return GoogleQueryResponse.builder()
-            .items(List.of(createGoogleQueryResult()))
-            .build();
+    private Search createSearch() {
+        Search search = new Search();
+        search.setItems(List.of(createResult()));
+        return search;
     }
 
-    private GoogleQueryResult createGoogleQueryResult() {
-        return GoogleQueryResult.builder()
-            .kind("customsearch#result")
-            .title("Example Title")
-            .htmlTitle("Example Title")
-            .link("https://example.com")
-            .displayLink("example.com")
-            .snippet("Example Description")
-            .htmlSnippet("Example Description")
-            .formattedUrl("https://example.com")
-            .htmlFormattedUrl("https://example.com")
-            .build();
+    private Result createResult() {
+        Result search = new Result();
+        search.setLink("https://example.com");
+        search.setTitle("Example Title");
+        search.setSnippet("Example Description");
+        return search;
     }
 }

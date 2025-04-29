@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.configuration;
+package space.parzival.discord.badley.configuration.ai;
 
 import lombok.extern.slf4j.Slf4j;
 import org.kohsuke.github.GitHub;
@@ -6,7 +6,7 @@ import org.kohsuke.github.GitHubBuilder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import space.parzival.discord.badley.configuration.properties.GitHubProperties;
+import space.parzival.discord.badley.configuration.properties.tools.GitHubProperties;
 
 import java.io.IOException;
 
