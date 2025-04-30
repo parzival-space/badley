@@ -11,7 +11,7 @@ import space.parzival.discord.badley.service.ipapi.model.IpApiGeolocationRespons
 @ConditionalOnProperty(value = "badley.ai.tools.ipapi.enabled", havingValue = "true")
 public class IpApiService {
     private final RestTemplate apiRestTemplate;
-    private final static String FIELDS = String.join(",",
+    private static final String FIELDS = String.join(",",
         "status", "message", "continent", "continentCode", "country", "countryCode", "region", "regionName",
         "city", "district", "zip", "lat", "lon", "timezone", "offset", "currency", "isp", "org", "as", "asname",
         "reverse", "mobile", "proxy", "hosting", "query");

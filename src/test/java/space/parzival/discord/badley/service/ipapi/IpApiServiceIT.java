@@ -7,13 +7,11 @@ import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
 import space.parzival.discord.badley.configuration.properties.tools.IpApiProperties;
 import space.parzival.discord.badley.service.ipapi.model.IpApiGeolocationResponse;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @EnableConfigurationProperties(IpApiProperties.class)

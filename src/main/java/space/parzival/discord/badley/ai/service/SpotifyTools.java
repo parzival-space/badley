@@ -201,7 +201,8 @@ public class SpotifyTools implements AiTools {
                 .limit(10)
                 .map(playlist -> StringSubstitutor.replace(PLAYLIST_INFO, Map.of(
                     "playlist.name", playlist.getName(),
-                    "playlist.description", Optional.ofNullable(playlist.getDescription()).orElse("No description available"),
+                    "playlist.description", Optional.ofNullable(playlist.getDescription())
+                        .orElse("No playlist description available"),
                     "playlist.owner", playlist.getOwner().getDisplayName(),
                     "playlist.tracks", playlist.getTracks().getTotal(),
                     "playlist.spotifyUrl", "https://open.spotify.com/playlist/" + playlist.getId())
@@ -233,7 +234,7 @@ public class SpotifyTools implements AiTools {
                     "show.name", show.getName(),
                     "show.description", Optional
                         .ofNullable(show.getDescription())
-                        .orElse("No description available"),
+                        .orElse("No show description available"),
                     "show.explicit", Boolean.TRUE.equals(show.getExplicit()) ? "Yes" : "No",
                     "show.languages", String.join(", ", show.getLanguages()),
                     "show.publisher", show.getPublisher(),
@@ -265,7 +266,7 @@ public class SpotifyTools implements AiTools {
                     "episode.name", episode.getName(),
                     "episode.description", Optional
                         .ofNullable(episode.getDescription())
-                        .orElse("No description available"),
+                        .orElse("No episode description available"),
                     "episode.duration", DurationFormatUtils
                         .formatDuration(episode.getDurationMs(), "m 'min' s 'sec'"),
                     "episode.explicit", Boolean.TRUE.equals(episode.getExplicit()) ? "Yes" : "No",
