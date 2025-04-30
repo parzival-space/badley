@@ -48,3 +48,5 @@ badley:
         enabled: false
       openweather:
         enabled: false
+      spotify:
+        enabled: false
