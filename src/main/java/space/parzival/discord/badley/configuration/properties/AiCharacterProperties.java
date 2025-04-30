@@ -7,9 +7,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ConfigurationProperties(prefix = "badley.ai")
+@ConfigurationProperties(prefix = "badley.ai.character")
 @AllArgsConstructor
-public class AiProperties {
+public class AiCharacterProperties {
     /**
      * The name of the AI Agent.
      */
