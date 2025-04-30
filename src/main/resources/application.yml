@@ -46,3 +46,5 @@ badley:
         enabled: false
       google:
         enabled: false
+      openweather:
+        enabled: false
