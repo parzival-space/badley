@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @EnableConfigurationProperties(BraveProperties.class)
-@RestClientTest(value = BraveService.class, properties = "badley.ai.tools.brave.token=token")
+@RestClientTest(value = BraveService.class, properties = "badley.ai.tools.brave.enabled=true")
 class BraveServiceIT {
     @Autowired
     private BraveService service;

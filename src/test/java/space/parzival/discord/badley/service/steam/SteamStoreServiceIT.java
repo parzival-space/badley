@@ -22,7 +22,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @EnableConfigurationProperties(SteamProperties.class)
 @RestClientTest(value = SteamStoreService.class, properties = {
-    "badley.ai.tools.steam.token=token",
+    "badley.ai.tools.steam.enabled=true",
 })
 class SteamStoreServiceIT {
     @Autowired

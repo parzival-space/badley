@@ -1,5 +1,6 @@
 package space.parzival.discord.badley.service.wikipedia;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +11,7 @@ import space.parzival.discord.badley.service.wikipedia.model.WikiQueryPagesRespo
 import space.parzival.discord.badley.service.wikipedia.model.WikiQueryResponse;
 
 @Service
+@ConditionalOnProperty(value = "badley.ai.tools.wikipedia.enabled", havingValue = "true")
 public class WikipediaService {
     private final RestTemplate apiRestTemplate;
 
