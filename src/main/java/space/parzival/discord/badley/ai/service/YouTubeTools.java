@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "badley.ai.tools.youtube.token")
 @AllArgsConstructor
 public class YouTubeTools implements AiTools {
-    private final YouTube youTube;
-
     private static final String SEARCH_RESULT_TEMPLATE = """
         ${result.id}:
         - Kind: ${result.kind}
@@ -30,6 +28,7 @@ public class YouTubeTools implements AiTools {
         - Published At: ${result.publishedAt}
         - Live Broadcast: ${result.liveBroadcastContent}
         """.stripIndent();
+    private final YouTube youTube;
 
     @Tool(description = "Search for videos on YouTube")
     public String searchYouTube(String query) {
