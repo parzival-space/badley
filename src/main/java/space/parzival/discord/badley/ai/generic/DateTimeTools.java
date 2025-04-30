@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.brave.datetime", havingValue = "true")
+@ConditionalOnProperty(value = "badley.ai.tools.datetime.enabled", havingValue = "true")
 public class DateTimeTools implements AiTools {
     @Tool(description = "Get the current date and time in ISO datetime format.")
     public String getCurrentDateTime() {
