@@ -32,5 +32,6 @@ spring:
 
 badley:
   ai:
-    name: mock-name
-    personality: mock-personality
+    character:
+      name: mock-name
+      personality: mock-personality
