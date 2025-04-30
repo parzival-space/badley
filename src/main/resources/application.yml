@@ -52,3 +52,5 @@ badley:
         enabled: false
       steam:
         enabled: false
+      youtube:
+        enabled: false

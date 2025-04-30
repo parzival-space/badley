@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class SteamProperties {
     /**
-     * Whether the GitHub integration is enabled.
+     * Whether the Steam integration is enabled.
      */
     private @NotNull boolean enabled;
 
