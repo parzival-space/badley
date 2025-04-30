@@ -109,11 +109,11 @@ public class SpotifyTools implements AiTools {
                 )))
                 .collect(Collectors.joining("\n\n"));
         } catch (IOException e) {
-            log.error("Communication error with Spotify API: {}", e.getMessage(), e);
-            return "Error communicating with Spotify API. Please try again later.";
+            log.error("Communication error with Spotify API while searching for artists: {}", e.getMessage(), e);
+            return "Error communicating with Spotify API while searching for artists. Please try again later.";
         } catch (ParseException | SpotifyWebApiException e) {
-            log.error("Spotify send an invalid response: {}", e.getMessage(), e);
-            return "Error processing Spotify API response. " + e.getMessage();
+            log.error("Spotify send an invalid response while searching for artists: {}", e.getMessage(), e);
+            return "Error processing Spotify API response while searching for artists. " + e.getMessage();
         }
     }
 
@@ -145,11 +145,11 @@ public class SpotifyTools implements AiTools {
                 )))
                 .collect(Collectors.joining("\n\n"));
         } catch (IOException e) {
-            log.error("Communication error with Spotify API: {}", e.getMessage(), e);
-            return "Error communicating with Spotify API. Please try again later.";
+            log.error("Communication error with Spotify API while searching for Tracks: {}", e.getMessage(), e);
+            return "Error communicating with Spotify API while searching for Tracks. Please try again later.";
         } catch (ParseException | SpotifyWebApiException e) {
-            log.error("Spotify send an invalid response: {}", e.getMessage(), e);
-            return "Error processing Spotify API response. " + e.getMessage();
+            log.error("Spotify send an invalid response while searching for Tracks: {}", e.getMessage(), e);
+            return "Error processing Spotify API response while searching for Tracks. " + e.getMessage();
         }
     }
 
@@ -178,11 +178,11 @@ public class SpotifyTools implements AiTools {
                 ))
                 .collect(Collectors.joining("\n\n"));
         } catch (IOException e) {
-            log.error("Communication error with Spotify API: {}", e.getMessage(), e);
-            return "Error communicating with Spotify API. Please try again later.";
+            log.error("Communication error with Spotify API while searching for Albums: {}", e.getMessage(), e);
+            return "Error communicating with Spotify API while searching for Albums. Please try again later.";
         } catch (ParseException | SpotifyWebApiException e) {
-            log.error("Spotify send an invalid response: {}", e.getMessage(), e);
-            return "Error processing Spotify API response. " + e.getMessage();
+            log.error("Spotify send an invalid response while searching for Albums: {}", e.getMessage(), e);
+            return "Error processing Spotify API response while searching for Albums. " + e.getMessage();
         }
     }
 
@@ -208,11 +208,11 @@ public class SpotifyTools implements AiTools {
                 ))
                 .collect(Collectors.joining("\n\n"));
         } catch (IOException e) {
-            log.error("Communication error with Spotify API: {}", e.getMessage(), e);
-            return "Error communicating with Spotify API. Please try again later.";
+            log.error("Communication error with Spotify API while searching for Playlist: {}", e.getMessage(), e);
+            return "Error communicating with Spotify API while searching for Playlist. Please try again later.";
         } catch (ParseException | SpotifyWebApiException e) {
-            log.error("Spotify send an invalid response: {}", e.getMessage(), e);
-            return "Error processing Spotify API response. " + e.getMessage();
+            log.error("Spotify send an invalid response while searching for Playlist: {}", e.getMessage(), e);
+            return "Error processing Spotify API response while searching for Playlist. " + e.getMessage();
         }
     }
 
@@ -240,11 +240,11 @@ public class SpotifyTools implements AiTools {
                     "show.spotifyUrl", "https://open.spotify.com/show/" + show.getId())
                 )).collect(Collectors.joining("\n\n"));
         } catch (IOException e) {
-            log.error("Communication error with Spotify API: {}", e.getMessage(), e);
-            return "Error communicating with Spotify API. Please try again later.";
+            log.error("Communication error with Spotify API while searching for Shows: {}", e.getMessage(), e);
+            return "Error communicating with Spotify API while searching for Shows. Please try again later.";
         } catch (ParseException | SpotifyWebApiException e) {
-            log.error("Spotify send an invalid response: {}", e.getMessage(), e);
-            return "Error processing Spotify API response. " + e.getMessage();
+            log.error("Spotify send an invalid response while searching for Shows: {}", e.getMessage(), e);
+            return "Error processing Spotify API response while searching for Shows. " + e.getMessage();
         }
     }
 
@@ -275,11 +275,11 @@ public class SpotifyTools implements AiTools {
                     "episode.spotifyUrl", "https://open.spotify.com/episode/" + episode.getId())
                 )).collect(Collectors.joining("\n\n"));
         } catch (IOException e) {
-            log.error("Communication error with Spotify API: {}", e.getMessage(), e);
-            return "Error communicating with Spotify API. Please try again later.";
+            log.error("Communication error with Spotify API while searching for Episodes: {}", e.getMessage(), e);
+            return "Error communicating with Spotify API while searching for Episodes. Please try again later.";
         } catch (ParseException | SpotifyWebApiException e) {
-            log.error("Spotify send an invalid response: {}", e.getMessage(), e);
-            return "Error processing Spotify API response. " + e.getMessage();
+            log.error("Spotify send an invalid response while searching for Episodes: {}", e.getMessage(), e);
+            return "Error processing Spotify API response while searching for Episodes. " + e.getMessage();
         }
     }
 }

@@ -36,86 +36,86 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class SteamTools implements AiTools {
     private static final String GAME_INFO_TEMPLATE = """
-        ${title} (${type}):
-        - ID: ${id}
-        - Price: ${price} (${currency})
-        - Meta Score: ${score}
+        ${game.title} (${game.type}):
+        - ID: ${game.id}
+        - Price: ${game.price} (${game.currency})
+        - Meta Score: ${game.score}
         - Platforms:
-          - Windows: ${windows}
-          - Mac: ${mac}
-          - Linux: ${linux}
+          - Windows: ${game.windows}
+          - Mac: ${game.mac}
+          - Linux: ${game.linux}
         """.stripIndent();
     private static final String GAME_INFO_ADVANCED_TEMPLATE = """
-        ${title} (${type}):
-        - ID: ${id}
-        - Price: ${price} (${currency})
-        - Meta Score: ${score}
-        - Description: ${description}
-        - Developers: ${developers}
-        - Publishers: ${publishers}
-        - DLC Count: ${dlc_count}
-        - Website: ${website}
+        ${advanced.title} (${advanced.type}):
+        - ID: ${advanced.id}
+        - Price: ${advanced.price} (${advanced.currency})
+        - Meta Score: ${advanced.score}
+        - Description: ${advanced.description}
+        - Developers: ${advanced.developers}
+        - Publishers: ${advanced.publishers}
+        - DLC Count: ${advanced.dlc_count}
+        - Website: ${advanced.website}
         - System Requirements:
-          - Windows: ${windows_requirements}
-          - Mac: ${mac_requirements}
-          - Linux: ${linux_requirements}
+          - Windows: ${advanced.windows_requirements}
+          - Mac: ${advanced.mac_requirements}
+          - Linux: ${advanced.linux_requirements}
         - Platforms:
-          - Windows: ${windows}
-          - Mac: ${mac}
-          - Linux: ${linux}
+          - Windows: ${advanced.windows}
+          - Mac: ${advanced.mac}
+          - Linux: ${advanced.linux}
         """.stripIndent();
     private static final String GAME_INFO_SALE_TEMPLATE = """
-        ${title}:
-        - ID: ${id}
-        - Price: ${price} (${currency})
-        - Discount: ${discount}% (was ${original_price})
-        - Discount Expiration: ${discount_expiration}
+        ${sale.title}:
+        - ID: ${sale.id}
+        - Price: ${sale.price} (${sale.currency})
+        - Discount: ${sale.discount}% (was ${sale.original_price})
+        - Discount Expiration: ${sale.discount_expiration}
         - Platforms:
-          - Windows: ${windows}
-          - Mac: ${mac}
-          - Linux: ${linux}
+          - Windows: ${sale.windows}
+          - Mac: ${sale.mac}
+          - Linux: ${sale.linux}
         """.stripIndent();
     private static final String USER_INFO_TEMPLATE = """
-        ${username}:
-        - ID: ${id}
-        - Real Name: ${real_name}
-        - Country: ${country}
-        - Profile URL: ${profile_url}
-        - Avatar URL: ${avatar_url}
-        - Last Logoff: ${last_logoff}
-        - Creation Date: ${creation_date}
+        ${user.username}:
+        - ID: ${user.id}
+        - Real Name: ${user.real_name}
+        - Country: ${user.country}
+        - Profile URL: ${user.profile_url}
+        - Avatar URL: ${user.avatar_url}
+        - Last Logoff: ${user.last_logoff}
+        - Creation Date: ${user.creation_date}
         """.stripIndent();
     private static final String USER_INFO_BANS_TEMPLATE = """
         Ban Statistics:
-          - Community Banned: ${community_banned}
-          - VAC Banned: ${vac_banned}
-          - Number of VAC Bans: ${number_of_vac_bans}
-          - Days Since Last Ban: ${days_since_last_ban}
-          - Number of Game Bans: ${number_of_game_bans}
-          - Economy Ban: ${economy_ban}
+          - Community Banned: ${bans.community_banned}
+          - VAC Banned: ${bans.vac_banned}
+          - Number of VAC Bans: ${bans.number_of_vac_bans}
+          - Days Since Last Ban: ${bans.days_since_last_ban}
+          - Number of Game Bans: ${bans.number_of_game_bans}
+          - Economy Ban: ${bans.economy_ban}
         """.stripIndent();
     private static final String RECENT_GAME_INFO_TEMPLATE = """
-        ${title}:
-        - ID: ${id}
-        - Playtime (2 weeks): ${playtime_2weeks}
-        - Playtime (forever): ${playtime_forever}
-        - Playtime Windows (forever): ${playtime_windows_forever}
-        - Playtime Mac (forever): ${playtime_mac_forever}
-        - Playtime Linux (forever): ${playtime_linux_forever}
-        - Playtime Steam Deck (forever): ${playtime_deck_forever}
+        ${recent.title}:
+        - ID: ${recent.id}
+        - Playtime (2 weeks): ${recent.playtime_2weeks}
+        - Playtime (forever): ${recent.playtime_forever}
+        - Playtime Windows (forever): ${recent.playtime_windows_forever}
+        - Playtime Mac (forever): ${recent.playtime_mac_forever}
+        - Playtime Linux (forever): ${recent.playtime_linux_forever}
+        - Playtime Steam Deck (forever): ${recent.playtime_deck_forever}
         """.stripIndent();
     private static final String FEATURED_CATEGORIES_TEMPLATE = """
         Specials:
-        ${specials}
+        ${featured.specials}
         
         Coming Soon:
-        ${coming_soon}
+        ${featured.coming_soon}
         
         Top Sellers:
-        ${top_sellers}
+        ${featured.top_sellers}
         
         New Releases:
-        ${new_releases}
+        ${featured.new_releases}
         """.stripIndent();
     private SteamWebService steam;
     private SteamStoreService steamStore;
@@ -136,15 +136,15 @@ public class SteamTools implements AiTools {
             }
 
             return response.getItems().stream().map(game -> StringSubstitutor.replace(GAME_INFO_TEMPLATE, Map.of(
-                    "title", game.getName(),
-                    "type", game.getType(),
-                    "id", game.getId(),
-                    "price", game.getPrice() != null ? game.getPrice().getFinalPrice() / 100.0 : 0,
-                    "currency", game.getPrice() != null ? game.getPrice().getCurrency() : "N/A",
-                    "score", game.getMetaScore() != null ? game.getMetaScore() : "N/A",
-                    "windows", game.getPlatforms() != null && game.getPlatforms().isWindows(),
-                    "mac", game.getPlatforms() != null && game.getPlatforms().isMac(),
-                    "linux", game.getPlatforms() != null && game.getPlatforms().isLinux()
+                    "game.title", game.getName(),
+                    "game.type", game.getType(),
+                    "game.id", game.getId(),
+                    "game.price", game.getPrice() != null ? game.getPrice().getFinalPrice() / 100.0 : 0,
+                    "game.currency", game.getPrice() != null ? game.getPrice().getCurrency() : "N/A",
+                    "game.score", game.getMetaScore() != null ? game.getMetaScore() : "N/A",
+                    "game.windows", game.getPlatforms() != null && game.getPlatforms().isWindows(),
+                    "game.mac", game.getPlatforms() != null && game.getPlatforms().isMac(),
+                    "game.linux", game.getPlatforms() != null && game.getPlatforms().isLinux()
                 )))
                 .collect(Collectors.joining("\n"));
         } catch (Exception e) {
@@ -163,16 +163,16 @@ public class SteamTools implements AiTools {
             StoreFeaturedResponse response = steamStore.getFeaturedCategories(lang, countryCode);
 
             return StringSubstitutor.replace(FEATURED_CATEGORIES_TEMPLATE, Map.of(
-                "specials", Optional.ofNullable(response.getSpecials().getItems()).map(items -> items.stream()
+                "featured.specials", Optional.ofNullable(response.getSpecials().getItems()).map(items -> items.stream()
                     .map(this::fillGameInfoSaleTemplate)
                     .collect(Collectors.joining("\n"))).orElse("N/A"),
-                "coming_soon", Optional.ofNullable(response.getComingSoon().getItems()).map(items -> items.stream()
+                "featured.coming_soon", Optional.ofNullable(response.getComingSoon().getItems()).map(items -> items.stream()
                     .map(this::fillGameInfoSaleTemplate)
                     .collect(Collectors.joining("\n"))).orElse("N/A"),
-                "top_sellers", Optional.ofNullable(response.getTopSellers().getItems()).map(items -> items.stream()
+                "featured.top_sellers", Optional.ofNullable(response.getTopSellers().getItems()).map(items -> items.stream()
                     .map(this::fillGameInfoSaleTemplate)
                     .collect(Collectors.joining("\n"))).orElse("N/A"),
-                "new_releases", Optional.ofNullable(response.getNewReleases().getItems()).map(items -> items.stream()
+                "featured.new_releases", Optional.ofNullable(response.getNewReleases().getItems()).map(items -> items.stream()
                     .map(this::fillGameInfoSaleTemplate)
                     .collect(Collectors.joining("\n"))).orElse("N/A")
             ));
@@ -198,23 +198,35 @@ public class SteamTools implements AiTools {
             }
 
             Map<String, Object> gameDetails = new HashMap<>();
-            gameDetails.put("title", response.getGame().getName());
-            gameDetails.put("type", response.getGame().getType());
-            gameDetails.put("id", response.getGame().getId());
-            gameDetails.put("price", response.getGame().getPrice() != null ? response.getGame().getPrice().getFinalPrice() / 100.0 : 0);
-            gameDetails.put("currency", response.getGame().getPrice() != null ? response.getGame().getPrice().getCurrency() : "N/A");
-            gameDetails.put("score", Optional.ofNullable(response.getGame().getMetacritic()).map(StoreAppDetailsMetacritic::getScore).orElse(0));
-            gameDetails.put("description", response.getGame().getShortDescription());
-            gameDetails.put("developers", String.join(", ", response.getGame().getDevelopers()));
-            gameDetails.put("publishers", String.join(", ", response.getGame().getPublishers()));
-            gameDetails.put("dlc_count", Optional.ofNullable(response.getGame().getPackages()).map(List::size).orElse(0));
-            gameDetails.put("website", response.getGame().getWebsite());
-            gameDetails.put("windows_requirements", Optional.ofNullable(response.getGame().getPcRequirements()).map(StoreAppDetailsRequirements::getMinimum).orElse("N/A"));
-            gameDetails.put("mac_requirements", Optional.ofNullable(response.getGame().getMacRequirements()).map(StoreAppDetailsRequirements::getMinimum).orElse("N/A"));
-            gameDetails.put("linux_requirements", Optional.ofNullable(response.getGame().getLinuxRequirements()).map(StoreAppDetailsRequirements::getMinimum).orElse("N/A"));
-            gameDetails.put("windows", response.getGame().getPlatforms().isWindows());
-            gameDetails.put("mac", response.getGame().getPlatforms().isMac());
-            gameDetails.put("linux", response.getGame().getPlatforms().isLinux());
+            gameDetails.put("advanced.title", response.getGame().getName());
+            gameDetails.put("advanced.type", response.getGame().getType());
+            gameDetails.put("advanced.id", response.getGame().getId());
+            gameDetails.put("advanced.price",
+                response.getGame().getPrice() != null ? response.getGame().getPrice().getFinalPrice() / 100.0 : 0);
+            gameDetails.put("advanced.currency",
+                response.getGame().getPrice() != null ? response.getGame().getPrice().getCurrency() : "N/A");
+            gameDetails.put("advanced.score",
+                Optional.ofNullable(response.getGame().getMetacritic())
+                    .map(StoreAppDetailsMetacritic::getScore).orElse(0));
+            gameDetails.put("advanced.description", response.getGame().getShortDescription());
+            gameDetails.put("advanced.developers", String.join(", ", response.getGame().getDevelopers()));
+            gameDetails.put("advanced.publishers", String.join(", ", response.getGame().getPublishers()));
+            gameDetails.put("advanced.dlc_count",
+                Optional.ofNullable(response.getGame().getPackages())
+                    .map(List::size).orElse(0));
+            gameDetails.put("advanced.website", response.getGame().getWebsite());
+            gameDetails.put("advanced.windows_requirements",
+                Optional.ofNullable(response.getGame().getPcRequirements())
+                    .map(StoreAppDetailsRequirements::getMinimum).orElse("N/A"));
+            gameDetails.put("advanced.mac_requirements",
+                Optional.ofNullable(response.getGame().getMacRequirements())
+                    .map(StoreAppDetailsRequirements::getMinimum).orElse("N/A"));
+            gameDetails.put("advanced.linux_requirements",
+                Optional.ofNullable(response.getGame().getLinuxRequirements())
+                    .map(StoreAppDetailsRequirements::getMinimum).orElse("N/A"));
+            gameDetails.put("advanced.windows", response.getGame().getPlatforms().isWindows());
+            gameDetails.put("advanced.mac", response.getGame().getPlatforms().isMac());
+            gameDetails.put("advanced.linux", response.getGame().getPlatforms().isLinux());
             return StringSubstitutor.replace(GAME_INFO_ADVANCED_TEMPLATE, gameDetails);
         } catch (Exception e) {
             log.error("Error fetching Steam store game details: {}", e.getMessage(), e);
@@ -254,15 +266,15 @@ public class SteamTools implements AiTools {
             }
 
             return StringSubstitutor.replace(USER_INFO_TEMPLATE, Map.of(
-                "username", response.getResponse().getPlayers().getFirst().getPersonaName(),
-                "id", response.getResponse().getPlayers().getFirst().getSteamId(),
-                "real_name", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getRealName()).orElse(""),
-                "country", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getLastCountryCode()).orElse(""),
-                "profile_url", response.getResponse().getPlayers().getFirst().getProfileUrl(),
-                "avatar_url", response.getResponse().getPlayers().getFirst().getAvatarUrl(),
-                "last_logoff", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getLastLogOff()).map(u -> u.toLocalDateTime()
+                "user.username", response.getResponse().getPlayers().getFirst().getPersonaName(),
+                "user.id", response.getResponse().getPlayers().getFirst().getSteamId(),
+                "user.real_name", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getRealName()).orElse(""),
+                "user.country", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getLastCountryCode()).orElse(""),
+                "user.profile_url", response.getResponse().getPlayers().getFirst().getProfileUrl(),
+                "user.avatar_url", response.getResponse().getPlayers().getFirst().getAvatarUrl(),
+                "user.last_logoff", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getLastLogOff()).map(u -> u.toLocalDateTime()
                     .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).orElse("N/A"),
-                "creation_date", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getTimeCreated()).map(u -> u.toLocalDateTime()
+                "user.creation_date", Optional.ofNullable(response.getResponse().getPlayers().getFirst().getTimeCreated()).map(u -> u.toLocalDateTime()
                     .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).orElse("N/A")
             ));
         } catch (Exception e) {
@@ -284,12 +296,12 @@ public class SteamTools implements AiTools {
             }
 
             return StringSubstitutor.replace(USER_INFO_BANS_TEMPLATE, Map.of(
-                "community_banned", response.getPlayers().getFirst().isCommunityBanned(),
-                "vac_banned", response.getPlayers().getFirst().isVacBanned(),
-                "number_of_vac_bans", response.getPlayers().getFirst().getNumberOfVacBans(),
-                "days_since_last_ban", response.getPlayers().getFirst().getDaysSinceLastBan(),
-                "number_of_game_bans", response.getPlayers().getFirst().getNumberOfGameBans(),
-                "economy_ban", response.getPlayers().getFirst().getEconomyBan()
+                "bans.community_banned", response.getPlayers().getFirst().isCommunityBanned(),
+                "bans.vac_banned", response.getPlayers().getFirst().isVacBanned(),
+                "bans.number_of_vac_bans", response.getPlayers().getFirst().getNumberOfVacBans(),
+                "bans.days_since_last_ban", response.getPlayers().getFirst().getDaysSinceLastBan(),
+                "bans.number_of_game_bans", response.getPlayers().getFirst().getNumberOfGameBans(),
+                "bans.economy_ban", response.getPlayers().getFirst().getEconomyBan()
             ));
         } catch (Exception e) {
             log.error("Error fetching Steam user ban details from ID: {}", e.getMessage(), e);
@@ -311,14 +323,14 @@ public class SteamTools implements AiTools {
 
             return response.getResponse().getGames().stream()
                 .map(game -> StringSubstitutor.replace(RECENT_GAME_INFO_TEMPLATE, Map.of(
-                    "title", game.getName(),
-                    "id", game.getId(),
-                    "playtime_2weeks", game.getPlaytime2Weeks() / 60,
-                    "playtime_forever", game.getPlaytimeForever() / 60,
-                    "playtime_windows_forever", game.getPlaytimeWindowsForever() / 60,
-                    "playtime_mac_forever", game.getPlaytimeMacForever() / 60,
-                    "playtime_linux_forever", game.getPlaytimeLinuxForever() / 60,
-                    "playtime_deck_forever", game.getPlaytimeDeckForever() / 60
+                    "recent.title", game.getName(),
+                    "recent.id", game.getId(),
+                    "recent.playtime_2weeks", game.getPlaytime2Weeks() / 60,
+                    "recent.playtime_forever", game.getPlaytimeForever() / 60,
+                    "recent.playtime_windows_forever", game.getPlaytimeWindowsForever() / 60,
+                    "recent.playtime_mac_forever", game.getPlaytimeMacForever() / 60,
+                    "recent.playtime_linux_forever", game.getPlaytimeLinuxForever() / 60,
+                    "recent.playtime_deck_forever", game.getPlaytimeDeckForever() / 60
                 ))).collect(Collectors.joining("\n"));
         } catch (Exception e) {
             log.error("Error fetching Steam user recent games from ID: {}", e.getMessage(), e);
@@ -347,17 +359,17 @@ public class SteamTools implements AiTools {
 
     private String fillGameInfoSaleTemplate(StoreFeaturedGame game) {
         return StringSubstitutor.replace(GAME_INFO_SALE_TEMPLATE, Map.of(
-            "title", game.getName(),
-            "id", game.getId(),
-            "price", game.getFinalPrice() / 100.0,
-            "currency", game.getCurrency(),
-            "discount", game.getDiscountPercent(),
-            "original_price", game.getOriginalPrice() / 100.0,
-            "discount_expiration", Optional.ofNullable(game.getDiscountExpiration()).map(expirationTime -> expirationTime.toLocalDateTime()
+            "sale.title", game.getName(),
+            "sale.id", game.getId(),
+            "sale.price", game.getFinalPrice() / 100.0,
+            "sale.currency", game.getCurrency(),
+            "sale.discount", game.getDiscountPercent(),
+            "sale.original_price", game.getOriginalPrice() / 100.0,
+            "sale.discount_expiration", Optional.ofNullable(game.getDiscountExpiration()).map(expirationTime -> expirationTime.toLocalDateTime()
                 .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)).orElse("N/A"),
-            "windows", game.isWindowsAvailable(),
-            "mac", game.isMacAvailable(),
-            "linux", game.isLinuxAvailable()
+            "sale.windows", game.isWindowsAvailable(),
+            "sale.mac", game.isMacAvailable(),
+            "sale.linux", game.isLinuxAvailable()
         ));
     }
 }
