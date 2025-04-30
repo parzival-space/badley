@@ -50,3 +50,5 @@ badley:
         enabled: false
       spotify:
         enabled: false
+      steam:
+        enabled: false
