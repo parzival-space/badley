@@ -16,12 +16,11 @@ import java.util.List;
 @Configuration
 @AllArgsConstructor
 public class SpringAIConfiguration {
+    // ai tools
+    private final List<? extends AiTools> aiToolsServices;
     private ChatClient.Builder chatClientBuilder;
     private ChatMemory chatMemory;
     private AiProperties aiProperties;
-
-    // ai tools
-    private final List<? extends AiTools> aiToolsServices;
 
     @Bean
     public ChatClient chatClient() {

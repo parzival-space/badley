@@ -22,8 +22,6 @@ import java.util.Map;
 @ConditionalOnProperty(value = "badley.ai.tools.github.token")
 @AllArgsConstructor
 public class GitHubTools implements AiTools {
-    private final GitHub gitHub;
-
     private static final String USER_INFO_TEMPLATE = """
         User Information:
         - Username: ${username}
@@ -41,7 +39,6 @@ public class GitHubTools implements AiTools {
         - Profile URL: ${profile_url}
         - Avatar URL: ${avatar_url}
         """.stripIndent();
-
     private static final String ORG_INFO_TEMPLATE = """
         Organization Information:
         - Organization Name: ${name}
@@ -59,7 +56,6 @@ public class GitHubTools implements AiTools {
         Members:
         ${members}
         """.stripIndent();
-
     private static final String REPO_INFO_TEMPLATE = """
         Repository Information:
         - Repository Name: ${name}
@@ -80,6 +76,7 @@ public class GitHubTools implements AiTools {
         README:
         ${readme}
         """.stripIndent();
+    private final GitHub gitHub;
 
     @Tool(description = "Get information about a GitHub user by username.")
     public String getUserInfo(String username) {
