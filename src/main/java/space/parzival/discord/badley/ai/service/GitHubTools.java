@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.github.token")
+@ConditionalOnProperty(value = "badley.ai.tools.github.enabled", havingValue = "true")
 @AllArgsConstructor
 public class GitHubTools implements AiTools {
     private static final String USER_INFO_TEMPLATE = """

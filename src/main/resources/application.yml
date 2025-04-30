@@ -42,3 +42,5 @@ badley:
     tools:
       brave:
         enabled: false
+      github:
+        enabled: false
