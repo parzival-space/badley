@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringSubstitutor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiTools;
 import space.parzival.discord.badley.service.wikipedia.WikipediaService;
@@ -17,6 +18,7 @@ import java.util.Objects;
 
 @Slf4j
 @Component
+@ConditionalOnProperty(value = "badley.ai.tools.wikipedia.enabled", havingValue = "true")
 @AllArgsConstructor
 public class WikipediaTools implements AiTools {
     private static final String PAGE_INFO_TEMPLATE = """

@@ -16,7 +16,7 @@ import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 import java.util.List;
 
 @Service
-@ConditionalOnProperty(value = "badley.ai.tools.brave.token")
+@ConditionalOnProperty(value = "badley.ai.tools.brave.enabled", havingValue = "true")
 public class BraveService {
     private final RestTemplate apiRestTemplate;
 

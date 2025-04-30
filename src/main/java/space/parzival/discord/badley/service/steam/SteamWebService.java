@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * by xPaw.
  */
 @Service
-@ConditionalOnProperty(value = "badley.ai.tools.steam.token")
+@ConditionalOnProperty(value = "badley.ai.tools.steam.enabled", havingValue = "true")
 public class SteamWebService {
     private static final Pattern PROFILE_ID_PATTERN =
         Pattern.compile("https?://steamcommunity\\.com/(?:id/([\\w-]+)|profiles/(\\d+))/?");

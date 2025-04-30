@@ -26,7 +26,7 @@ import java.util.Optional;
  * by xPaw.
  */
 @Service
-@ConditionalOnProperty(value = "badley.ai.tools.steam.token")
+@ConditionalOnProperty(value = "badley.ai.tools.steam.enabled", havingValue = "true")
 public class SteamStoreService {
     private static final String FALLBACK_LANGUAGE = "english";
     private static final String FALLBACK_COUNTRY_CODE = "US";
