@@ -25,6 +25,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 @EnableConfigurationProperties(SteamProperties.class)
 @RestClientTest(value = SteamWebService.class, properties = {
+    "badley.ai.tools.steam.enabled=true",
     "badley.ai.tools.steam.token=token",
 })
 class SteamWebServiceIT {

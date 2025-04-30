@@ -19,7 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
-@RestClientTest(WikipediaService.class)
+@RestClientTest(value = WikipediaService.class, properties = {
+    "badley.ai.tools.wikipedia.enabled=true"
+})
 class WikipediaServiceIT {
     @Autowired
     private WikipediaService service;
