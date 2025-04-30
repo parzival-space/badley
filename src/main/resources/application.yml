@@ -44,3 +44,5 @@ badley:
         enabled: false
       github:
         enabled: false
+      google:
+        enabled: false

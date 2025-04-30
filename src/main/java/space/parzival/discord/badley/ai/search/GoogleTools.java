@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.google.token")
+@ConditionalOnProperty(value = "badley.ai.tools.google.enabled", havingValue = "true")
 @AllArgsConstructor
 public class GoogleTools implements AiTools {
     private static final String WEB_SEARCH_RESULT = """
