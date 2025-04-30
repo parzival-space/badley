@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.steam.token")
+@ConditionalOnProperty(value = "badley.ai.tools.steam.enabled", havingValue = "true")
 @AllArgsConstructor
 public class SteamTools implements AiTools {
     private static final String GAME_INFO_TEMPLATE = """

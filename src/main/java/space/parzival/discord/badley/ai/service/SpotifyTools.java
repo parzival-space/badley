@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.spotify.client-secret")
+@ConditionalOnProperty(value = "badley.ai.tools.spotify.enabled", havingValue = "true")
 @AllArgsConstructor
 public class SpotifyTools implements AiTools {
     private static final String ARTIST_INFO = """

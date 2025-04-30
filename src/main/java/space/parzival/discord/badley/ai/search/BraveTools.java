@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.brave.token")
+@ConditionalOnProperty(value = "badley.ai.tools.brave.enabled", havingValue = "true")
 @AllArgsConstructor
 public class BraveTools implements AiTools {
     private static final String WEB_SEARCH_RESULT = """

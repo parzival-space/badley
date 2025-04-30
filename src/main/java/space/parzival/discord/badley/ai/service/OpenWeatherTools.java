@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.openweather.token")
+@ConditionalOnProperty(value = "badley.ai.tools.openweather.enabled", havingValue = "true")
 @AllArgsConstructor
 public class OpenWeatherTools implements AiTools {
     private static final String WEATHER_DAY_TEMPLATE = """

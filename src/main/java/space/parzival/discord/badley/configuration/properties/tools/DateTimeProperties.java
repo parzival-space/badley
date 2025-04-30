@@ -7,16 +7,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import javax.validation.constraints.NotNull;
 
 @Data
-@ConfigurationProperties(prefix = "badley.ai.tools.youtube")
+@ConfigurationProperties(prefix = "badley.ai.tools.datetime")
 @AllArgsConstructor
-public class YouTubeProperties {
+public class DateTimeProperties {
     /**
-     * Whether the YouTube integration is enabled.
+     * Whether the Date and Time integration is enabled.
      */
     private @NotNull boolean enabled;
-
-    /**
-     * YouTube Data API v3 key.
-     */
-    private String token;
 }

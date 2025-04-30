@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
-@ConditionalOnProperty(value = "badley.ai.tools.youtube.token")
+@ConditionalOnProperty(value = "badley.ai.tools.youtube.enabled", havingValue = "true")
 @AllArgsConstructor
 public class YouTubeTools implements AiTools {
     private static final String SEARCH_RESULT_TEMPLATE = """

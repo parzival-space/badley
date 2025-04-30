@@ -8,7 +8,7 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import space.parzival.discord.badley.ai.AiTools;
-import space.parzival.discord.badley.configuration.properties.AiProperties;
+import space.parzival.discord.badley.configuration.properties.AiCharacterProperties;
 
 import java.util.List;
 
@@ -20,14 +20,14 @@ public class SpringAIConfiguration {
     private final List<? extends AiTools> aiToolsServices;
     private ChatClient.Builder chatClientBuilder;
     private ChatMemory chatMemory;
-    private AiProperties aiProperties;
+    private AiCharacterProperties aiCharacterProperties;
 
     @Bean
     public ChatClient chatClient() {
         log.info("Registering {} AI tools", aiToolsServices.size());
         return chatClientBuilder
             .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
-            .defaultSystem(aiProperties.getPersonality())
+            .defaultSystem(aiCharacterProperties.getPersonality())
             .defaultTools(aiToolsServices.toArray())
             .build();
     }
