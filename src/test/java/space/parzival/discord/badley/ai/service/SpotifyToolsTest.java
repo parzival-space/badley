@@ -25,6 +25,7 @@ import se.michaelthelin.spotify.requests.data.search.simplified.SearchPlaylistsR
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchShowsRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.search.simplified.special.SearchAlbumsSpecialRequest;
+import space.parzival.discord.badley.ai.tools.service.SpotifyTools;
 
 import java.io.IOException;
 import java.util.Arrays;

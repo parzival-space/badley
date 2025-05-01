@@ -5,6 +5,7 @@ import com.google.api.services.customsearch.v1.model.Result;
 import com.google.api.services.customsearch.v1.model.Search;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import space.parzival.discord.badley.ai.tools.search.GoogleTools;
 
 import java.io.IOException;
 import java.util.List;

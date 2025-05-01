@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.ai.search;
+package space.parzival.discord.badley.ai.tools.search;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.apache.commons.text.StringSubstitutor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiTools;
+import space.parzival.discord.badley.ai.tools.AiTools;
 import space.parzival.discord.badley.service.brave.BraveService;
 import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 

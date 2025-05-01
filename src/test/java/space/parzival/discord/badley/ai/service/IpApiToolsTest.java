@@ -2,6 +2,7 @@ package space.parzival.discord.badley.ai.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import space.parzival.discord.badley.ai.tools.service.IpApiTools;
 import space.parzival.discord.badley.configuration.properties.tools.IpApiProperties;
 import space.parzival.discord.badley.service.ipapi.IpApiService;
 import space.parzival.discord.badley.service.ipapi.model.IpApiGeolocationResponse;

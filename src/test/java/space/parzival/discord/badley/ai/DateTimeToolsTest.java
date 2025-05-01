@@ -1,7 +1,7 @@
 package space.parzival.discord.badley.ai;
 
 import org.junit.jupiter.api.Test;
-import space.parzival.discord.badley.ai.generic.DateTimeTools;
+import space.parzival.discord.badley.ai.tools.generic.DateTimeTools;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

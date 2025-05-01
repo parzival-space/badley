@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.ai;
+package space.parzival.discord.badley.ai.tools;
 
 public interface AiTools {
     // This interface is only a marker interface to simplify the autowiring of the different tools

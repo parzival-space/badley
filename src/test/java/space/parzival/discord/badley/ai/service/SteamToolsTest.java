@@ -1,6 +1,7 @@
 package space.parzival.discord.badley.ai.service;
 
 import org.junit.jupiter.api.Test;
+import space.parzival.discord.badley.ai.tools.service.SteamTools;
 import space.parzival.discord.badley.service.steam.SteamStoreService;
 import space.parzival.discord.badley.service.steam.SteamWebService;
 import space.parzival.discord.badley.service.steam.model.StoreAppDetailsResponse;

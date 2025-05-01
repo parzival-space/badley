@@ -2,6 +2,7 @@ package space.parzival.discord.badley.ai.search;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import space.parzival.discord.badley.ai.tools.search.BraveTools;
 import space.parzival.discord.badley.service.brave.BraveService;
 import space.parzival.discord.badley.service.brave.model.BraveQueryResponse;
 import space.parzival.discord.badley.service.brave.model.query.BraveQueryWebResult;

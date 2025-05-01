@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.ai.search;
+package space.parzival.discord.badley.ai.tools.search;
 
 import com.google.api.services.customsearch.v1.CustomSearchAPI;
 import com.google.api.services.customsearch.v1.model.Search;
@@ -8,7 +8,7 @@ import org.apache.commons.text.StringSubstitutor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiTools;
+import space.parzival.discord.badley.ai.tools.AiTools;
 
 import java.io.IOException;
 import java.util.Map;

@@ -8,6 +8,7 @@ import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHUser;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.PagedIterable;
+import space.parzival.discord.badley.ai.tools.service.GitHubTools;
 
 import java.io.IOException;
 import java.net.URI;

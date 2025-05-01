@@ -8,6 +8,7 @@ import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchResultSnippet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import space.parzival.discord.badley.ai.tools.service.YouTubeTools;
 
 import java.io.IOException;
 import java.time.OffsetDateTime;

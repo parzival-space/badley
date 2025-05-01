@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.ai.service;
+package space.parzival.discord.badley.ai.tools.service;
 
 import io.github.mbenincasa.javaopenweathermapclient.client.OpenWeatherMapClient;
 import io.github.mbenincasa.javaopenweathermapclient.request.common.Unit;
@@ -9,7 +9,7 @@ import org.apache.commons.text.StringSubstitutor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiTools;
+import space.parzival.discord.badley.ai.tools.AiTools;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

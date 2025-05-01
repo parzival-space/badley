@@ -8,9 +8,12 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.stereotype.Component;
+import space.parzival.discord.badley.ai.internal.ConversationContext;
+import space.parzival.discord.badley.ai.internal.ToolContextField;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -52,6 +55,10 @@ public class DiscordMessageHandler extends ListenerAdapter {
                     .map(discordAttachmentMapper::mapToMedia)
                     .filter(Objects::nonNull)
                     .toList()
+            ))
+            .toolContext(Map.of(
+                ToolContextField.CONVERSATION_CONTEXT.toString(), ConversationContext.DISCORD_GUILD_CHANNEL,
+                ToolContextField.DISCORD_EVENT.toString(), event
             ))
             .call()
             .content();

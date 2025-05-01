@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.ai.service;
+package space.parzival.discord.badley.ai.tools.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
-import space.parzival.discord.badley.ai.AiTools;
+import space.parzival.discord.badley.ai.tools.AiTools;
 
 import java.io.IOException;
 import java.time.ZoneId;

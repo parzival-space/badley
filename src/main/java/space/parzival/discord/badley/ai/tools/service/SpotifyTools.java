@@ -1,4 +1,4 @@
-package space.parzival.discord.badley.ai.service;
+package space.parzival.discord.badley.ai.tools.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import se.michaelthelin.spotify.model_objects.specification.Paging;
 import se.michaelthelin.spotify.model_objects.specification.PlaylistSimplified;
 import se.michaelthelin.spotify.model_objects.specification.ShowSimplified;
 import se.michaelthelin.spotify.model_objects.specification.Track;
-import space.parzival.discord.badley.ai.AiTools;
+import space.parzival.discord.badley.ai.tools.AiTools;
 
 import java.io.IOException;
 import java.util.Arrays;

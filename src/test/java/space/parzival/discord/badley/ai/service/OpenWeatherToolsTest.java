@@ -13,6 +13,7 @@ import io.github.mbenincasa.javaopenweathermapclient.request.currentWeather.Curr
 import io.github.mbenincasa.javaopenweathermapclient.request.weatherForecast.FiveDaysWeatherForecastRequest;
 import io.github.mbenincasa.javarestclient.exception.RestClientException;
 import org.junit.jupiter.api.Test;
+import space.parzival.discord.badley.ai.tools.service.OpenWeatherTools;
 
 import java.util.List;
 
