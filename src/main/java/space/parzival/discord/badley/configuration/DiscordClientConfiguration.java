@@ -29,7 +29,8 @@ public class DiscordClientConfiguration {
                 EnumSet.of(
                     GatewayIntent.GUILD_MESSAGES,
                     GatewayIntent.GUILD_MEMBERS,
-                    GatewayIntent.MESSAGE_CONTENT
+                    GatewayIntent.MESSAGE_CONTENT,
+                    GatewayIntent.GUILD_VOICE_STATES
                 ))
             .addEventListeners(discordEventListeners != null ? discordEventListeners.toArray() : List.of().toArray())
             .setAutoReconnect(discordClientProperties.isAutoReconnect())
