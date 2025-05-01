@@ -57,8 +57,8 @@ public class DiscordMessageHandler extends ListenerAdapter {
                     .toList()
             ))
             .toolContext(Map.of(
-                ToolContextField.CONVERSATION_CONTEXT.toString(), ConversationContext.DISCORD_GUILD_CHANNEL,
-                ToolContextField.DISCORD_EVENT.toString(), event
+                ToolContextField.CONVERSATION_CONTEXT, ConversationContext.DISCORD_GUILD_CHANNEL,
+                ToolContextField.DISCORD_EVENT, event
             ))
             .call()
             .content();
