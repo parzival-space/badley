@@ -1,18 +1,12 @@
 package space.parzival.discord.badley.ai.internal;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Getter
-@AllArgsConstructor
-public enum ToolContextField {
-    CONVERSATION_CONTEXT("conversation_context"),
-    DISCORD_EVENT("discord_event");
-
-    private final String fieldName;
-
-    @Override
-    public String toString() {
-        return fieldName;
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ToolContextField {
+    public static final String CONVERSATION_CONTEXT = "conversation_context";
+    public static final String DISCORD_EVENT = "discord_event";
 }

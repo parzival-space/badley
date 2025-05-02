@@ -1,18 +1,10 @@
 package space.parzival.discord.badley.ai.internal;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-@Getter
-@AllArgsConstructor
-public enum ConversationContext {
-    DISCORD_DIRECT_MESSAGE("discord_direct_message"),
-    DISCORD_GUILD_CHANNEL("discord_guild_channel");
-
-    private final String contextString;
-
-    @Override
-    public String toString() {
-        return contextString;
-    }
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public class ConversationContext {
+    public static final String DISCORD_DIRECT_MESSAGE = "discord_direct_message";
+    public static final String DISCORD_GUILD_CHANNEL = "discord_guild_channel";
 }

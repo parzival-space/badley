@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.internal.ConversationContext;
@@ -41,21 +42,22 @@ public class DiscordMessageHandler extends ListenerAdapter {
 
         String aiResponse = chatClient.prompt()
             .advisors(advisorSpec -> advisorSpec.param("chat_memory_conversation_id", conversationId.toString()))
-            .messages(new UserMessage(
-                String.join("\n\n",
-                    String.format("%s: %s",
-                        event.getMessage().getAuthor().getEffectiveName(),
-                        event.getMessage().getContentDisplay()),
+            .messages(
+                new SystemMessage("Conversation Media: " + ConversationContext.DISCORD_GUILD_CHANNEL),
+                new UserMessage(
+                    String.join("\n\n",
+                        String.format("%s: %s",
+                            event.getMessage().getAuthor().getEffectiveName(),
+                            event.getMessage().getContentDisplay()),
+                        event.getMessage().getAttachments().stream()
+                            .filter(attachment -> !attachment.isImage())
+                            .map(discordAttachmentMapper::mapToInvalidMediaString)
+                            .collect(Collectors.joining("\n"))),
                     event.getMessage().getAttachments().stream()
-                        .filter(attachment -> !attachment.isImage())
-                        .map(discordAttachmentMapper::mapToInvalidMediaString)
-                        .collect(Collectors.joining("\n"))),
-                event.getMessage().getAttachments().stream()
-                    .filter(Message.Attachment::isImage)
-                    .map(discordAttachmentMapper::mapToMedia)
-                    .filter(Objects::nonNull)
-                    .toList()
-            ))
+                        .filter(Message.Attachment::isImage)
+                        .map(discordAttachmentMapper::mapToMedia)
+                        .filter(Objects::nonNull)
+                        .toList()))
             .toolContext(Map.of(
                 ToolContextField.CONVERSATION_CONTEXT, ConversationContext.DISCORD_GUILD_CHANNEL,
                 ToolContextField.DISCORD_EVENT, event
