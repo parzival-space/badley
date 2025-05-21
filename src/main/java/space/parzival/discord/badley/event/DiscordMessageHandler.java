@@ -1,10 +1,12 @@
 package space.parzival.discord.badley.event;
 
+import com.google.common.base.Splitter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.restaction.MessageCreateAction;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
@@ -66,8 +68,13 @@ public class DiscordMessageHandler extends ListenerAdapter {
             .content();
 
         if (aiResponse != null) {
-            event.getMessage().reply(aiResponse).queue(discordResp ->
-                discordPersistence.assignDiscordIdToConversationId(discordResp.getId(), conversationId));
+            Iterable<String> chunks = Splitter.fixedLength(2000).split(aiResponse);
+
+            for (String chunk : chunks) {
+                event.getMessage().reply(chunk)
+                    .queue(discordResp ->
+                        discordPersistence.assignDiscordIdToConversationId(discordResp.getId(), conversationId));
+            }
         } else {
             log.error("AI response was null for message: {}", event.getMessage().getContentRaw());
             event.getMessage().reply("Nope! Something hasn't worked here.").queue();
