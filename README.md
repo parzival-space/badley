@@ -18,8 +18,7 @@ Badley doesn’t hold back opinions and won’t sugarcoat answers. If you’re s
 
 ## Running Badley
 To run Badley, you will need a Java 21 Runtime, or you can use the published Docker images.
-Additionally, you will need to have a PostgreSQL database running, or you can use the H2 in-memory database for testing 
-purposes.
+Additionally, you will need to have a PostgreSQL database running, or you can use the H2 in-memory database for testing purposes.
 
 ### Docker
 Docker images to run Badley are published for every release under the tag ``ghcr.io/parzival-space/badley``.
