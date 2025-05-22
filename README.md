@@ -1,4 +1,4 @@
-# Badley
+# Badley [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=parzival-space_badley&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=parzival-space_badley)
 Because I am lazy, and this is an AI project after all, I decided to let Badley describe itself:
 
 ![
