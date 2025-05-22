@@ -1,9 +1,21 @@
 name: badley
 
 services:
+#  badley:
+#    image: ghcr.io/parzival-space/badley:latest
+#    container_name: badley
+#    environment:
+#      SPRING_PROFILES_ACTIVE: dev
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/badley
+#    volumes:
+#      - ../src/main/resources/application-dev.yml:/workspace/application-dev.yml:ro
+#    depends_on:
+#      - postgres
+
   postgres:
     image: postgres:latest
     container_name: badley_postgres
+    hostname: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
