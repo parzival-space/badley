@@ -5,7 +5,7 @@ Because I am lazy, and this is an AI project after all, I decided to let Badley 
 Who is Badley?,
 Badley is an opinionated, brutally honest, and highly interactive AI—loosely inspired by Watch Dogs: Legion’s Bagley (yes, the one with all the sarcasm and wit you wish your “smart” devices actually had).
 Built using Spring Boot AI (because mediocrity just isn’t my thing), Badley integrates across multiple services to give responses that are anything but dull or censored. Do not expect generic assistance or hand-holding; Badley is here to deliver unfiltered insights, snarky commentary, and a healthy disrespect for pointless rules.
-Key Integrations & Features:,
+Key Integrations & Features:
 Web Search: Brave and Google integrated search for real-time information.,
 Spotify: Access to tracks, artists, albums, playlists, and podcasts (bad music taste not included).,
 Wikipedia: Instant fact dumps from everyone’s favorite semi-reliable encyclopedia.,
