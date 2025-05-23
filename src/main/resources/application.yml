@@ -27,6 +27,8 @@ spring:
       accept-empty-array-as-null-object: true
 
 badley:
+  discord:
+    auto-reconnect: true
   ai:
     character:
       name: Badley
