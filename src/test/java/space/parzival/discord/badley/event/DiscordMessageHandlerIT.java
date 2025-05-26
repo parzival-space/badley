@@ -65,6 +65,7 @@ class DiscordMessageHandlerIT {
         when(jda.getSelfUser()).thenReturn(mockSelfUser);
         when(mockEvent.getMessage()).thenReturn(mockMessage);
         when(mockEvent.getChannel()).thenReturn(mockChannelUnion);
+        when(mockEvent.getJDA()).thenReturn(jda);
 
         // mock ai stuff
         ChatClient.ChatClientRequestSpec mockRequestSpec = mockRequestSpec(message);
@@ -87,6 +88,7 @@ class DiscordMessageHandlerIT {
         when(jda.getSelfUser()).thenReturn(mockSelfUser);
         when(mockEvent.getMessage()).thenReturn(mockMessage);
         when(mockEvent.getChannel()).thenReturn(mockChannelUnion);
+        when(mockEvent.getJDA()).thenReturn(jda);
 
         // mock ai stuff
         ChatClient.ChatClientRequestSpec mockRequestSpec = mockRequestSpec(aiResponse);
