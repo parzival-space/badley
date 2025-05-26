@@ -78,7 +78,7 @@ class DiscordMessageHandlerTest {
         when(author.isSystem()).thenReturn(false);
         when(mentions.getUsers()).thenReturn(List.of(invalidUser));
         when(invalidUser.getId()).thenReturn("invalidUserId");
-        when(message.getJDA()).thenReturn(jda);
+        when(event.getJDA()).thenReturn(jda);
         when(jda.getSelfUser()).thenReturn(selfUser);
         when(selfUser.getId()).thenReturn("selfUserId");
 

@@ -3,6 +3,8 @@ package space.parzival.discord.badley.event;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageReference;
+import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.ai.chat.client.ChatClient;
@@ -26,14 +28,26 @@ public class DiscordMessageHandler extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        if (botShouldIgnoreMessage(event.getMessage())) return;
+        if (event.getMessage().getAuthor().isBot() || event.getMessage().getAuthor().isSystem()) return;
+
+        boolean isDirectMessage = event.getChannelType() == ChannelType.PRIVATE ||
+            event.getChannelType() == ChannelType.GROUP;
+
+        if (!isDirectMessage && event.getMessage().getMentions().getUsers().stream()
+            .noneMatch(user -> user.getId().equals(event.getJDA().getSelfUser().getId()))) return;
+
+        // send typing indicator to the channel
         event.getChannel().sendTyping().queue();
 
+        // determine conversation reference based on channel type
+        String conversationReference =
+            (isDirectMessage) ? event.getChannel().getId() :
+                Optional.ofNullable(event.getMessage().getMessageReference())
+                        .map(MessageReference::getMessageId)
+                        .orElse(event.getMessageId());
+
         UUID conversationId = Optional
-            .ofNullable(discordPersistence.getConversationIdByDiscordId(
-                event.getMessage().getMessageReference() != null ?
-                    event.getMessage().getMessageReference().getMessageId() :
-                    event.getMessage().getId()))
+            .ofNullable(discordPersistence.getConversationIdByDiscordId(conversationReference))
             .orElse(UUID.randomUUID());
 
         String aiResponse = chatClient.prompt()
@@ -58,17 +72,11 @@ public class DiscordMessageHandler extends ListenerAdapter {
 
         if (aiResponse != null) {
             event.getMessage().reply(aiResponse).queue(discordResp ->
-                discordPersistence.assignDiscordIdToConversationId(discordResp.getId(), conversationId));
+                discordPersistence.assignDiscordIdToConversationId(isDirectMessage ?
+                    conversationReference : discordResp.getId(), conversationId));
         } else {
             log.error("AI response was null for message: {}", event.getMessage().getContentRaw());
             event.getMessage().reply("Nope! Something hasn't worked here.").queue();
         }
-    }
-
-    private boolean botShouldIgnoreMessage(Message message) {
-        return message.getAuthor().isBot() ||
-            message.getAuthor().isSystem() ||
-            message.getMentions().getUsers().stream().noneMatch(u ->
-                u.getId().equals(message.getJDA().getSelfUser().getId()));
     }
 }
