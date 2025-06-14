@@ -20,13 +20,17 @@ import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -73,6 +77,28 @@ class DiscordMessageHandlerIT {
 
         assertDoesNotThrow(() -> handler.onMessageReceived(mockEvent));
         verify(mockMessage).reply(message);
+    }
+
+    @Test
+    void onMessageReceived_respondsWith_veryLong_validResponse() {
+        final String message = String.join("", Collections.nCopies(4000, "X"));
+
+        MessageReceivedEvent mockEvent = mock(MessageReceivedEvent.class);
+        Message mockMessage = mockMessage(message);
+        MessageChannelUnion mockChannelUnion = mockMessageChannelUnion();
+        SelfUser mockSelfUser = mockSelfUser();
+
+        when(jda.getSelfUser()).thenReturn(mockSelfUser);
+        when(mockEvent.getMessage()).thenReturn(mockMessage);
+        when(mockEvent.getChannel()).thenReturn(mockChannelUnion);
+        when(mockEvent.getJDA()).thenReturn(jda);
+
+        // mock ai stuff
+        ChatClient.ChatClientRequestSpec mockRequestSpec = mockRequestSpec(message);
+        when(chatClient.prompt()).thenReturn(mockRequestSpec);
+
+        assertDoesNotThrow(() -> handler.onMessageReceived(mockEvent));
+        verify(mockMessage).reply(anyString());
     }
 
     @Test
