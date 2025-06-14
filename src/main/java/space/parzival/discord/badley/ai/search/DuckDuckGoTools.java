@@ -33,7 +33,7 @@ public class DuckDuckGoTools implements AiTools {
         """.stripIndent();
     private final DuckDuckGoService duckDuckGoService;
 
-    @Tool(description = "Get information about a query.")
+    @Tool(description = "Search the web for information.")
     public String searchDuckDuckGo(String query) {
         log.debug("AI is requesting web search results from DuckDuckGo for query: {}", query);
 
