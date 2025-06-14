@@ -5,10 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.data.repository.config.RepositoryBeanDefinitionRegistrarSupport;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiTools;
-import space.parzival.discord.badley.configuration.properties.tools.DuckDuckGoProperties;
 import space.parzival.discord.badley.service.duckduckgo.DuckDuckGoService;
 import space.parzival.discord.badley.service.duckduckgo.model.DuckDuckGoInstantAnswersResponse;
 
