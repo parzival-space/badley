@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -71,12 +73,63 @@ public class DiscordMessageHandler extends ListenerAdapter {
             .content();
 
         if (aiResponse != null) {
-            event.getMessage().reply(aiResponse).queue(discordResp ->
-                discordPersistence.assignDiscordIdToConversationId(isDirectMessage ?
-                    conversationReference : discordResp.getId(), conversationId));
+            // split messages by words into 2000 character chunks (Discord's message limit)
+            List<String> messageChunks = getDiscordCompliantMessageChunks(aiResponse);
+            log.debug("AI response was split into {} chunks for conversation ID: {}",
+                messageChunks.size(), conversationId);
+
+            // send each chunk after each other
+            queueChunkedResponse(event, messageChunks, conversationReference, conversationId, 0);
         } else {
             log.error("AI response was null for message: {}", event.getMessage().getContentRaw());
             event.getMessage().reply("Nope! Something hasn't worked here.").queue();
         }
+    }
+
+    private void queueChunkedResponse(MessageReceivedEvent event, List<String> remainingChunks,
+                                      String conversationReference, UUID conversationId, int iteration) {
+        if (remainingChunks.isEmpty()) {
+            log.debug("No more chunks to send for conversation ID: {}", conversationId);
+            return;
+        }
+
+        if (iteration == 0) {
+            event.getMessage().reply(remainingChunks.getFirst()).queue(discordResp -> {
+                discordPersistence.assignDiscordIdToConversationId(
+                    conversationReference != null ? conversationReference : discordResp.getId(),
+                    conversationId
+                );
+                queueChunkedResponse(event, remainingChunks.subList(1, remainingChunks.size()),
+                                     conversationReference, conversationId, iteration + 1);
+            });
+        } else {
+            event.getChannel().sendMessage(remainingChunks.getFirst()).queue(discordResp -> {
+                discordPersistence.assignDiscordIdToConversationId(
+                    conversationReference != null ? conversationReference : discordResp.getId(),
+                    conversationId
+                );
+                queueChunkedResponse(event, remainingChunks.subList(1, remainingChunks.size()),
+                    conversationReference, conversationId, iteration + 1);
+            });
+        }
+    }
+
+    private static List<String> getDiscordCompliantMessageChunks(String aiResponse) {
+        List<String> messageChunks = new ArrayList<>();
+        StringBuilder currentChunk = new StringBuilder();
+
+        for (int i = 0; i < aiResponse.length(); i++) {
+            currentChunk.append(aiResponse.charAt(i));
+            if (currentChunk.length() == 2000) {
+                messageChunks.add(currentChunk.toString());
+                currentChunk.setLength(0);
+            }
+        }
+
+        // Add any remaining characters as a final chunk
+        if (!currentChunk.isEmpty()) {
+            messageChunks.add(currentChunk.toString());
+        }
+        return messageChunks;
     }
 }
