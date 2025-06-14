@@ -11,7 +11,8 @@ import org.springframework.test.web.client.MockRestServiceServer;
 import space.parzival.discord.badley.configuration.properties.tools.DuckDuckGoProperties;
 import space.parzival.discord.badley.service.duckduckgo.model.DuckDuckGoInstantAnswersResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @EnableConfigurationProperties(DuckDuckGoProperties.class)

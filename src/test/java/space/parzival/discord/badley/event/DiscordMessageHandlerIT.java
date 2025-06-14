@@ -20,17 +20,14 @@ import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

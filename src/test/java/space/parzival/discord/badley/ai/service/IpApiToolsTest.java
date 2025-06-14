@@ -6,7 +6,7 @@ import space.parzival.discord.badley.configuration.properties.tools.IpApiPropert
 import space.parzival.discord.badley.service.ipapi.IpApiService;
 import space.parzival.discord.badley.service.ipapi.model.IpApiGeolocationResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
