@@ -46,6 +46,8 @@ badley:
         enabled: false
       datetime:
         enabled: true
+      duckduckgo:
+        enabled: false
       github:
         enabled: false
       google:
