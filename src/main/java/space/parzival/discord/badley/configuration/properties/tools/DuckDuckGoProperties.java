@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class DuckDuckGoProperties {
     /**
-     * Whether the Brave Search API is enabled.
+     * Whether the DuckDuckGo Search API is enabled.
      */
     private @NotNull boolean enabled;
 }
