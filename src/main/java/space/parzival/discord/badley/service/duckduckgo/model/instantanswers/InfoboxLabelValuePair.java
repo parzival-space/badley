@@ -34,9 +34,9 @@ public class InfoboxLabelValuePair {
     @JsonProperty("wiki_order")
     Integer wikiOrder;
 
-    /// For deserializing the `value` field which can be either an object or a string, we use a custom deserializer that
-    /// is capable of handling both cases. If the `value` is an object, it will convert it to a string representation.
-    /// If it is a string, it will return the string as is.
+    // For deserializing the `value` field which can be either an object or a string, we use a custom deserializer that
+    // is capable of handling both cases. If the `value` is an object, it will convert it to a string representation.
+    // If it is a string, it will return the string as is.
     private static class ObjectAndStringDeserializer extends JsonDeserializer<String> {
 
         @Override

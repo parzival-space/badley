@@ -43,8 +43,8 @@ public class DuckDuckGoInstantAnswersResponse {
     @JsonProperty("RelatedTopics")
     List<RelatedTopic> relatedTopics;
 
-    /// DuckDuckGo's Instant Answers API can return an Infobox as a JSON object or a string.
-    /// An empty infobox is represented as an empty string. Very JSON compliant...
+    // DuckDuckGo's Instant Answers API can return an Infobox as a JSON object or a string.
+    // An empty infobox is represented as an empty string. Very JSON compliant...
     private static class InfoboxDeserializer extends JsonDeserializer<Infobox> {
 
         @Override
