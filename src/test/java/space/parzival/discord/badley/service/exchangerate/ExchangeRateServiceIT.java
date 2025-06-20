@@ -15,7 +15,10 @@ import space.parzival.discord.badley.configuration.properties.tools.ExchangeRate
 import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateRatesResponse;
 import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateSupportedCodesResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
