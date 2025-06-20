@@ -37,6 +37,7 @@ badley:
     spring-version: ^project.parent.version^
   discord:
     auto-reconnect: true
+    status-message: Mention or DM me. I might pretend to care!
   ai:
     character:
       name: Badley

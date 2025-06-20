@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.ExceptionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.events.session.SessionDisconnectEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.managers.Presence;
 import net.dv8tion.jda.api.requests.CloseCode;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.springframework.context.annotation.Bean;
@@ -48,6 +51,15 @@ public class DiscordClientConfiguration {
                 public void onReady(@Nonnull ReadyEvent event) {
                     log.info("Connected to Discord as {}#{}", event.getJDA().getSelfUser().getName(),
                         event.getJDA().getSelfUser().getDiscriminator());
+
+                    // update the bot's status message
+                    event.getJDA().getPresence().setPresence(
+                        OnlineStatus.ONLINE,
+                        Activity.of(
+                            Activity.ActivityType.CUSTOM_STATUS,
+                            discordClientProperties.getStatusMessage()
+                        )
+                    );
                 }
 
                 @Override

@@ -18,4 +18,9 @@ public class DiscordClientProperties {
      * Specifies whether the bot should automatically reconnect if the connection is lost.
      */
     private boolean autoReconnect = true;
+
+    /**
+     * The status message that the bot will display when it is online.
+     */
+    private String statusMessage = "Badley is online!";
 }
