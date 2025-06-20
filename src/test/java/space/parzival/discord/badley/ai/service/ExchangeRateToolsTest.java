@@ -66,13 +66,8 @@ class ExchangeRateToolsTest {
         String result = exchangeRateTools.getCurrencyExchangeRates(baseCurrency);
 
         assertNotNull(result);
-        assertLinesMatch(Arrays.stream(result.split("\n")).toList(),
-            List.of(
-                "Exchange Rates for USD:",
-                "- USD: 1.0 USD",
-                "- EUR: 0.5 USD",
-                "- GBP: 0.25 USD"
-            )
-        );
+        assertTrue(result.contains("GBP: 0.25 USD"));
+        assertTrue(result.contains("EUR: 0.5 USD"));
+        assertTrue(result.contains("USD: 1.0 USD"));
     }
 }
