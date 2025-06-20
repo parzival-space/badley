@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import space.parzival.discord.badley.ai.AiTools;
@@ -25,6 +26,11 @@ public class ExchangeRateTools implements AiTools {
         ${currencies}
         """.stripIndent();
 
+    private static final String CURRENCY_RATES_TEMPLATE = """
+        Exchange Rates for ${baseCurrency}:
+        ${currencies}
+        """.stripIndent();
+
     @Tool(description = "Get a list of supported currencies and their ISO codes of which you can request their exchange rates.")
     public String getSupportedCurrencies() {
         log.debug("AI is requesting supported currencies from Exchange Rate API");
@@ -41,6 +47,24 @@ public class ExchangeRateTools implements AiTools {
         } catch (Exception e) {
             log.error("Error while fetching supported currencies: {}", e.getMessage(), e);
             return "Error fetching supported currencies.";
+        }
+    }
+
+    @Tool(description = "Get the exchange rates for a specific base currency.")
+    public String getCurrencyExchangeRates(
+        @ToolParam(description = "The ISO code of the base currency (e.g., USD, EUR).") String baseCurrency) {
+        log.debug("AI is requesting exchange rates for base currency: {}", baseCurrency);
+
+        try {
+            var response = exchangeRateService.getRates(baseCurrency);
+            return StringSubstitutor.replace(SUPPORTED_CURRENCIES_TEMPLATE, Map.of(
+                "currencies", response.getConversionRates().entrySet().stream()
+                    .map(entry -> "- " + entry.getKey() + ": " + entry.getValue() + " " + baseCurrency)
+                    .collect(Collectors.joining("\n"))
+            ));
+        } catch (Exception e) {
+            log.error("Error while fetching exchange rates for {}: {}", baseCurrency, e.getMessage(), e);
+            return "Error fetching exchange rates.";
         }
     }
 }
