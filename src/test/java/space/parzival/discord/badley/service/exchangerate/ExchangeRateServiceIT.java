@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.client.MockRestServiceServer;
 import space.parzival.discord.badley.configuration.properties.tools.ExchangeRateApiProperties;
-import space.parzival.discord.badley.service.exchangerate.model.SupportedCodesResponse;
+import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateSupportedCodesResponse;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -41,7 +41,7 @@ class ExchangeRateServiceIT {
                 MediaType.APPLICATION_JSON
             ));
 
-        SupportedCodesResponse result = exchangeRateService.getSupportedCodes();
+        ExchangeRateSupportedCodesResponse result = exchangeRateService.getSupportedCodes();
 
         assertNotNull(result);
         assertNotNull(result.getSupportedCodes());

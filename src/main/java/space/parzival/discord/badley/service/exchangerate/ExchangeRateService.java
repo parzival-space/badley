@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.configuration.properties.tools.ExchangeRateApiProperties;
-import space.parzival.discord.badley.service.exchangerate.model.SupportedCodesResponse;
+import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateSupportedCodesResponse;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class ExchangeRateService {
      * @return The response containing the supported currency codes.
      * @throws NotSupportedException If the API key is not provided, an exception is thrown.
      */
-    public SupportedCodesResponse getSupportedCodes() throws NotSupportedException {
+    public ExchangeRateSupportedCodesResponse getSupportedCodes() throws NotSupportedException {
         if (this.exchangeRateApiProperties.getToken() == null)
             throw new NotSupportedException("Requesting supported currency codes requires a API key. You did not provide one!");
 
@@ -51,7 +51,7 @@ public class ExchangeRateService {
             apiUri.toUriString(),
             HttpMethod.GET,
             new HttpEntity<>(headers),
-            SupportedCodesResponse.class
+            ExchangeRateSupportedCodesResponse.class
         ).getBody();
     }
 
