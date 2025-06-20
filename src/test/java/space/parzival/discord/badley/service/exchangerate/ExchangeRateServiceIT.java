@@ -38,7 +38,7 @@ class ExchangeRateServiceIT {
     void getSupportedCodes_returns_validData() throws NotSupportedException {
         when(exchangeRateApiProperties.getToken()).thenReturn("test-token");
 
-        server.expect(req -> req.getURI().getPath().equals("https://v6.exchangerate-api.com/v6/test-token/codes"))
+        server.expect(req -> req.getURI().toString().equals("https://v6.exchangerate-api.com/v6/test-token/codes"))
             .andRespond(withSuccess(
                 resourceLoader.getResource("classpath:mock/exchangerate/auth/codes/valid-response.json"),
                 MediaType.APPLICATION_JSON
