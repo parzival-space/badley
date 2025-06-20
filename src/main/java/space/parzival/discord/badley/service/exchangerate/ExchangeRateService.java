@@ -38,7 +38,7 @@ public class ExchangeRateService {
      */
     public ExchangeRateSupportedCodesResponse getSupportedCodes() throws NotSupportedException {
         if (this.exchangeRateApiProperties.getToken() == null)
-            throw new NotSupportedException("Requesting supported currency codes requires a API key. You did not provide one!");
+            throw new NotSupportedException("Requesting supported currency codes requires an API key. You did not provide one!");
 
         UriComponents apiUri = UriComponentsBuilder.newInstance()
             .scheme("https")
