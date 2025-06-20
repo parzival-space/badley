@@ -19,12 +19,12 @@ import java.util.List;
 @Service
 @ConditionalOnProperty(value = "badley.ai.tools.exchange-rate-api.enabled", havingValue = "true")
 public class ExchangeRateService {
-    private RestTemplate restTemplate;
+    private RestTemplate authRestTemplate;
     private ExchangeRateApiProperties exchangeRateApiProperties;
 
     public ExchangeRateService(RestTemplateBuilder restTemplateBuilder, ExchangeRateApiProperties properties) {
-        this.restTemplate = restTemplateBuilder
-            .rootUri("https://open.er-api.com/v6/")
+        this.authRestTemplate = restTemplateBuilder
+            .rootUri("https://open.er-api.com/v6/" + properties.getToken() + "/")
             .defaultHeader("Content-Type", "application/json")
             .build();
 
@@ -41,13 +41,13 @@ public class ExchangeRateService {
             throw new NotSupportedException("Requesting supported currency codes requires a API key. You did not provide one!");
 
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-            .path("/" + this.exchangeRateApiProperties.getToken() + "/codes")
+            .path("/codes")
             .build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-        return restTemplate.exchange(
+        return authRestTemplate.exchange(
             apiUri.toUriString(),
             HttpMethod.GET,
             new HttpEntity<>(headers),
