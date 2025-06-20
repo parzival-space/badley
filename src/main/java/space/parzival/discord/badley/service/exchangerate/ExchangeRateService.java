@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import space.parzival.discord.badley.configuration.properties.tools.ExchangeRateApiProperties;
+import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateRatesResponse;
 import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateSupportedCodesResponse;
 
 import java.util.List;
@@ -19,12 +20,11 @@ import java.util.List;
 @Service
 @ConditionalOnProperty(value = "badley.ai.tools.exchange-rate-api.enabled", havingValue = "true")
 public class ExchangeRateService {
-    private RestTemplate authRestTemplate;
+    private RestTemplate restTemplate;
     private ExchangeRateApiProperties exchangeRateApiProperties;
 
     public ExchangeRateService(RestTemplateBuilder restTemplateBuilder, ExchangeRateApiProperties properties) {
-        this.authRestTemplate = restTemplateBuilder
-            .rootUri("https://open.er-api.com/v6/" + properties.getToken() + "/")
+        this.restTemplate = restTemplateBuilder
             .defaultHeader("Content-Type", "application/json")
             .build();
 
@@ -41,17 +41,42 @@ public class ExchangeRateService {
             throw new NotSupportedException("Requesting supported currency codes requires a API key. You did not provide one!");
 
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-            .path("/codes")
+            .path("https://v6.exchangerate-api.com/v6/" + this.exchangeRateApiProperties.getToken() + "/codes")
             .build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-        return authRestTemplate.exchange(
+        return restTemplate.exchange(
             apiUri.toUriString(),
             HttpMethod.GET,
             new HttpEntity<>(headers),
             ExchangeRateSupportedCodesResponse.class
+        ).getBody();
+    }
+
+    /**
+     * Gets the latest exchange rates for a given base currency code.
+     * @param baseCode The base currency code (e.g., "USD", "EUR").
+     * @return The response containing the exchange rates for the specified base currency.
+     */
+    public ExchangeRateRatesResponse getRates(String baseCode) {
+        UriComponents apiUri = UriComponentsBuilder.newInstance()
+            .path(
+                this.exchangeRateApiProperties.getToken() != null
+                    ? "https://v6.exchangerate-api.com/v6/" + this.exchangeRateApiProperties.getToken() + "/latest/" + baseCode
+                    : "https://open.er-api.com/v6/latest/" + baseCode
+            )
+            .build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+
+        return restTemplate.exchange(
+            apiUri.toUriString(),
+            HttpMethod.GET,
+            new HttpEntity<>(headers),
+            ExchangeRateRatesResponse.class
         ).getBody();
     }
 

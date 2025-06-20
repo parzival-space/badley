@@ -2,6 +2,8 @@ package space.parzival.discord.badley.service.exchangerate;
 
 import jakarta.transaction.NotSupportedException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
@@ -10,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.client.MockRestServiceServer;
 import space.parzival.discord.badley.configuration.properties.tools.ExchangeRateApiProperties;
+import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateRatesResponse;
 import space.parzival.discord.badley.service.exchangerate.model.ExchangeRateSupportedCodesResponse;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,7 +38,7 @@ class ExchangeRateServiceIT {
     void getSupportedCodes_returns_validData() throws NotSupportedException {
         when(exchangeRateApiProperties.getToken()).thenReturn("test-token");
 
-        server.expect(req -> req.getURI().getPath().equals("/codes"))
+        server.expect(req -> req.getURI().getPath().equals("https://v6.exchangerate-api.com/v6/test-token/codes"))
             .andRespond(withSuccess(
                 resourceLoader.getResource("classpath:mock/exchangerate/auth/codes/valid-response.json"),
                 MediaType.APPLICATION_JSON
@@ -55,5 +58,35 @@ class ExchangeRateServiceIT {
         assertThrows(NotSupportedException.class, () -> {
             exchangeRateService.getSupportedCodes();
         });
+    }
+
+    @ParameterizedTest
+    @CsvSource({"true", "false"})
+    void getRates_returns_validData_usingFreeAndAuthAPI(boolean provideToken) {
+        if (provideToken) when(exchangeRateApiProperties.getToken()).thenReturn("test-token");
+
+        String baseCode = "USD";
+
+        // set path based on whether token is provided or not
+        String reqPath = provideToken
+            ? "https://v6.exchangerate-api.com/v6/test-token/latest/" + baseCode
+            : "https://open.er-api.com/V6/latest/" + baseCode;
+
+        String resPath = provideToken
+            ? "classpath:mock/exchangerate/auth/rates/valid-response.json"
+            : "classpath:mock/exchangerate/open/rates/valid-response.json";
+
+        server.expect(req -> req.getURI().getPath().equals(reqPath))
+            .andRespond(withSuccess(
+                resourceLoader.getResource(resPath),
+                MediaType.APPLICATION_JSON
+            ));
+
+        ExchangeRateRatesResponse result = exchangeRateService.getRates(baseCode);
+
+        assertNotNull(result);
+        assertEquals(baseCode, result.getBaseCode());
+        assertNotNull(result.getConversionRates());
+        assertTrue(result.getConversionRates().containsKey("EUR"));
     }
 }
