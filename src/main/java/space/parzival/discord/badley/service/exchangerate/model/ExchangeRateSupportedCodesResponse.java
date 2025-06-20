@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 @With
-@JsonDeserialize(builder = ExchangeRateSupportedCodesResponse.class)
+@JsonDeserialize(builder = ExchangeRateSupportedCodesResponse.ExchangeRateSupportedCodesResponseBuilder.class)
 public class ExchangeRateSupportedCodesResponse {
     @JsonProperty("result")
     String result;
