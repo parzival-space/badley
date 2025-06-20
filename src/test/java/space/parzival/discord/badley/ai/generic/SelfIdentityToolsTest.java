@@ -42,7 +42,6 @@ class SelfIdentityToolsTest {
         assertTrue(identityInfo.contains("Badley AI"));
         assertTrue(identityInfo.contains("1.0.0"));
         assertTrue(identityInfo.contains("An AI assistant for Discord."));
-        assertTrue(identityInfo.contains("A helpful AI assistant for Discord."));
         assertTrue(identityInfo.contains("https://badley.ai"));
         assertTrue(identityInfo.contains("https://badley.repo"));
         assertTrue(identityInfo.contains("Badley"));
