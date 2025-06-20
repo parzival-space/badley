@@ -30,7 +30,7 @@ class NumberApiServiceIT {
     void getTrivia() {
         server.expect(request -> request.getMethod().equals("GET"))
             .andRespond(withSuccess(
-                resourceLoader.getResource("classpath:mock/numberapi/trivia/valid-respone.json"),
+                resourceLoader.getResource("classpath:mock/numberapi/trivia/valid-response.json"),
                 MediaType.APPLICATION_JSON
             ));
 
