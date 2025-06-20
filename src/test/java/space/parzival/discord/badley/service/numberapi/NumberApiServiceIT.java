@@ -7,11 +7,11 @@ import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
-import space.parzival.discord.badley.configuration.properties.tools.IpApiProperties;
 import space.parzival.discord.badley.configuration.properties.tools.NumberApiProperties;
-import space.parzival.discord.badley.service.ipapi.IpApiService;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @EnableConfigurationProperties(NumberApiProperties.class)

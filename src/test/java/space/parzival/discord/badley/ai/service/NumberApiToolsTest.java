@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import space.parzival.discord.badley.service.numberapi.NumberApiService;
 import space.parzival.discord.badley.service.numberapi.model.NumberApiResponse;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
