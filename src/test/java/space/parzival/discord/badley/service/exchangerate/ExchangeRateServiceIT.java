@@ -76,7 +76,7 @@ class ExchangeRateServiceIT {
             ? "classpath:mock/exchangerate/auth/rates/valid-response.json"
             : "classpath:mock/exchangerate/open/rates/valid-response.json";
 
-        server.expect(req -> req.getURI().getPath().equals(reqPath))
+        server.expect(req -> req.getURI().toString().equals(reqPath))
             .andRespond(withSuccess(
                 resourceLoader.getResource(resPath),
                 MediaType.APPLICATION_JSON
