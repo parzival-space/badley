@@ -15,7 +15,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @AllArgsConstructor
-@ConditionalOnProperty(value = "badley.ai.tools.datetime.enabled", havingValue = "true")
+@ConditionalOnProperty(value = "badley.ai.tools.self-identity.enabled", havingValue = "true")
 public class SelfIdentityTools implements AiTools {
     private AiCharacterProperties aiCharacterProperties;
     private BuildInfoProperties buildInfoProperties;
