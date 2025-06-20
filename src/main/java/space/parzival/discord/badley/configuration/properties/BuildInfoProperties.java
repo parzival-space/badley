@@ -8,11 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "badley.build-info")
 @AllArgsConstructor
 public class BuildInfoProperties {
-    public String projectName = "N/A";
-    public String projectVersion = "N/A";
-    public String projectDescription = "N/A";
-    public String projectUrl = "N/A";
-    public String projectRepositoryUrl = "N/A";
-    public String javaVersion = "N/A";
-    public String springVersion = "N/A";
+    private String projectName = "N/A";
+    private String projectVersion = "N/A";
+    private String projectDescription = "N/A";
+    private String projectUrl = "N/A";
+    private String projectRepositoryUrl = "N/A";
+    private String javaVersion = "N/A";
+    private String springVersion = "N/A";
 }
