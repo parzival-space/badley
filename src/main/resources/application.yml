@@ -56,6 +56,8 @@ badley:
         enabled: true
       duckduckgo:
         enabled: false
+      exchange-rate-api:
+        enabled: false
       github:
         enabled: false
       google:

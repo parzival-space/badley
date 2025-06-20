@@ -41,7 +41,9 @@ public class ExchangeRateService {
             throw new NotSupportedException("Requesting supported currency codes requires a API key. You did not provide one!");
 
         UriComponents apiUri = UriComponentsBuilder.newInstance()
-            .path("https://v6.exchangerate-api.com/v6/" + this.exchangeRateApiProperties.getToken() + "/codes")
+            .scheme("https")
+            .host("v6.exchangerate-api.com")
+            .path("/v6/" + this.exchangeRateApiProperties.getToken() + "/codes")
             .build();
 
         HttpHeaders headers = new HttpHeaders();
@@ -62,10 +64,16 @@ public class ExchangeRateService {
      */
     public ExchangeRateRatesResponse getRates(String baseCode) {
         UriComponents apiUri = UriComponentsBuilder.newInstance()
+            .scheme("https")
+            .host(
+                this.exchangeRateApiProperties.getToken() != null
+                    ? "v6.exchangerate-api.com"
+                    : "open.er-api.com"
+            )
             .path(
                 this.exchangeRateApiProperties.getToken() != null
-                    ? "https://v6.exchangerate-api.com/v6/" + this.exchangeRateApiProperties.getToken() + "/latest/" + baseCode
-                    : "https://open.er-api.com/v6/latest/" + baseCode
+                    ? "/v6/" + this.exchangeRateApiProperties.getToken() + "/latest/" + baseCode
+                    : "/v6/latest/" + baseCode
             )
             .build();
 
@@ -79,5 +87,4 @@ public class ExchangeRateService {
             ExchangeRateRatesResponse.class
         ).getBody();
     }
-
 }
