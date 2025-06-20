@@ -53,13 +53,14 @@ public class DiscordClientConfiguration {
                         event.getJDA().getSelfUser().getDiscriminator());
 
                     // update the bot's status message
+                    String statusMessage = discordClientProperties.getStatusMessage();
+                    if (statusMessage.length() > 128) {
+                        log.warn("Status message exceeds 128 characters, truncating: {}", statusMessage);
+                        statusMessage = statusMessage.substring(0, 128);
+                    }
                     event.getJDA().getPresence().setPresence(
                         OnlineStatus.ONLINE,
-                        Activity.of(
-                            Activity.ActivityType.CUSTOM_STATUS,
-                            discordClientProperties.getStatusMessage()
-                        )
-                    );
+                        Activity.of(Activity.ActivityType.CUSTOM_STATUS, statusMessage));
                 }
 
                 @Override
