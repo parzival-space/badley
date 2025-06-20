@@ -40,7 +40,7 @@ public class SelfIdentityTools implements AiTools {
         log.debug("AI is requesting self-identity information");
 
         try {
-            var result = StringSubstitutor.replace(IDENTITY_TEMPLATE, Map.of(
+            return StringSubstitutor.replace(IDENTITY_TEMPLATE, Map.of(
                 "project.name", buildInfoProperties.getProjectName(),
                 "project.version", buildInfoProperties.getProjectVersion(),
                 "project.description", buildInfoProperties.getProjectDescription(),
@@ -51,10 +51,6 @@ public class SelfIdentityTools implements AiTools {
                 "character.name", aiCharacterProperties.getName(),
                 "character.description", aiCharacterProperties.getPersonality()
             ));
-
-            log.debug("AI returned: {}", result);
-
-            return result;
         } catch (Exception e) {
             log.error("Error while generating self-identity information", e);
             return "An error occurred while generating self-identity information.";
