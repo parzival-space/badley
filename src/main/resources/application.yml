@@ -62,6 +62,8 @@ badley:
         enabled: false
       google:
         enabled: false
+      number-api:
+        enabled: true
       openweather:
         enabled: false
       self-identity:
