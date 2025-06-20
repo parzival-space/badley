@@ -41,7 +41,7 @@ public class ExchangeRateTools implements AiTools {
             return StringSubstitutor.replace(SUPPORTED_CURRENCIES_TEMPLATE, Map.of(
                 "currencies", response.getSupportedCodes().stream()
                     .filter(code -> code.length >= 2)
-                    .map(code -> "- " + code[1] + "(" + code[0] + ")" )
+                    .map(code -> "- " + code[1] + " (" + code[0] + ")" )
                     .collect(Collectors.joining("\n"))
             ));
         } catch (Exception e) {
@@ -57,7 +57,8 @@ public class ExchangeRateTools implements AiTools {
 
         try {
             var response = exchangeRateService.getRates(baseCurrency);
-            return StringSubstitutor.replace(SUPPORTED_CURRENCIES_TEMPLATE, Map.of(
+            return StringSubstitutor.replace(CURRENCY_RATES_TEMPLATE, Map.of(
+                "baseCurrency", baseCurrency,
                 "currencies", response.getConversionRates().entrySet().stream()
                     .map(entry -> "- " + entry.getKey() + ": " + entry.getValue() + " " + baseCurrency)
                     .collect(Collectors.joining("\n"))
