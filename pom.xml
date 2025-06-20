@@ -14,7 +14,7 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <name>badley</name>
-  <description>Demo project for Spring Boot</description>
+  <description>AI powered Discord bot that is not your average do-whatever-you-want assistant.</description>
   <url>https://github.com/parzival-space/badley</url>
   <scm>
     <url>https://github.com/parzival-space/badley</url>
