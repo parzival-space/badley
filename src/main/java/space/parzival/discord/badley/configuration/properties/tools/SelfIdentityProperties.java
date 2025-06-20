@@ -1,6 +1,5 @@
 package space.parzival.discord.badley.configuration.properties.tools;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;

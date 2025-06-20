@@ -45,8 +45,8 @@ public class DiscordMessageHandler extends ListenerAdapter {
         String conversationReference =
             (isDirectMessage) ? event.getChannel().getId() :
                 Optional.ofNullable(event.getMessage().getMessageReference())
-                        .map(MessageReference::getMessageId)
-                        .orElse(event.getMessageId());
+                    .map(MessageReference::getMessageId)
+                    .orElse(event.getMessageId());
 
         UUID conversationId = Optional
             .ofNullable(discordPersistence.getConversationIdByDiscordId(conversationReference))
@@ -100,7 +100,7 @@ public class DiscordMessageHandler extends ListenerAdapter {
                     conversationId
                 );
                 queueChunkedResponse(event, remainingChunks.subList(1, remainingChunks.size()),
-                                     conversationReference, conversationId, iteration + 1);
+                    conversationReference, conversationId, iteration + 1);
             });
         } else {
             event.getChannel().sendMessage(remainingChunks.getFirst()).queue(discordResp -> {

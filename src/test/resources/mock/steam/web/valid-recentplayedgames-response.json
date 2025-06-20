@@ -1,128 +1,128 @@
 {
-    "response": {
-        "total_count": 11,
-        "games": [
-            {
-                "appid": 1172620,
-                "name": "Sea of Thieves",
-                "playtime_2weeks": 501,
-                "playtime_forever": 13558,
-                "img_icon_url": "f95f362708fc326511c5d86566c447ee625bf776",
-                "playtime_windows_forever": 13395,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 162,
-                "playtime_deck_forever": 88
-            },
-            {
-                "appid": 2623190,
-                "name": "The Elder Scrolls IV: Oblivion Remastered",
-                "playtime_2weeks": 354,
-                "playtime_forever": 354,
-                "img_icon_url": "bad7d3e3c722ffc68af54cbe545dcc5978d87638",
-                "playtime_windows_forever": 354,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 0,
-                "playtime_deck_forever": 0
-            },
-            {
-                "appid": 306130,
-                "name": "The Elder Scrolls Online",
-                "playtime_2weeks": 342,
-                "playtime_forever": 36962,
-                "img_icon_url": "2a0f43963c08a3755682adb2369918c9ad07ef1b",
-                "playtime_windows_forever": 34153,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 2026,
-                "playtime_deck_forever": 988
-            },
-            {
-                "appid": 2806640,
-                "name": "The Talos Principle: Reawakened",
-                "playtime_2weeks": 337,
-                "playtime_forever": 726,
-                "img_icon_url": "d7b839d186077e4a701624a73f3f54e6401a1918",
-                "playtime_windows_forever": 726,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 0,
-                "playtime_deck_forever": 0
-            },
-            {
-                "appid": 1086940,
-                "name": "Baldur's Gate 3",
-                "playtime_2weeks": 271,
-                "playtime_forever": 12104,
-                "img_icon_url": "d866cae7ea1e471fdbc206287111f1b642373bd9",
-                "playtime_windows_forever": 12005,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 98,
-                "playtime_deck_forever": 98
-            },
-            {
-                "appid": 3240220,
-                "name": "Grand Theft Auto V Enhanced",
-                "playtime_2weeks": 88,
-                "playtime_forever": 3358,
-                "img_icon_url": "8355a7bbdb704f727bfba80ec56bc7228991338e",
-                "playtime_windows_forever": 3334,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 23,
-                "playtime_deck_forever": 23
-            },
-            {
-                "appid": 1150440,
-                "name": "Aliens: Dark Descent",
-                "playtime_2weeks": 45,
-                "playtime_forever": 45,
-                "img_icon_url": "97e41160b136c61d7eca33ed195bf53c3158d839",
-                "playtime_windows_forever": 45,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 0,
-                "playtime_deck_forever": 0
-            },
-            {
-                "appid": 250820,
-                "name": "SteamVR",
-                "playtime_2weeks": 42,
-                "playtime_forever": 68951,
-                "img_icon_url": "7f286d5ee22905b51663e0cea505e1c2f7500f36",
-                "playtime_windows_forever": 68727,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 224,
-                "playtime_deck_forever": 1
-            },
-            {
-                "appid": 1850050,
-                "name": "Alien: Rogue Incursion",
-                "playtime_2weeks": 41,
-                "playtime_forever": 41,
-                "img_icon_url": "96e0e1400031fbdce20c4eb6ad7dca746edef406",
-                "playtime_windows_forever": 41,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 0,
-                "playtime_deck_forever": 0
-            },
-            {
-                "appid": 563840,
-                "name": "Lost Ember",
-                "playtime_2weeks": 29,
-                "playtime_forever": 29,
-                "img_icon_url": "af3f71128166f3441359b76eec2d538e4396fa93",
-                "playtime_windows_forever": 29,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 0,
-                "playtime_deck_forever": 0
-            },
-            {
-                "appid": 218230,
-                "name": "PlanetSide 2",
-                "playtime_2weeks": 2,
-                "playtime_forever": 664,
-                "img_icon_url": "f09d788b57eccd48ad9a6d1ec0dbf0707db39612",
-                "playtime_windows_forever": 135,
-                "playtime_mac_forever": 0,
-                "playtime_linux_forever": 0,
-                "playtime_deck_forever": 0
-            }
-        ]
-    }
+  "response": {
+    "total_count": 11,
+    "games": [
+      {
+        "appid": 1172620,
+        "name": "Sea of Thieves",
+        "playtime_2weeks": 501,
+        "playtime_forever": 13558,
+        "img_icon_url": "f95f362708fc326511c5d86566c447ee625bf776",
+        "playtime_windows_forever": 13395,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 162,
+        "playtime_deck_forever": 88
+      },
+      {
+        "appid": 2623190,
+        "name": "The Elder Scrolls IV: Oblivion Remastered",
+        "playtime_2weeks": 354,
+        "playtime_forever": 354,
+        "img_icon_url": "bad7d3e3c722ffc68af54cbe545dcc5978d87638",
+        "playtime_windows_forever": 354,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0
+      },
+      {
+        "appid": 306130,
+        "name": "The Elder Scrolls Online",
+        "playtime_2weeks": 342,
+        "playtime_forever": 36962,
+        "img_icon_url": "2a0f43963c08a3755682adb2369918c9ad07ef1b",
+        "playtime_windows_forever": 34153,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 2026,
+        "playtime_deck_forever": 988
+      },
+      {
+        "appid": 2806640,
+        "name": "The Talos Principle: Reawakened",
+        "playtime_2weeks": 337,
+        "playtime_forever": 726,
+        "img_icon_url": "d7b839d186077e4a701624a73f3f54e6401a1918",
+        "playtime_windows_forever": 726,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0
+      },
+      {
+        "appid": 1086940,
+        "name": "Baldur's Gate 3",
+        "playtime_2weeks": 271,
+        "playtime_forever": 12104,
+        "img_icon_url": "d866cae7ea1e471fdbc206287111f1b642373bd9",
+        "playtime_windows_forever": 12005,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 98,
+        "playtime_deck_forever": 98
+      },
+      {
+        "appid": 3240220,
+        "name": "Grand Theft Auto V Enhanced",
+        "playtime_2weeks": 88,
+        "playtime_forever": 3358,
+        "img_icon_url": "8355a7bbdb704f727bfba80ec56bc7228991338e",
+        "playtime_windows_forever": 3334,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 23,
+        "playtime_deck_forever": 23
+      },
+      {
+        "appid": 1150440,
+        "name": "Aliens: Dark Descent",
+        "playtime_2weeks": 45,
+        "playtime_forever": 45,
+        "img_icon_url": "97e41160b136c61d7eca33ed195bf53c3158d839",
+        "playtime_windows_forever": 45,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0
+      },
+      {
+        "appid": 250820,
+        "name": "SteamVR",
+        "playtime_2weeks": 42,
+        "playtime_forever": 68951,
+        "img_icon_url": "7f286d5ee22905b51663e0cea505e1c2f7500f36",
+        "playtime_windows_forever": 68727,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 224,
+        "playtime_deck_forever": 1
+      },
+      {
+        "appid": 1850050,
+        "name": "Alien: Rogue Incursion",
+        "playtime_2weeks": 41,
+        "playtime_forever": 41,
+        "img_icon_url": "96e0e1400031fbdce20c4eb6ad7dca746edef406",
+        "playtime_windows_forever": 41,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0
+      },
+      {
+        "appid": 563840,
+        "name": "Lost Ember",
+        "playtime_2weeks": 29,
+        "playtime_forever": 29,
+        "img_icon_url": "af3f71128166f3441359b76eec2d538e4396fa93",
+        "playtime_windows_forever": 29,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0
+      },
+      {
+        "appid": 218230,
+        "name": "PlanetSide 2",
+        "playtime_2weeks": 2,
+        "playtime_forever": 664,
+        "img_icon_url": "f09d788b57eccd48ad9a6d1ec0dbf0707db39612",
+        "playtime_windows_forever": 135,
+        "playtime_mac_forever": 0,
+        "playtime_linux_forever": 0,
+        "playtime_deck_forever": 0
+      }
+    ]
+  }
 }
