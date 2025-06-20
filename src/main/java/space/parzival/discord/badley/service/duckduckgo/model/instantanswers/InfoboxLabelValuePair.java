@@ -41,7 +41,7 @@ public class InfoboxLabelValuePair {
 
         @Override
         public String deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-            ObjectMapper mapper = (ObjectMapper)  p.getCodec();
+            ObjectMapper mapper = (ObjectMapper) p.getCodec();
             JsonNode node = p.getCodec().readTree(p);
             if (node.isObject() || node.isArray()) {
                 return mapper.writeValueAsString(node);

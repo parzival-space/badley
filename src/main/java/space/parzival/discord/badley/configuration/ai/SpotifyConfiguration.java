@@ -29,9 +29,9 @@ public class SpotifyConfiguration {
     @ConditionalOnProperty(value = "badley.ai.tools.spotify.client-secret")
     public SpotifyApi spotifyApi(SpotifyProperties properties) {
         this.apiClient = SpotifyApi.builder()
-                .setClientId(properties.getClientId())
-                .setClientSecret(properties.getClientSecret())
-                .build();
+            .setClientId(properties.getClientId())
+            .setClientSecret(properties.getClientSecret())
+            .build();
 
         // request a initial access token
         scheduleTokenRefreshAsync();
@@ -54,7 +54,7 @@ public class SpotifyConfiguration {
                 // schedule the next token refresh time
                 long delayInSeconds = clientCredentials.getExpiresIn() - 60L;
                 log.info("Refreshed Spotify access token. Next refresh time: {}",
-                        LocalDateTime.now().plusSeconds(delayInSeconds).format(DateTimeFormatter.ISO_LOCAL_TIME));
+                    LocalDateTime.now().plusSeconds(delayInSeconds).format(DateTimeFormatter.ISO_LOCAL_TIME));
 
                 this.scheduler.schedule(this::scheduleTokenRefreshAsync, delayInSeconds, TimeUnit.SECONDS);
             } catch (ParseException | SpotifyWebApiException | IOException e) {

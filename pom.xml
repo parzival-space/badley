@@ -14,8 +14,11 @@
   <version>0.0.1-SNAPSHOT</version>
 
   <name>badley</name>
-  <description>Demo project for Spring Boot</description>
-  <url/>
+  <description>AI powered Discord bot that is not your average do-whatever-you-want assistant.</description>
+  <url>https://github.com/parzival-space/badley</url>
+  <scm>
+    <url>https://github.com/parzival-space/badley</url>
+  </scm>
 
   <developers>
     <developer>
@@ -45,6 +48,7 @@
     <google.youtube.version>v3-rev20250422-2.0.0</google.youtube.version>
     <sonar.organization>parzival-space</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+    <resource.delimiter>^</resource.delimiter>
   </properties>
 
   <dependencies>

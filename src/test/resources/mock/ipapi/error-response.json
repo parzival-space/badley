@@ -1,5 +1,5 @@
 {
-    "status": "fail",
-    "message": "invalid query",
-    "query": "8.8.8.8.8"
+  "status": "fail",
+  "message": "invalid query",
+  "query": "8.8.8.8.8"
 }
