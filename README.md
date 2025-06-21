@@ -77,38 +77,76 @@ badley:
     
   ai:
     tools:
-      github:
-        enabled: true # Or false to disable
-        token: # Your PAT GitHub token. No scopes are needed, but you can add private repo access if you want to.
-      openweather:
-        enabled: true # Or false to disable
-        token: # Your OpenWeather API key
-      steam:
-        enabled: true # Or false to disable
-        token: # Your Steam Web API key, see https://steamcommunity.com/dev/apikey
       brave:
-        enabled: true # Or false to disable
-        token: # Your Brave Search API key, see https://brave.com/search/api/
+        # Brave Search integration. Used to fetch real-time information from the web.
+        # Requires a free API key, see https://brave.com/search/api/
+        enabled: false 
+        token: # Your Brave Search API key
+      datetime:
+        # Date and Time integration. Used to answer questions about the current date and time.
+        enabled: true
+      duckduckgo:
+        # DuckDuckGo Search integration. Used to fetch real-time information from the web.
+        # DuckDuckGo does not require an API key, so you can just set enabled to true.
+        enabled: true
+      exchange-rate-api:
+        # Exchange Rate API integration. Used to fetch exchange rates for currencies.
+        # Requires a free API key, see https://www.exchangerate-api.com/
+        enabled: false
+        token: # Your API key
+      github:
+        # GitHub integration. Used to fetch repository, organization and user details.
+        # Requires a Personal Access Token (PAT) with no scopes, but you can add private repo access if you want to.
+        enabled: false
+        token: # Your PAT GitHub token.
       google:
-        enabled: false # Or false to disable
-        token: # Your Google Custom Search API key, see https://developers.google.com/custom-search/v1/overview
-        engine-id: # The Engine Id, see above
-      youtube:
-        enabled: true # Or false to disable
-        token: # Your YouTube Data API v3 key, see https://developers.google.com/youtube/v3/getting-started
-      spotify:
-        enabled: true # Or false to disable
-        client-id: # Your Spotify client id, see https://developer.spotify.com/documentation/general/guides/app-settings/
-        client-secret: # Your Spotify client secret, see above
-      wikipedia:
-        enabled: true # Or false to disable
+        # Google Custom Search integration. Used to fetch real-time information from the web.
+        # Requires a free API key and a Custom Search Engine ID, see https://developers.google.com/custom-search/v1/overview
+        enabled: false
+        token: # Your Google Custom Search API key
+        engine-id: # The Engine Id
       ipapi:
+        # IPAPI integration. Used to fetch information about IP addresses and locations.
+        # This is especially useful if you also enable the openweather integration.
         enabled: true # Or false to disable
         # Define how much of the own IP address the bot is allowed to expose to the conversation
         # disabled = The bot does not know its own IP and locations
         # show_location = The bot knows its own IP and location, but will only respond with the location
         # show_ip_and_location = The bot knows its own IP and location, and will respond with both
         expose-self-visibility: show_location
+      number-api:
+        # Number API integration. Used to fetch trivia, math, date and year facts.
+        # No API key is required, so you can just set enabled to true.
+        enabled: true
+      openweather:
+        # OpenWeather integration. Used to fetch current weather information.
+        # Requires a free API key, see https://openweathermap.org/api
+        enabled: false
+        token: # Your OpenWeather API key
+      self-identity:
+        # Self Identity integration. Used to inform the bot about this project and its purpose.
+        # You can disable this if you don't want the bot to respond to questions about itself.
+        enabled: true
+      spotify:
+        # Spotify integration. Used to fetch tracks, artists, albums, playlists and podcasts.
+        # Requires a free API key, see https://developer.spotify.com/documentation/general/guides/app-settings/
+        enabled: false 
+        client-id: # Your Spotify client id
+        client-secret: # Your Spotify client secret
+      steam:
+        # Steam integration. Used to fetch user profiles, games, sales and more.
+        # Requires a free API key, see https://steamcommunity.com/dev/apikey
+        enabled: false
+        token: # Your Steam Web API key
+      wikipedia:
+        # Wikipedia integration. Used to fetch information from Wikipedia.
+        # No API key is required, so you can just set enabled to true.
+        enabled: true # Or false to disable
+      youtube:
+        # YouTube Data API v3 integration. Used to search for videos, channels and playlists.
+        # Requires a free API key, see https://developers.google.com/youtube/v3/getting-started
+        enabled: false
+        token: # Your YouTube Data API v3 key
 ```
 
 # Contributing

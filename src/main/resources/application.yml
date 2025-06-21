@@ -56,13 +56,16 @@ badley:
       datetime:
         enabled: true
       duckduckgo:
-        enabled: false
+        enabled: true
       exchange-rate-api:
         enabled: false
       github:
         enabled: false
       google:
         enabled: false
+      ipapi:
+        enabled: true
+        expose-self-visibility: show_location
       number-api:
         enabled: true
       openweather:
@@ -74,6 +77,6 @@ badley:
       steam:
         enabled: false
       wikipedia:
-        enabled: false
+        enabled: true
       youtube:
         enabled: false
