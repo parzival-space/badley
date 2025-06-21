@@ -42,9 +42,9 @@ public class DiscordMessageHandler extends ListenerAdapter {
         event.getChannel().sendTyping().queue();
 
         // determine conversation reference based on channel type
-        String conversationReference =
-            (isDirectMessage) ? event.getChannel().getId() :
-                Optional.ofNullable(event.getMessage().getMessageReference())
+        String conversationReference = isDirectMessage
+            ? event.getChannel().getId()
+            : Optional.ofNullable(event.getMessage().getMessageReference())
                     .map(MessageReference::getMessageId)
                     .orElse(event.getMessageId());
 
@@ -79,7 +79,14 @@ public class DiscordMessageHandler extends ListenerAdapter {
                 messageChunks.size(), conversationId);
 
             // send each chunk after each other
-            queueChunkedResponse(event, messageChunks, conversationReference, conversationId, 0);
+            queueChunkedResponse(
+                event,
+                messageChunks,
+                // if this is a direct message, use the conversation reference, otherwise null to instruct the send
+                // function to store the response message ids as references
+                isDirectMessage ? conversationReference : null,
+                conversationId,
+                0);
         } else {
             log.error("AI response was null for message: {}", event.getMessage().getContentRaw());
             event.getMessage().reply("Nope! Something hasn't worked here.").queue();
