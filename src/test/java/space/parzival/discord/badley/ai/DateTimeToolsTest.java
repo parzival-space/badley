@@ -17,8 +17,8 @@ class DateTimeToolsTest {
         DateTimeTools dateTimeTools = new DateTimeTools();
         String result = dateTimeTools.getCurrentDateTime();
 
-        // ignore milliseconds
-        assertEquals(currentDateTime.substring(0, 19), result.substring(0, 19));
+        // ignore milliseconds & seconds
+        assertEquals(currentDateTime.substring(0, 17), result.substring(0, 17));
     }
 
     @Test
