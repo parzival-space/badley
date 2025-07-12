@@ -27,7 +27,7 @@ public class BraveTools implements AiTools {
         """.stripIndent();
     private final BraveService braveService;
 
-    @Tool(description = "Search the web for information.")
+    @Tool(description = "Search real-time, up-to-date information and news from the Internet using Brave. If this fails, use another search engine.")
     public String searchBrave(String query) {
         log.debug("AI is requesting web search results from Brave for query: {}", query);
 
