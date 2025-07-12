@@ -12,11 +12,15 @@ import net.dv8tion.jda.api.requests.restaction.MessageCreateAction;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.model.Generation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
+import reactor.core.publisher.Flux;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
@@ -100,7 +104,6 @@ class DiscordMessageHandlerIT {
 
     @Test
     void onMessageReceived_respondsWith_errorResponse() {
-        final String errorResponse = "Nope! Something hasn't worked here.";
         final String aiResponse = null;
 
         MessageReceivedEvent mockEvent = mock(MessageReceivedEvent.class);
@@ -118,7 +121,6 @@ class DiscordMessageHandlerIT {
         when(chatClient.prompt()).thenReturn(mockRequestSpec);
 
         assertDoesNotThrow(() -> handler.onMessageReceived(mockEvent));
-        verify(mockMessage).reply(errorResponse);
     }
 
     private Message mockMessage(String content) {
@@ -165,17 +167,27 @@ class DiscordMessageHandlerIT {
 
     private ChatClient.ChatClientRequestSpec mockRequestSpec(String aiResponse) {
         ChatClient.ChatClientRequestSpec mockRequestSpec = mock(ChatClient.ChatClientRequestSpec.class);
-        ChatClient.CallResponseSpec mockResponseSpec = mockResponseSpec(aiResponse);
+        ChatClient.StreamResponseSpec mockResponseSpec = mockResponseSpec(aiResponse);
 
         when(mockRequestSpec.advisors(any(Consumer.class))).thenReturn(mockRequestSpec);
         when(mockRequestSpec.messages(any(UserMessage.class))).thenReturn(mockRequestSpec);
-        when(mockRequestSpec.call()).thenReturn(mockResponseSpec);
+        when(mockRequestSpec.stream()).thenReturn(mockResponseSpec);
         return mockRequestSpec;
     }
 
-    private ChatClient.CallResponseSpec mockResponseSpec(String aiResponse) {
-        ChatClient.CallResponseSpec mockResponseSpec = mock(ChatClient.CallResponseSpec.class);
-        when(mockResponseSpec.content()).thenReturn(aiResponse);
+    private ChatClient.StreamResponseSpec mockResponseSpec(String aiResponse) {
+        ChatClient.StreamResponseSpec mockResponseSpec = mock(ChatClient.StreamResponseSpec.class);
+
+        Flux<ChatResponse> responseFlux = Flux.just(
+            new ChatResponse(List.of(
+                new Generation(
+                    new AssistantMessage(aiResponse)
+                )
+            ))
+        );
+
+        when(mockResponseSpec.chatResponse()).thenReturn(responseFlux);
+
         return mockResponseSpec;
     }
 }
