@@ -26,7 +26,7 @@ public class GoogleTools implements AiTools {
         """.stripIndent();
     private final CustomSearchAPI googleCustomSearchAPI;
 
-    @Tool(description = "Search the web for information.")
+    @Tool(description = "Search real-time, up-to-date information and news from the Internet using Google. If this fails, use another search engine.")
     public String searchGoogle(String query) {
         log.debug("AI is requesting web search results from Google for query: {}", query);
 
