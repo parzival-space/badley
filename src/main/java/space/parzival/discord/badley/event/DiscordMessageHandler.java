@@ -8,16 +8,22 @@ import net.dv8tion.jda.api.entities.channel.ChannelType;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.model.Generation;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.SignalType;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,6 +33,8 @@ public class DiscordMessageHandler extends ListenerAdapter {
     private final ChatClient chatClient;
     private final DiscordConversationPersistenceService discordPersistence;
     private final DiscordAttachmentMapper discordAttachmentMapper;
+
+    private static final int TYPING_INDICATOR_INTERVAL_SECONDS = 5;
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -39,6 +47,8 @@ public class DiscordMessageHandler extends ListenerAdapter {
             .noneMatch(user -> user.getId().equals(event.getJDA().getSelfUser().getId()))) return;
 
         // send typing indicator to the channel
+        log.debug("Begin processing ai response for message: {} in channel: {}",
+            event.getMessage().getId(), event.getChannel().getName());
         event.getChannel().sendTyping().queue();
 
         // determine conversation reference based on channel type
@@ -52,11 +62,11 @@ public class DiscordMessageHandler extends ListenerAdapter {
             .ofNullable(discordPersistence.getConversationIdByDiscordId(conversationReference))
             .orElse(UUID.randomUUID());
 
-        String aiResponse = chatClient.prompt()
+        ChatClient.StreamResponseSpec responseStream = chatClient.prompt()
             .advisors(advisorSpec -> advisorSpec.param("chat_memory_conversation_id", conversationId.toString()))
             .messages(new UserMessage(
                 String.join("\n\n",
-                    String.format("%s: %s",
+                    String.format("%s wrote: %s",
                         event.getMessage().getAuthor().getEffectiveName(),
                         event.getMessage().getContentDisplay()),
                     event.getMessage().getAttachments().stream()
@@ -69,28 +79,73 @@ public class DiscordMessageHandler extends ListenerAdapter {
                     .filter(Objects::nonNull)
                     .toList()
             ))
-            .call()
-            .content();
+            .stream();
 
-        if (aiResponse != null) {
-            // split messages by words into 2000 character chunks (Discord's message limit)
-            List<String> messageChunks = getDiscordCompliantMessageChunks(aiResponse);
-            log.debug("AI response was split into {} chunks for conversation ID: {}",
-                messageChunks.size(), conversationId);
+        AtomicReference<LocalDateTime> lastTypingTimestamp =
+            new AtomicReference<>(LocalDateTime.now().minusSeconds(TYPING_INDICATOR_INTERVAL_SECONDS));
+        List<ChatResponse> allResponses = new ArrayList<>();
 
-            // send each chunk after each other
-            queueChunkedResponse(
-                event,
-                messageChunks,
-                // if this is a direct message, use the conversation reference, otherwise null to instruct the send
-                // function to store the response message ids as references
-                isDirectMessage ? conversationReference : null,
-                conversationId,
-                0);
-        } else {
-            log.error("AI response was null for message: {}", event.getMessage().getContentRaw());
-            event.getMessage().reply("Nope! Something hasn't worked here.").queue();
-        }
+        responseStream.chatResponse()
+            .doOnNext(aiResponse -> {
+                // collect all responses
+                allResponses.add(aiResponse);
+
+                // send typing indicator if last typing update was more than 30 seconds ago
+                LocalDateTime now = LocalDateTime.now();
+                if (lastTypingTimestamp.get().isBefore(now.minusSeconds(TYPING_INDICATOR_INTERVAL_SECONDS))) {
+                    event.getChannel().sendTyping().queue();
+                    lastTypingTimestamp.set(LocalDateTime.now());
+                }
+            })
+            .doOnComplete(() -> {
+                // collect the final AI response
+                String fullAiResponseText = allResponses.stream()
+                    .map(ChatResponse::getResult)
+                    .map(Generation::getOutput)
+                    .map(AssistantMessage::getText)
+                    .collect(Collectors.joining());
+
+                long generatedMediaCount = allResponses.stream()
+                    .map(ChatResponse::getResult)
+                    .map(Generation::getOutput)
+                    .mapToLong(assistantMessage -> assistantMessage.getMedia().size())
+                    .sum();
+                if (generatedMediaCount > 0) {
+                    log.warn("AI response contains {} media attachments, which is currently not supported. " +
+                            "It is recommended to use text-only models for now to reduce costs. " +
+                            "The attachments in this response will be discarded.", generatedMediaCount);
+                }
+
+                // split messages by words into 2000 character chunks (Discord's message limit)
+                List<String> messageChunks = getDiscordCompliantMessageChunks(fullAiResponseText);
+                log.debug("AI response was split into {} chunks for conversation ID: {}",
+                    messageChunks.size(), conversationId);
+
+                // send each chunk after each other
+                queueChunkedResponse(
+                    event,
+                    messageChunks,
+                    // if this is a direct message, use the conversation reference, otherwise null to instruct the send
+                    // function to store the response message ids as references
+                    isDirectMessage ? conversationReference : null,
+                    conversationId,
+                    0);
+            })
+            .doOnError(throwable -> log.error("Error processing AI response for message: {}",
+                event.getMessage().getContentRaw(), throwable))
+            .doFinally(signal -> {
+                if (signal == SignalType.ON_ERROR || signal == SignalType.CANCEL) {
+                    log.error("Stream ended with error or cancellation for message: {}", event.getMessage().getContentRaw());
+
+                    event.getMessage()
+                        .reply("Sorry, I am experiencing some issues. Please try again later.")
+                        .queue();
+                }
+            })
+            .blockLast();
+
+        log.debug("Finished processing AI response for message: {} in channel: {}",
+            event.getMessage().getId(), event.getChannel().getName());
     }
 
     private void queueChunkedResponse(MessageReceivedEvent event, List<String> remainingChunks,
