@@ -26,7 +26,7 @@ public class SpringAIConfiguration {
     public ChatClient chatClient() {
         log.info("Registering {} AI tools", aiToolsServices.size());
         return chatClientBuilder
-            .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+            .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory, "default", 10))
             .defaultSystem(aiCharacterProperties.getPersonality())
             .defaultTools(aiToolsServices.toArray())
             .build();
