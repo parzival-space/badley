@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -21,8 +23,8 @@ public class RandomReplyProperties {
     /**
      * The chance in percentage for when the Ai should respond without a mention.
      */
-    @Min((long) 0)
-    @Max((long) 1)
+    @DecimalMin("0")
+    @DecimalMax("1")
     @NotNull
     private double chance = 0.01;
 }
