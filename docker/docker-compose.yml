@@ -13,7 +13,7 @@ services:
 #      - postgres
 
   postgres:
-    image: postgres:latest
+    image: postgres:18
     container_name: badley_postgres
     hostname: postgres
     environment:
@@ -23,7 +23,7 @@ services:
       - "5432:5432"
     volumes:
       - ./postgres:/docker-entrypoint-initdb.d:ro
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
 
   adminer:
     image: adminer
