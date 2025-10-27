@@ -38,9 +38,9 @@ public class DiscordMessageHandler extends ListenerAdapter {
 
     private static final int TYPING_INDICATOR_INTERVAL_SECONDS = 5;
 
-    private RandomReplyProperties randomReplyProperties;
-
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
+
+    private final RandomReplyProperties randomReplyProperties;
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
