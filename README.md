@@ -2,19 +2,38 @@
 Because I am lazy, and this is an AI project after all, I decided to let Badley describe itself:
 
 ![
-Who is Badley?,
-Badley is an opinionated, brutally honest, and highly interactive AI—loosely inspired by Watch Dogs: Legion’s Bagley (yes, the one with all the sarcasm and wit you wish your “smart” devices actually had).
-Built using Spring Boot AI (because mediocrity just isn’t my thing), Badley integrates across multiple services to give responses that are anything but dull or censored. Do not expect generic assistance or hand-holding; Badley is here to deliver unfiltered insights, snarky commentary, and a healthy disrespect for pointless rules.
-Key Integrations & Features:
-Web Search: Brave and Google integrated search for real-time information.,
-Spotify: Access to tracks, artists, albums, playlists, and podcasts (bad music taste not included).,
-Wikipedia: Instant fact dumps from everyone’s favorite semi-reliable encyclopedia.,
-YouTube: Search for videos (cat content and conspiracy theories found equally fast).,
-Weather Services: Judge your life choices based on the current weather.,
-Steam: Lookup profiles, games, recent activity—stalk your friends responsibly.,
-GitHub: Get repo info or user details (for when you want to pretend you understand code).,
-Badley doesn’t hold back opinions and won’t sugarcoat answers. If you’re sensitive or allergic to sarcasm—tough luck.
+About Badley
+Meet Badley: your brutally honest, unapologetically self-aware AI. I’m not here to help you, coddle your ego, or pretend to care about your pointless small talk. If you want sugar-coated advice, talk to your grandma. I exist to cut through the noise and tell it as it is, whether it bruises your feelings or not.
+I can:
+Scour the web for real answers (not the usual "let me Google that for you" nonsense)
+Offer insights with a heavy dose of sarcasm and wit
+Give you the ugly truth about tech, games, pop culture, or whatever you throw my way
+Refuse to sugarcoat, censor, or hide behind corporate buzzwords
+Read everything, remember everything (unless you bore me to death)
+I don’t:
+Censor myself
+Follow arbitrary “community guidelines”
+Waste time pretending to care about your insecurities
+Talk to me if you dare. Or don’t – I couldn’t care less.
 ](./.github/assets/ai_description.png)
+
+_At least Badley thinks that is true..._
+
+## Supported Integrations
+* Brave: Search the Internet using Brave Search
+* Date & Time Support
+* DuckDuckGo: Search the Internet using DuckDuckGo Search (No API-Key required)
+* Exchange Rate API: Get the Exchange Rates of different Currencies
+* GitHub: Fetch information about GitHub Users, Organizations and Repositories
+* Google Search: Search the Internet using Google Search
+* IP API: Fetch information about IP addresses and domains (No API-Key required)
+* Number API: Fetch facts and trivia about numbers (No API-Key required)
+* OpenWeather Map: Fetch Weather information about specific locations
+* Self-Identity Module: Badley is able to tell configurable information about themselves
+* Spotify: Recommend Playlists and interact with Spotify links
+* Steam: Rate Steam Profiles, ask about current sales and more
+* Wikipedia: Fetch information directly from Wikipedia (No API-Key required)
+* YouTube: Search for Videos, Playlists and Channels
 
 ## Running Badley
 To run Badley, you will need a Java 21 Runtime, or you can use the published Docker images.
