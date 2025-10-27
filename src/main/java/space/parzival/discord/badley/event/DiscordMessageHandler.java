@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,8 @@ public class DiscordMessageHandler extends ListenerAdapter {
 
     private RandomReplyProperties randomReplyProperties;
 
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getMessage().getAuthor().isBot() || event.getMessage().getAuthor().isSystem()) return;
@@ -49,8 +52,7 @@ public class DiscordMessageHandler extends ListenerAdapter {
         boolean isMessageDirectedAtAi = event.getMessage().getMentions().getUsers().stream()
             .anyMatch(user -> user.getId().equals(event.getJDA().getSelfUser().getId()));
 
-        double replyChance = Math.random();
-        boolean isRandomReply = randomReplyProperties.isEnabled() && replyChance <= randomReplyProperties.getChance();
+        boolean isRandomReply = randomReplyProperties.isEnabled() && random.nextDouble() <= randomReplyProperties.getChance();
 
         // ignore message if is not a DM, mention or random reply
         if (!isDirectMessage && !isMessageDirectedAtAi && !isRandomReply) return;
