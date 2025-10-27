@@ -8,6 +8,7 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.junit.jupiter.api.Test;
 import org.springframework.ai.chat.client.ChatClient;
+import space.parzival.discord.badley.configuration.properties.behavior.RandomReplyProperties;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapperImpl;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
@@ -25,6 +26,8 @@ class DiscordMessageHandlerTest {
 
     private final DiscordAttachmentMapper attachmentMapper = new DiscordAttachmentMapperImpl();
 
+    private final RandomReplyProperties randomReplyProperties = new RandomReplyProperties(false, 0);
+
     @Test
     void onMessageReceived_shouldIgnore_ownMessages() {
         MessageReceivedEvent event = mock(MessageReceivedEvent.class);
@@ -35,7 +38,7 @@ class DiscordMessageHandlerTest {
         when(message.getAuthor()).thenReturn(author);
         when(author.isBot()).thenReturn(true);
 
-        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, attachmentMapper);
+        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, attachmentMapper, randomReplyProperties);
         handler.onMessageReceived(event);
 
         // Verify that the event was ignored
@@ -53,7 +56,7 @@ class DiscordMessageHandlerTest {
         when(message.getAuthor()).thenReturn(author);
         when(author.isSystem()).thenReturn(true);
 
-        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, attachmentMapper);
+        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, attachmentMapper, randomReplyProperties);
         handler.onMessageReceived(event);
 
         // Verify that the event was ignored
@@ -82,7 +85,7 @@ class DiscordMessageHandlerTest {
         when(jda.getSelfUser()).thenReturn(selfUser);
         when(selfUser.getId()).thenReturn("selfUserId");
 
-        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, attachmentMapper);
+        DiscordMessageHandler handler = new DiscordMessageHandler(chatClient, adapter, attachmentMapper, randomReplyProperties);
         handler.onMessageReceived(event);
 
         // Verify that the event was ignored
