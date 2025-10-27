@@ -14,6 +14,7 @@ import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.model.Generation;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.SignalType;
+import space.parzival.discord.badley.configuration.properties.behavior.RandomReplyProperties;
 import space.parzival.discord.badley.mapper.DiscordAttachmentMapper;
 import space.parzival.discord.badley.persistence.DiscordConversationPersistenceService;
 
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -36,6 +38,10 @@ public class DiscordMessageHandler extends ListenerAdapter {
 
     private static final int TYPING_INDICATOR_INTERVAL_SECONDS = 5;
 
+    private final ThreadLocalRandom random = ThreadLocalRandom.current();
+
+    private final RandomReplyProperties randomReplyProperties;
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.getMessage().getAuthor().isBot() || event.getMessage().getAuthor().isSystem()) return;
@@ -43,12 +49,19 @@ public class DiscordMessageHandler extends ListenerAdapter {
         boolean isDirectMessage = event.getChannelType() == ChannelType.PRIVATE ||
             event.getChannelType() == ChannelType.GROUP;
 
-        if (!isDirectMessage && event.getMessage().getMentions().getUsers().stream()
-            .noneMatch(user -> user.getId().equals(event.getJDA().getSelfUser().getId()))) return;
+        boolean isMessageDirectedAtAi = event.getMessage().getMentions().getUsers().stream()
+            .anyMatch(user -> user.getId().equals(event.getJDA().getSelfUser().getId()));
+
+        boolean isRandomReply = randomReplyProperties.isEnabled() && random.nextDouble() <= randomReplyProperties.getChance();
+
+        // ignore message if is not a DM, mention or random reply
+        if (!isDirectMessage && !isMessageDirectedAtAi && !isRandomReply) return;
 
         // send typing indicator to the channel
-        log.debug("Begin processing ai response for message: {} in channel: {}",
-            event.getMessage().getId(), event.getChannel().getName());
+        log.debug("Begin processing ai response for message {} in channel: {}." +
+                "Message is DM: {}, is Mention: {}, is random reply: {}",
+            event.getMessage().getId(), event.getChannel().getName(), isDirectMessage,
+            isMessageDirectedAtAi, isRandomReply);
         event.getChannel().sendTyping().queue();
 
         // determine conversation reference based on channel type
@@ -66,7 +79,8 @@ public class DiscordMessageHandler extends ListenerAdapter {
             .advisors(advisorSpec -> advisorSpec.param("chat_memory_conversation_id", conversationId.toString()))
             .messages(new UserMessage(
                 String.join("\n\n",
-                    String.format("%s wrote: %s",
+                    String.format("%s%s wrote: %s",
+                        isRandomReply ? "[SYSTEM: you are inserting yourself into this conversation unasked] ": "",
                         event.getMessage().getAuthor().getEffectiveName(),
                         event.getMessage().getContentDisplay()),
                     event.getMessage().getAttachments().stream()
