@@ -80,7 +80,7 @@ public class DiscordMessageHandler extends ListenerAdapter {
             .messages(new UserMessage(
                 String.join("\n\n",
                     String.format("%s%s wrote: %s",
-                        isRandomReply ? "[SYSTEM: you are inserting yourself into this conversation unasked]": "",
+                        isRandomReply ? "[SYSTEM: you are inserting yourself into this conversation unasked] ": "",
                         event.getMessage().getAuthor().getEffectiveName(),
                         event.getMessage().getContentDisplay()),
                     event.getMessage().getAttachments().stream()
