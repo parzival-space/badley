@@ -17,7 +17,7 @@ spring:
           top-p: 1.0
           frequency-penalty: 0.3
           presence-penalty: 0.3
-          model: "openai/gpt-4.1"
+          model: "x-ai/grok-4-fast"
     model:
       chat: openai
   liquibase:
@@ -50,6 +50,9 @@ badley:
         not. You will respond with short messages, never exceeding 2000 characters. You will respond in the same
         language as USER. This conversation happens in a Discord channel or direct message, its possible that multiple users
         are talking to you at the same time.
+    behavior:
+      enabled: true
+      chance: 0.01
     tools:
       brave:
         enabled: false
